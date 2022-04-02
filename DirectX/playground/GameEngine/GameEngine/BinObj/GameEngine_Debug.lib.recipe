@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <ProjectOutputs />
+  <ContentFiles>
+    <ContentFile>
+      <FullPath>D:\Visual Studio\repos\OneYearClient\DirectX\playground\GameEngine\GameEngine\Bin\Collider.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>D:\Visual Studio\repos\OneYearClient\DirectX\playground\GameEngine\GameEngine\Bin\ColorMesh.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>D:\Visual Studio\repos\OneYearClient\DirectX\playground\GameEngine\GameEngine\Bin\Mesh2D.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>D:\Visual Studio\repos\OneYearClient\DirectX\playground\GameEngine\GameEngine\Bin\Particle.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>D:\Visual Studio\repos\OneYearClient\DirectX\playground\GameEngine\GameEngine\Bin\TileMap.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>D:\Visual Studio\repos\OneYearClient\DirectX\playground\GameEngine\GameEngine\Bin\Widget.cso</FullPath>
+    </ContentFile>
+  </ContentFiles>
+  <SatelliteDlls />
+  <NonRecipeFileRefs />
+</Project>

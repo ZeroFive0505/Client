@@ -1,0 +1,673 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="01. SceneMode">
+      <UniqueIdentifier>{3dc0da2c-900b-4523-80d8-65d26b805e92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Object">
+      <UniqueIdentifier>{9b1e707a-7945-4184-9846-31022934d5d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Object\01. Player">
+      <UniqueIdentifier>{1ad1a8e0-1528-4304-82f6-b83f3e9952e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Object\02. Bullet">
+      <UniqueIdentifier>{eae3f3c6-505f-4ba9-aaa9-1467f0407c57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Object\03. Enemy">
+      <UniqueIdentifier>{5a1d8d71-3e5f-4d48-8356-b2cb01089bc4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Object\04. Test">
+      <UniqueIdentifier>{3745d5f2-4adc-4642-8e52-3d0ead913d52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. UI">
+      <UniqueIdentifier>{0af4cc8a-99ff-42b4-a629-9a6f75283783}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. UI\01. Mouse">
+      <UniqueIdentifier>{720a8ba1-606f-40e0-bea0-98ab5a5cb246}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Object\05. Particle">
+      <UniqueIdentifier>{679dc982-dfc5-4e47-8b96-bbc8446b7b0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Object\06. TileMap">
+      <UniqueIdentifier>{fcbc9623-2a1f-4fe8-a417-2a5ba7c80bb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Object\03. Enemy\SchoolBoy">
+      <UniqueIdentifier>{307ad621-691f-4542-960e-c81587d8858d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Object\03. Enemy\SchoolGirl">
+      <UniqueIdentifier>{3d737d78-cbef-44f5-9745-1aee39b21861}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Object\03. Enemy\Cheerleader">
+      <UniqueIdentifier>{a717ec0d-6db4-4f07-878f-6851d9ac1fa6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Object\03. Enemy\MT">
+      <UniqueIdentifier>{f7ffeebe-2e25-4106-911e-5e65fe1fbd8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Object\Ex. NOC">
+      <UniqueIdentifier>{8c0fa300-7d89-44a8-9e89-93951ee68a94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Object\07. Environment">
+      <UniqueIdentifier>{4bd728b1-525d-43b2-8118-153e22528756}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. SceneMode\RCGStage">
+      <UniqueIdentifier>{def8e671-47c8-4c7a-bffe-49167133c2c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Object\03. Enemy\Misuzu">
+      <UniqueIdentifier>{5afc3575-0488-4d48-a4f5-5ec1544f8af2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Object\08. Effect">
+      <UniqueIdentifier>{5e51cd49-6227-4921-ad23-065b177d5254}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\MainScene.cpp">
+      <Filter>01. SceneMode</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Player2D.cpp">
+      <Filter>02. Object\01. Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Bullet.cpp">
+      <Filter>02. Object\02. Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Sprite2D.cpp">
+      <Filter>02. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="ClientManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\BulletTornado.cpp">
+      <Filter>02. Object\02. Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\PlayerAnimation2D.cpp">
+      <Filter>02. Object\01. Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Enemy.cpp">
+      <Filter>02. Object\03. Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\EnemyAnimation2D.cpp">
+      <Filter>02. Object\03. Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\BulletCamera.cpp">
+      <Filter>02. Object\02. Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\PixelTest.cpp">
+      <Filter>02. Object\04. Test</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Observer.cpp">
+      <Filter>02. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Widget\MainWidget.cpp">
+      <Filter>03. UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\NatureOfCode.cpp">
+      <Filter>01. SceneMode</Filter>
+    </ClCompile>
+    <ClCompile Include="Widget\SimpleHUD.cpp">
+      <Filter>03. UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Widget\MouseNormal.cpp">
+      <Filter>03. UI\01. Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="Widget\MouseAttack.cpp">
+      <Filter>03. UI\01. Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\StartScene.cpp">
+      <Filter>01. SceneMode</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\LoadingScene.cpp">
+      <Filter>01. SceneMode</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\LoadingThread.cpp">
+      <Filter>01. SceneMode</Filter>
+    </ClCompile>
+    <ClCompile Include="Widget\StartWidget.cpp">
+      <Filter>03. UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Widget\LoadingWidget.cpp">
+      <Filter>03. UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\RCGPlayer.cpp">
+      <Filter>02. Object\01. Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\BubbleParticle.cpp">
+      <Filter>02. Object\05. Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Kyoko.cpp">
+      <Filter>02. Object\01. Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\KyokoAnimation2D.cpp">
+      <Filter>02. Object\01. Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Widget\RCGMainWidget.cpp">
+      <Filter>03. UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\RCGStartScene.cpp">
+      <Filter>01. SceneMode</Filter>
+    </ClCompile>
+    <ClCompile Include="Widget\RCGStartWidget.cpp">
+      <Filter>03. UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\SmokeParticle.cpp">
+      <Filter>02. Object\05. Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\CRCGLoadingScene.cpp">
+      <Filter>01. SceneMode</Filter>
+    </ClCompile>
+    <ClCompile Include="Widget\RCGLoadingWidget.cpp">
+      <Filter>03. UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\RCGEnemy.cpp">
+      <Filter>02. Object\03. Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\TileMap.cpp">
+      <Filter>02. Object\06. TileMap</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Attractor.cpp">
+      <Filter>02. Object\Ex. NOC</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Line.cpp">
+      <Filter>02. Object\Ex. NOC</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Liquid.cpp">
+      <Filter>02. Object\Ex. NOC</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Mover.cpp">
+      <Filter>02. Object\Ex. NOC</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Pendulum.cpp">
+      <Filter>02. Object\Ex. NOC</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Spring.cpp">
+      <Filter>02. Object\Ex. NOC</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Vehicle.cpp">
+      <Filter>02. Object\Ex. NOC</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Circle.cpp">
+      <Filter>02. Object\Ex. NOC</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\FlowField.cpp">
+      <Filter>02. Object\Ex. NOC</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\State.cpp">
+      <Filter>02. Object\03. Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\SchoolBoy.cpp">
+      <Filter>02. Object\03. Enemy\SchoolBoy</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\SchoolBoyAnimation2D.cpp">
+      <Filter>02. Object\03. Enemy\SchoolBoy</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\SchoolBoyIdle.cpp">
+      <Filter>02. Object\03. Enemy\SchoolBoy</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\SchoolBoyPursue.cpp">
+      <Filter>02. Object\03. Enemy\SchoolBoy</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\SchoolBoyAttack.cpp">
+      <Filter>02. Object\03. Enemy\SchoolBoy</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\SchoolBoyFallback.cpp">
+      <Filter>02. Object\03. Enemy\SchoolBoy</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\SchoolGirlAnimation.cpp">
+      <Filter>02. Object\03. Enemy\SchoolGirl</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\SchoolGirl.cpp">
+      <Filter>02. Object\03. Enemy\SchoolGirl</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\CheerleaderAnimation.cpp">
+      <Filter>02. Object\03. Enemy\Cheerleader</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\MTAnimation.cpp">
+      <Filter>02. Object\03. Enemy\MT</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\SchoolBoyBlock.cpp">
+      <Filter>02. Object\03. Enemy\SchoolBoy</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\SchoolGirlIdle.cpp">
+      <Filter>02. Object\03. Enemy\SchoolGirl</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\SchoolGirlPursue.cpp">
+      <Filter>02. Object\03. Enemy\SchoolGirl</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\SchoolGirlFallback.cpp">
+      <Filter>02. Object\03. Enemy\SchoolGirl</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\SchoolGirlAttack.cpp">
+      <Filter>02. Object\03. Enemy\SchoolGirl</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\SchoolGirlBlock.cpp">
+      <Filter>02. Object\03. Enemy\SchoolGirl</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Cheerleader.cpp">
+      <Filter>02. Object\03. Enemy\Cheerleader</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\CheerleaderIdle.cpp">
+      <Filter>02. Object\03. Enemy\Cheerleader</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\CheerleaderPursue.cpp">
+      <Filter>02. Object\03. Enemy\Cheerleader</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\CheerleaderFallback.cpp">
+      <Filter>02. Object\03. Enemy\Cheerleader</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\CheerleaderBlock.cpp">
+      <Filter>02. Object\03. Enemy\Cheerleader</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\CheerleaderAttack.cpp">
+      <Filter>02. Object\03. Enemy\Cheerleader</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\MT.cpp">
+      <Filter>02. Object\03. Enemy\MT</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\MTIdle.cpp">
+      <Filter>02. Object\03. Enemy\MT</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\MTPursue.cpp">
+      <Filter>02. Object\03. Enemy\MT</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\MTFallback.cpp">
+      <Filter>02. Object\03. Enemy\MT</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\MTBlock.cpp">
+      <Filter>02. Object\03. Enemy\MT</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\MTAttack.cpp">
+      <Filter>02. Object\03. Enemy\MT</Filter>
+    </ClCompile>
+    <ClCompile Include="RCGGameManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\RCGDoor.cpp">
+      <Filter>02. Object\07. Environment</Filter>
+    </ClCompile>
+    <ClCompile Include="Widget\RCGDoorHUD.cpp">
+      <Filter>03. UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\RCGStage01.cpp">
+      <Filter>01. SceneMode\RCGStage</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\RCGStage02.cpp">
+      <Filter>01. SceneMode\RCGStage</Filter>
+    </ClCompile>
+    <ClCompile Include="Widget\RCGEnemyHUD.cpp">
+      <Filter>03. UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\LockEventTrigger.cpp">
+      <Filter>02. Object\07. Environment</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\ChainLockWall.cpp">
+      <Filter>02. Object\07. Environment</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\CameraPoint.cpp">
+      <Filter>02. Object\07. Environment</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\RCGBossStage.cpp">
+      <Filter>01. SceneMode\RCGStage</Filter>
+    </ClCompile>
+    <ClCompile Include="Widget\RCGBossWidget.cpp">
+      <Filter>03. UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\BossEventTrigger.cpp">
+      <Filter>02. Object\07. Environment</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Misuzu.cpp">
+      <Filter>02. Object\03. Enemy\Misuzu</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\MisuzuAnimation.cpp">
+      <Filter>02. Object\03. Enemy\Misuzu</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\MisuzuPursue.cpp">
+      <Filter>02. Object\03. Enemy\Misuzu</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\MisuzuFallback.cpp">
+      <Filter>02. Object\03. Enemy\Misuzu</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\MisuzuAttack.cpp">
+      <Filter>02. Object\03. Enemy\Misuzu</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\MisuzuBlock.cpp">
+      <Filter>02. Object\03. Enemy\Misuzu</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\RCGPilar.cpp">
+      <Filter>02. Object\07. Environment</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\AfterImage.cpp">
+      <Filter>02. Object\08. Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\RCGStage03.cpp">
+      <Filter>01. SceneMode\RCGStage</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\RCGStage04.cpp">
+      <Filter>01. SceneMode\RCGStage</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\HitEffect.cpp">
+      <Filter>02. Object\08. Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\HitAnimation.cpp">
+      <Filter>02. Object\08. Effect</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\MainScene.h">
+      <Filter>01. SceneMode</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Player2D.h">
+      <Filter>02. Object\01. Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Bullet.h">
+      <Filter>02. Object\02. Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Sprite2D.h">
+      <Filter>02. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="ClientManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\BulletTornado.h">
+      <Filter>02. Object\02. Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\PlayerAnimation2D.h">
+      <Filter>02. Object\01. Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Enemy.h">
+      <Filter>02. Object\03. Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\EnemyAnimation2D.h">
+      <Filter>02. Object\03. Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\BulletCamera.h">
+      <Filter>02. Object\02. Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\PixelTest.h">
+      <Filter>02. Object\04. Test</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Observer.h">
+      <Filter>02. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Widget\MainWidget.h">
+      <Filter>03. UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\NatureOfCode.h">
+      <Filter>01. SceneMode</Filter>
+    </ClInclude>
+    <ClInclude Include="Widget\SimpleHUD.h">
+      <Filter>03. UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Widget\MouseNormal.h">
+      <Filter>03. UI\01. Mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="Widget\MouseAttack.h">
+      <Filter>03. UI\01. Mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\StartScene.h">
+      <Filter>01. SceneMode</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\LoadingScene.h">
+      <Filter>01. SceneMode</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\LoadingThread.h">
+      <Filter>01. SceneMode</Filter>
+    </ClInclude>
+    <ClInclude Include="Widget\StartWidget.h">
+      <Filter>03. UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Widget\LoadingWidget.h">
+      <Filter>03. UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Client.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\RCGPlayer.h">
+      <Filter>02. Object\01. Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\BubbleParticle.h">
+      <Filter>02. Object\05. Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Kyoko.h">
+      <Filter>02. Object\01. Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\KyokoAnimation2D.h">
+      <Filter>02. Object\01. Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Widget\RCGMainWidget.h">
+      <Filter>03. UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\RCGStartScene.h">
+      <Filter>01. SceneMode</Filter>
+    </ClInclude>
+    <ClInclude Include="Widget\RCGStartWidget.h">
+      <Filter>03. UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\SmokeParticle.h">
+      <Filter>02. Object\05. Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\CRCGLoadingScene.h">
+      <Filter>01. SceneMode</Filter>
+    </ClInclude>
+    <ClInclude Include="Widget\RCGLoadingWidget.h">
+      <Filter>03. UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\RCGEnemy.h">
+      <Filter>02. Object\03. Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\TileMap.h">
+      <Filter>02. Object\06. TileMap</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Attractor.h">
+      <Filter>02. Object\Ex. NOC</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Line.h">
+      <Filter>02. Object\Ex. NOC</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Liquid.h">
+      <Filter>02. Object\Ex. NOC</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Mover.h">
+      <Filter>02. Object\Ex. NOC</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Pendulum.h">
+      <Filter>02. Object\Ex. NOC</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Spring.h">
+      <Filter>02. Object\Ex. NOC</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Vehicle.h">
+      <Filter>02. Object\Ex. NOC</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Circle.h">
+      <Filter>02. Object\Ex. NOC</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\FlowField.h">
+      <Filter>02. Object\Ex. NOC</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\State.h">
+      <Filter>02. Object\03. Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\SchoolBoy.h">
+      <Filter>02. Object\03. Enemy\SchoolBoy</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\SchoolBoyAnimation2D.h">
+      <Filter>02. Object\03. Enemy\SchoolBoy</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\SchoolBoyIdle.h">
+      <Filter>02. Object\03. Enemy\SchoolBoy</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\SchoolBoyPursue.h">
+      <Filter>02. Object\03. Enemy\SchoolBoy</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\SchoolBoyAttack.h">
+      <Filter>02. Object\03. Enemy\SchoolBoy</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\SchoolBoyFallback.h">
+      <Filter>02. Object\03. Enemy\SchoolBoy</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\SchoolGirlAnimation.h">
+      <Filter>02. Object\03. Enemy\SchoolGirl</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\SchoolGirl.h">
+      <Filter>02. Object\03. Enemy\SchoolGirl</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\CheerleaderAnimation.h">
+      <Filter>02. Object\03. Enemy\Cheerleader</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\MTAnimation.h">
+      <Filter>02. Object\03. Enemy\MT</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\SchoolBoyBlock.h">
+      <Filter>02. Object\03. Enemy\SchoolBoy</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\SchoolGirlIdle.h">
+      <Filter>02. Object\03. Enemy\SchoolGirl</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\SchoolGirlPursue.h">
+      <Filter>02. Object\03. Enemy\SchoolGirl</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\SchoolGirlFallback.h">
+      <Filter>02. Object\03. Enemy\SchoolGirl</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\SchoolGirlAttack.h">
+      <Filter>02. Object\03. Enemy\SchoolGirl</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\SchoolGirlBlock.h">
+      <Filter>02. Object\03. Enemy\SchoolGirl</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Cheerleader.h">
+      <Filter>02. Object\03. Enemy\Cheerleader</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\CheerleaderIdle.h">
+      <Filter>02. Object\03. Enemy\Cheerleader</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\CheerleaderPursue.h">
+      <Filter>02. Object\03. Enemy\Cheerleader</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\CheerleaderFallback.h">
+      <Filter>02. Object\03. Enemy\Cheerleader</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\CheerleaderBlock.h">
+      <Filter>02. Object\03. Enemy\Cheerleader</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\CheerleaderAttack.h">
+      <Filter>02. Object\03. Enemy\Cheerleader</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\MT.h">
+      <Filter>02. Object\03. Enemy\MT</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\MTIdle.h">
+      <Filter>02. Object\03. Enemy\MT</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\MTPursue.h">
+      <Filter>02. Object\03. Enemy\MT</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\MTFallback.h">
+      <Filter>02. Object\03. Enemy\MT</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\MTBlock.h">
+      <Filter>02. Object\03. Enemy\MT</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\MTAttack.h">
+      <Filter>02. Object\03. Enemy\MT</Filter>
+    </ClInclude>
+    <ClInclude Include="RCGGameManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\RCGDoor.h">
+      <Filter>02. Object\07. Environment</Filter>
+    </ClInclude>
+    <ClInclude Include="Widget\RCGDoorHUD.h">
+      <Filter>03. UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\RCGStage01.h">
+      <Filter>01. SceneMode\RCGStage</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\RCGStage02.h">
+      <Filter>01. SceneMode\RCGStage</Filter>
+    </ClInclude>
+    <ClInclude Include="Widget\RCGEnemyHUD.h">
+      <Filter>03. UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\LockEventTrigger.h">
+      <Filter>02. Object\07. Environment</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\ChainLockWall.h">
+      <Filter>02. Object\07. Environment</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\CameraPoint.h">
+      <Filter>02. Object\07. Environment</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\RCGBossStage.h">
+      <Filter>01. SceneMode\RCGStage</Filter>
+    </ClInclude>
+    <ClInclude Include="Widget\RCGBossWidget.h">
+      <Filter>03. UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\BossEventTrigger.h">
+      <Filter>02. Object\07. Environment</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Misuzu.h">
+      <Filter>02. Object\03. Enemy\Misuzu</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\MisuzuAnimation.h">
+      <Filter>02. Object\03. Enemy\Misuzu</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\MisuzuPursue.h">
+      <Filter>02. Object\03. Enemy\Misuzu</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\MisuzuFallback.h">
+      <Filter>02. Object\03. Enemy\Misuzu</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\MisuzuAttack.h">
+      <Filter>02. Object\03. Enemy\Misuzu</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\MisuzuBlock.h">
+      <Filter>02. Object\03. Enemy\Misuzu</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\RCGPilar.h">
+      <Filter>02. Object\07. Environment</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\AfterImage.h">
+      <Filter>02. Object\08. Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\RCGStage03.h">
+      <Filter>01. SceneMode\RCGStage</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\RCGStage04.h">
+      <Filter>01. SceneMode\RCGStage</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\HitEffect.h">
+      <Filter>02. Object\08. Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\HitAnimation.h">
+      <Filter>02. Object\08. Effect</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Client2D.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="icon1.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+</Project>

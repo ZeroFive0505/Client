@@ -1,0 +1,163 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "winres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Korean (Korea) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_KOR)
+LANGUAGE LANG_KOREAN, SUBLANG_DEFAULT
+#pragma code_page(949)
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""winres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_ICON1               ICON                    "icon1.ico"
+
+#endif    // Korean (Korea) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// English (United States) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_DIALOG_EDITOR DIALOGEX 0, 0, 338, 223
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,199,202,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,281,202,50,14
+    LTEXT           "X tile count",IDC_STATIC,7,0,45,19
+    EDITTEXT        IDC_EDIT_TILECOUNTX,63,0,62,19,ES_AUTOHSCROLL
+    LTEXT           "X tile size",IDC_STATIC,134,0,45,19
+    EDITTEXT        IDC_EDIT_TILESIZEX,190,0,62,19,ES_AUTOHSCROLL
+    LTEXT           "Y tile count",IDC_STATIC,7,24,45,19
+    EDITTEXT        IDC_EDIT_TILECOUNTY,63,24,62,19,ES_AUTOHSCROLL
+    LTEXT           "Y tile size",IDC_STATIC,134,24,45,19
+    EDITTEXT        IDC_EDIT_TILESIZEY,190,24,62,19,ES_AUTOHSCROLL
+    PUSHBUTTON      "Create map",IDC_BUTTON_CREATE_MAP,258,1,73,40
+    LISTBOX         IDC_LIST_TILETEXTURE,7,48,118,63,LBS_SORT | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "Tile load",IDC_BUTTON_TILELOAD,134,48,65,17
+    PUSHBUTTON      "Tile select",IDC_BUTTON_TILESELECT,134,79,65,17
+    LTEXT           "Tile edit",IDC_STATIC,7,118,56,8
+    LTEXT           "Tile property",IDC_STATIC,7,133,56,8
+    COMBOBOX        IDC_COMBO_EDITMODE,63,115,48,67,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_COMBO_TILEPROPERTY,63,133,48,54,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+    LISTBOX         IDC_LIST_TEXTUREFRAME,199,138,132,61,LBS_SORT | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Start X, Y",IDC_STATIC,200,48,42,16
+    LTEXT           "End X, Y",IDC_STATIC,201,79,41,17
+    EDITTEXT        IDC_EDIT_STARTX,238,48,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_STARTY,291,48,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_ENDX,239,79,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_ENDY,291,79,40,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "Frame Add",IDC_BUTTON_FRAMEADD,199,101,50,14
+    PUSHBUTTON      "Frame delete",IDC_BUTTON_FRAMEDELETE,256,101,50,14
+    PUSHBUTTON      "Frame edit",IDC_BUTTON_FRAMEEDIT,199,121,50,14
+    PUSHBUTTON      "Save",IDC_BUTTON_SAVE,134,137,50,14
+    PUSHBUTTON      "Load",IDC_BUTTON_LOAD,134,160,50,14
+    PUSHBUTTON      "Clear tiles",IDC_BUTTON_CLEARTILES,134,111,50,14
+    CONTROL         "Tile Side Collision",IDC_CHECK_SIDECOLLISION,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,148,74,10
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_DIALOG_EDITOR, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 331
+        VERTGUIDE, 52
+        VERTGUIDE, 63
+        VERTGUIDE, 125
+        VERTGUIDE, 134
+        BOTTOMMARGIN, 216
+        HORZGUIDE, 19
+        HORZGUIDE, 24
+        HORZGUIDE, 48
+        HORZGUIDE, 79
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// AFX_DIALOG_LAYOUT
+//
+
+IDD_DIALOG_EDITOR AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+#endif    // English (United States) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

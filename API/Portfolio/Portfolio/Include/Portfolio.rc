@@ -1,0 +1,198 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "winres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Korean (Korea) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_KOR)
+LANGUAGE LANG_KOREAN, SUBLANG_DEFAULT
+#pragma code_page(949)
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""winres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+#endif    // Korean (Korea) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// English (United States) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_ICON1               ICON                    "icon1.ico"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_DIALOG_EDITOR DIALOGEX 0, 0, 444, 342
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,270,321,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,362,321,50,14
+    LTEXT           "X tile count",IDC_STATIC,7,9,41,13
+    LTEXT           "Y tile count",IDC_STATIC,7,29,41,13
+    EDITTEXT        IDC_EDIT_TILECOUNTX,57,7,40,15,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_TILECOUNTY,57,27,40,15,ES_AUTOHSCROLL
+    LTEXT           "X tile size",IDC_STATIC,103,7,41,13
+    LTEXT           "Y tile size",IDC_STATIC,103,29,41,13
+    EDITTEXT        IDC_EDIT_TILESIZEX,154,8,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_TILESIZEY,154,28,40,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "Create map",IDC_BUTTON_CREATEMAP,206,7,70,35
+    CTEXT           "Tile settings",IDC_STATIC,7,49,90,17
+    LTEXT           "Tile edit",IDC_STATIC,7,68,41,10
+    LTEXT           "Tile property",IDC_STATIC,7,87,49,9
+    COMBOBOX        IDC_COMBO_EDITMODE,68,68,65,44,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_COMBO_TILEPROPERTY,70,86,68,83,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "Save",IDC_BUTTON_SAVE,7,105,50,14
+    PUSHBUTTON      "Load",IDC_BUTTON_LOAD,72,105,50,14
+    PUSHBUTTON      "Load reference image",IDC_BUTTON_LOADREFIMAGE,304,7,87,21
+    PUSHBUTTON      "Clear reference image",IDC_BUTTON_CLEARREFIMAGE,304,32,87,21
+    LTEXT           "Track material",IDC_STATIC,210,105,63,10
+    LTEXT           "Slow 1 track material",IDC_STATIC,210,123,70,10
+    LTEXT           "Hazard track material",IDC_STATIC,210,155,71,8
+    COMBOBOX        IDC_COMBO_TRACKMAT,289,107,48,73,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_COMBO_SLOWTRACKMAT,289,124,48,79,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_COMBO_OUTERTRACKMAT,289,155,48,65,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+    CTEXT           "Wall Object",IDC_STATIC,7,144,90,17
+    PUSHBUTTON      "Save",IDC_BUTTON_WALLOBJECT_LOCATION_SAVE,7,219,50,14
+    PUSHBUTTON      "Load",IDC_BUTTON_WALLOBJECT_LOCATION_LOAD,72,219,50,14
+    CTEXT           "Floor Object",IDC_STATIC,7,239,90,18
+    LTEXT           "Wide goal area",IDC_STATIC,261,206,77,9
+    LTEXT           "Goal area",IDC_STATIC,251,261,50,9
+    LTEXT           "Start X",IDC_STATIC,273,220,37,9
+    EDITTEXT        IDC_EDIT_WIDEGOAL_STARTX,313,217,40,14,ES_AUTOHSCROLL
+    LTEXT           "Start Y",IDC_STATIC,357,219,37,9
+    EDITTEXT        IDC_EDIT_WIDEGOAL_STARTY,397,216,40,14,ES_AUTOHSCROLL
+    LTEXT           "Width",IDC_STATIC,273,238,37,9
+    EDITTEXT        IDC_EDIT_WIDEGOAL_WIDTH,313,235,40,14,ES_AUTOHSCROLL
+    LTEXT           "Height",IDC_STATIC,357,237,37,9
+    EDITTEXT        IDC_EDIT_WIDEGOAL_HEIGHT,397,234,40,14,ES_AUTOHSCROLL
+    LTEXT           "Start X",IDC_STATIC,267,276,37,9
+    EDITTEXT        IDC_EDIT_GOAL_STARTX,304,273,40,14,ES_AUTOHSCROLL
+    LTEXT           "Start Y",IDC_STATIC,351,275,37,9
+    EDITTEXT        IDC_EDIT_GOAL_STARTY,397,272,40,14,ES_AUTOHSCROLL
+    LTEXT           "Width",IDC_STATIC,267,294,37,9
+    EDITTEXT        IDC_EDIT_GOAL_WIDTH,304,291,40,14,ES_AUTOHSCROLL
+    LTEXT           "Height",IDC_STATIC,351,293,37,9
+    EDITTEXT        IDC_EDIT_GOAL_HEIGHT,397,290,40,14,ES_AUTOHSCROLL
+    LTEXT           "Wall type",IDC_STATIC,7,172,39,9
+    COMBOBOX        IDC_COMBO_WALLTYPE,50,171,54,66,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Floor Type",IDC_STATIC,7,263,55,10
+    COMBOBOX        IDC_COMBO_FLOORTYPE,69,263,57,56,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Orientation",IDC_STATIC,7,280,37,8
+    COMBOBOX        IDC_COMBO_FLOOR_ORIENTAION,68,279,58,47,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "Save",IDC_BUTTON_FLOOROBJECT_LOCATION_SAVE,7,296,50,14
+    PUSHBUTTON      "Load",IDC_BUTTON_FLOOROBJECT_LOCATION_LOAD,72,296,50,14
+    LTEXT           "AI Vision",IDC_STATIC,190,72,48,10
+    EDITTEXT        IDC_EDIT_AIVISION,242,68,60,17,ES_AUTOHSCROLL
+    LTEXT           "Slow 2 track material",IDC_STATIC,210,139,71,8
+    COMBOBOX        IDC_COMBO_SLOWTRACKMAT2,289,140,48,44,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_DIALOG_EDITOR, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 437
+        VERTGUIDE, 48
+        VERTGUIDE, 57
+        VERTGUIDE, 97
+        VERTGUIDE, 103
+        VERTGUIDE, 144
+        VERTGUIDE, 154
+        VERTGUIDE, 163
+        VERTGUIDE, 186
+        VERTGUIDE, 190
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 335
+        HORZGUIDE, 22
+        HORZGUIDE, 28
+        HORZGUIDE, 42
+        HORZGUIDE, 68
+        HORZGUIDE, 105
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// AFX_DIALOG_LAYOUT
+//
+
+IDD_DIALOG_EDITOR AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+#endif    // English (United States) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

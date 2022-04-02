@@ -1,0 +1,243 @@
+#include "Mesh.h"
+#include "../../Device.h"
+
+CMesh::CMesh()
+{
+}
+
+CMesh::~CMesh()
+{
+	size_t size = m_vecContainer.size();
+
+	for (size_t i = 0; i < size; i++)
+	{
+		SAFE_DELETE(m_vecContainer[i]);
+	}
+}
+
+bool CMesh::CreateMesh(void* vtxData, int size, int count, D3D11_USAGE usage, D3D11_PRIMITIVE_TOPOLOGY primitive, void* idxData, int idxSize, int idxCount, D3D11_USAGE idxUsage, DXGI_FORMAT fmt)
+{
+	sMeshContainer* container = new sMeshContainer;
+
+	container->VB.Size = size;
+	container->VB.Count = count;
+	container->Primitive = primitive;
+
+	if (!CreateBuffer(Buffer_Type::Vertex, vtxData, size, count, usage, &container->VB.Buffer))
+		return false;
+
+
+	if (idxData != nullptr)
+	{
+		container->vecIB.resize(1);
+
+		container->vecIB[0].Size = idxSize;
+		container->vecIB[0].Count = idxCount;
+		container->vecIB[0].Fmt = fmt;
+
+		if (!CreateBuffer(Buffer_Type::Index, idxData, idxSize, idxCount, idxUsage, &container->vecIB[0].Buffer))
+			return false;
+	}
+
+	m_vecContainer.push_back(container);
+
+	return true;
+}
+
+bool CMesh::Init()
+{
+	return true;
+}
+
+bool CMesh::CreateBuffer(Buffer_Type type, void* data, int size, int count, D3D11_USAGE usage, ID3D11Buffer** buffer)
+{
+	// 버퍼 생성시 명세서
+	D3D11_BUFFER_DESC desc = {};
+
+	// 버퍼의 총 크기
+	desc.ByteWidth = size * count;
+
+	// 버퍼의 사용용도
+	desc.Usage = usage;
+
+	if (type == Buffer_Type::Vertex)
+	{
+		// 해당 버퍼는 버텍스 버퍼로 바인드한다.
+		desc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+	}
+	else
+	{
+		// 해당 버퍼는 인덱스 버퍼로 바인드한다.
+		desc.BindFlags = D3D11_BIND_INDEX_BUFFER;
+	}
+
+	if (usage == D3D11_USAGE_DYNAMIC)
+	{
+		// 다이나믹일시 CPU는 이 버퍼에 쓸 수 있다.
+		desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+	}
+	else if (usage == D3D11_USAGE_STAGING)
+	{
+		// 스테이징일 경우 읽고 쓰기 둘 다 가능
+		desc.CPUAccessFlags = D3D11_CPU_ACCESS_READ | D3D11_CPU_ACCESS_WRITE;
+	}
+
+	// 버퍼를 생성시 초기화할때 들어가는 값
+	D3D11_SUBRESOURCE_DATA bufferData = {};
+
+	// 데이터를 넣는다.
+	bufferData.pSysMem = data;
+
+	// 해당 명세서로 bufferData를 초기값으로 하여 buffer에 생성한다.
+	if (FAILED(CDevice::GetInst()->GetDevice()->CreateBuffer(&desc, &bufferData, buffer)))
+		return false;
+
+	if (type == Buffer_Type::Vertex)
+	{
+		// char는 최소 단위 1바이트, 따라서
+		// data를 1바이트씩 순회가 가능해진다.
+		char* vertexData = (char*)data;
+
+		for (int i = 0; i < count; i++)
+		{
+			// 첫 1바이트 시작지점부터 3바이트의 Vector3타입을 가져온다.
+			Vector3* pos = (Vector3*)vertexData;
+			// 포인터 연산을 통해 해당 vertexData의 버텍스 하나의 크기만큼 건너뛴다.
+			vertexData += size;
+
+			if (m_Min.x > pos->x)
+				m_Min.x = pos->x;
+
+			if (m_Min.y > pos->y)
+				m_Min.y = pos->y;
+
+			if (m_Min.z > pos->z)
+				m_Min.z = pos->z;
+
+			if (m_Max.x < pos->x)
+				m_Max.x = pos->x;
+
+			if (m_Max.y < pos->y)
+				m_Max.y = pos->y;
+
+			if (m_Max.z < pos->z)
+				m_Max.z = pos->z;
+		}
+	}
+
+	return true;
+}
+
+void CMesh::Render()
+{
+	// 현재 메쉬에 있는 모든 메쉬 컨테이너들을 순회한다.
+	// 모델에 따라 서브셋이 여러개로 나뉘어져 다른 마테리얼을 가질 수도 있기 때문
+	size_t size = m_vecContainer.size();
+
+	for (size_t i = 0; i < size; i++)
+	{
+		// 스트라이드: 버퍼안에 있는 데이터가 몇바이트 단위로 이루어졌는지.
+		unsigned int stride = m_vecContainer[i]->VB.Size;
+		// 오프셋: 시작위치를 설정한다.
+		unsigned int offset = 0;
+
+		// IA 파이프라인 주로 장치와 버퍼에 관한 설정을 한다.
+		// 이 메쉬를 그릴때 어떤 방법으로 그릴지를 설정
+		CDevice::GetInst()->GetContext()->IASetPrimitiveTopology(m_vecContainer[i]->Primitive);
+		// 메쉬컨테이너에 있는 버프를 묶는다.
+		// 버텍스 버퍼는 하나
+		CDevice::GetInst()->GetContext()->IASetVertexBuffers(0, 1, &m_vecContainer[i]->VB.Buffer, &stride, &offset);
+
+		size_t idxCount = m_vecContainer[i]->vecIB.size();
+
+		// 인덱스가 존재할 경우
+		if (idxCount > 0)
+		{
+			for (size_t j = 0; j < idxCount; j++)
+			{
+				// 인덱스 버퍼도 같이 묶어준다.
+				CDevice::GetInst()->GetContext()->IASetIndexBuffer(m_vecContainer[i]->vecIB[j].Buffer,
+					m_vecContainer[i]->vecIB[j].Fmt, 0);
+				// 그릴때 인덱스의 순서대로 그릴 수 있게 설정한다.
+				// 인덱스의 갯수는 몇개인지 인덱스의 시작위치와
+				// 베이스 버텍스 정점의 위치
+				CDevice::GetInst()->GetContext()->DrawIndexed(m_vecContainer[i]->vecIB[j].Count, 0, 0);
+			}
+		}
+		// 인덱스가 존재하지 않을 경우
+		else
+		{
+			CDevice::GetInst()->GetContext()->IASetIndexBuffer(nullptr, DXGI_FORMAT_UNKNOWN, 0);
+			CDevice::GetInst()->GetContext()->Draw(m_vecContainer[i]->VB.Count, 0);
+		}
+	}
+}
+
+void CMesh::RenderInstancing(int count)
+{
+	size_t size = m_vecContainer.size();
+
+	for (size_t i = 0; i < size; i++)
+	{
+		unsigned int stride = (unsigned int)m_vecContainer[i]->VB.Size;
+		unsigned int offset = 0;
+
+		CDevice::GetInst()->GetContext()->IASetPrimitiveTopology(m_vecContainer[i]->Primitive);
+		CDevice::GetInst()->GetContext()->IASetVertexBuffers(0, 1, 
+			&m_vecContainer[i]->VB.Buffer, &stride, &offset);
+
+		size_t idxCount = m_vecContainer[i]->vecIB.size();
+
+		if (idxCount > 0)
+		{
+			for (size_t j = 0; j < idxCount; j++)
+			{
+				CDevice::GetInst()->GetContext()->IASetIndexBuffer(m_vecContainer[i]->vecIB[j].Buffer,
+					m_vecContainer[i]->vecIB[j].Fmt, 0);
+				CDevice::GetInst()->GetContext()->DrawIndexedInstanced(m_vecContainer[i]->vecIB[j].Count, count, 0, 0, 0);
+			}
+		}
+		else
+		{
+			CDevice::GetInst()->GetContext()->IASetIndexBuffer(nullptr, DXGI_FORMAT_UNKNOWN,
+				0);
+			CDevice::GetInst()->GetContext()->DrawInstanced(m_vecContainer[i]->VB.Count, count, 0, 0);
+		}
+	}
+}
+
+void CMesh::RenderInstancing(ID3D11Buffer* instancingBuffer, unsigned int instanceSize, int count)
+{
+	size_t size = m_vecContainer.size();
+
+	for (size_t i = 0; i < size; i++)
+	{
+		unsigned int stride[2] = { (unsigned int)m_vecContainer[i]->VB.Size, instanceSize };
+		unsigned int offset[2] = {};
+
+		ID3D11Buffer* buffer[2] = { m_vecContainer[i]->VB.Buffer, instancingBuffer };
+
+		CDevice::GetInst()->GetContext()->IASetPrimitiveTopology(m_vecContainer[i]->Primitive);
+		CDevice::GetInst()->GetContext()->IASetVertexBuffers(0, 2, buffer, stride, offset);
+
+		size_t idxCount = m_vecContainer[i]->vecIB.size();
+
+		if (idxCount > 0)
+		{
+			for (size_t j = 0; j < idxCount; j++)
+			{
+				CDevice::GetInst()->GetContext()->IASetIndexBuffer(
+					m_vecContainer[i]->vecIB[j].Buffer,
+					m_vecContainer[i]->vecIB[j].Fmt, 0);
+				CDevice::GetInst()->GetContext()->DrawIndexedInstanced(
+					m_vecContainer[i]->vecIB[j].Count, count, 0, 0, 0
+				);
+			}
+		}
+		else
+		{
+			CDevice::GetInst()->GetContext()->IASetIndexBuffer(nullptr, DXGI_FORMAT_UNKNOWN, 0);
+			CDevice::GetInst()->GetContext()->DrawInstanced(m_vecContainer[i]->VB.Count, count, 0, 0);
+		}
+	}
+}

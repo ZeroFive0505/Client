@@ -1,0 +1,615 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="01. GamaManager">
+      <UniqueIdentifier>{2986b8b9-1b6c-4a8e-b82c-cb858634522d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. GamaManager\01. Timer">
+      <UniqueIdentifier>{51208ab9-5146-45d8-ab33-dc635eb8a78f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. GamaManager\02. Ref">
+      <UniqueIdentifier>{543ea10c-9859-48a8-a26a-13138f1afb9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. GamaManager\03. Math">
+      <UniqueIdentifier>{901e0338-e33c-46cf-9fe6-e242bfc8cbe1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. GamaManager\04. Input">
+      <UniqueIdentifier>{5827afb2-7c2a-490e-b5ac-4d154dcd05d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. GamaManager\05. SharedPtr">
+      <UniqueIdentifier>{c0d2b739-ce22-42b5-9c22-650984f9bd01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. GamaManager\06. Path">
+      <UniqueIdentifier>{a6d355db-1b3f-4a42-8776-5d49e89224c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scene">
+      <UniqueIdentifier>{b571825e-f701-4244-9563-811e6ddd85bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scene\01. Resource">
+      <UniqueIdentifier>{a89c9be0-95e9-42b1-bb59-c2b97d8be7c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scene\02. Collision">
+      <UniqueIdentifier>{9f758d64-6a4b-498c-b5b0-b62ee6f79bfc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scene\03. Camera">
+      <UniqueIdentifier>{14248cc6-5fc8-40d7-a8bb-df6d38c76e2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Object">
+      <UniqueIdentifier>{d03b7cfa-e95e-4721-9789-931d51b8291d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Resource">
+      <UniqueIdentifier>{533c2842-dced-4900-8949-36e28b545a55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Resource\01. Texture">
+      <UniqueIdentifier>{67398c8d-fc9f-4371-b34f-4ed85d88631f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Object\01. Characters">
+      <UniqueIdentifier>{938b5df8-23a6-4cb5-b0de-b6769d18b4a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Object\02. Items">
+      <UniqueIdentifier>{1f5d30a2-0d2b-46c8-88b9-65a7ef8d8ae2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Object\03. Kart">
+      <UniqueIdentifier>{f67061c9-70f5-4245-a94f-eb8306796aca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. Animation">
+      <UniqueIdentifier>{643d43a5-07cf-41cb-9214-e105c4901b95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Resource\02. Animation">
+      <UniqueIdentifier>{bf2d8d02-b94a-4922-83fd-85f503b66c43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Collision">
+      <UniqueIdentifier>{5230cbd3-0cca-4a2f-a579-f6cb3cfe8381}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. UI">
+      <UniqueIdentifier>{0f680ca1-6a57-4062-8f03-0f04bc7682d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Map">
+      <UniqueIdentifier>{a650b364-d6b3-4006-b95e-fd3e5d4343b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Resource\03. Sound">
+      <UniqueIdentifier>{ba3d17a8-45ad-4137-9763-c268fdc51ff9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Resource\04. Font">
+      <UniqueIdentifier>{165c6566-0cd6-4c72-b349-3ffb5d8d772a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Resource\03. Sound\01. FMOD">
+      <UniqueIdentifier>{bae74e28-c886-418b-bb07-604a33c1a96d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Object\04. Map Object">
+      <UniqueIdentifier>{05587986-6670-44d0-ba6b-d2e0b4955e80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. UI\01. Widget">
+      <UniqueIdentifier>{5211dc7e-fa4a-44f8-b81d-c6c6fc061075}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. UI\02. Window">
+      <UniqueIdentifier>{e9909f85-7538-45ad-a0d2-f0ccda1a790d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Object\04. Map Object\01. Floor">
+      <UniqueIdentifier>{127e70a5-448e-4187-8e7e-c83f9d221e11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="09. AI">
+      <UniqueIdentifier>{63484c50-5930-4681-b7c4-5dfb4d3688c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Object\04. Effect">
+      <UniqueIdentifier>{1ac21a31-d577-4a82-a9d2-b70e10ba0274}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Object\04. Map Object\02. Wall">
+      <UniqueIdentifier>{dc77ed0e-3c5d-4b84-b27b-444374b187e9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameManager.cpp">
+      <Filter>01. GamaManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>01. GamaManager\01. Timer</Filter>
+    </ClCompile>
+    <ClCompile Include="Ref.cpp">
+      <Filter>01. GamaManager\02. Ref</Filter>
+    </ClCompile>
+    <ClCompile Include="Math.cpp">
+      <Filter>01. GamaManager\03. Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>01. GamaManager\04. Input</Filter>
+    </ClCompile>
+    <ClCompile Include="PathManager.cpp">
+      <Filter>01. GamaManager\06. Path</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\SceneManager.cpp">
+      <Filter>02. Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Scene.cpp">
+      <Filter>02. Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource\Texture.cpp">
+      <Filter>04. Resource\01. Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource\ResourceManager.cpp">
+      <Filter>04. Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\SceneResource.cpp">
+      <Filter>02. Scene\01. Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Camera.cpp">
+      <Filter>02. Scene\03. Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\GameObject.cpp">
+      <Filter>03. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Player.cpp">
+      <Filter>03. Object\01. Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Character.cpp">
+      <Filter>03. Object\01. Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\WallObject.cpp">
+      <Filter>03. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\KartProperties.cpp">
+      <Filter>03. Object\03. Kart</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Driver.cpp">
+      <Filter>03. Object\01. Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource\AnimationSequence.cpp">
+      <Filter>04. Resource\02. Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation\Animation.cpp">
+      <Filter>05. Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation\DriverAnimator.cpp">
+      <Filter>04. Resource\02. Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\CollisionHash.cpp">
+      <Filter>02. Scene\02. Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource\Sound.cpp">
+      <Filter>04. Resource\03. Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource\Font.cpp">
+      <Filter>04. Resource\04. Font</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\EditorDlg.cpp">
+      <Filter>02. Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\EditorScene.cpp">
+      <Filter>02. Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Map\MapBase.cpp">
+      <Filter>08. Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Map\TileMap.cpp">
+      <Filter>08. Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Map\Tile.cpp">
+      <Filter>08. Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\FloorObject.cpp">
+      <Filter>03. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\UIWindow.cpp">
+      <Filter>07. UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\WidgetComponent.cpp">
+      <Filter>07. UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\UIWidget.cpp">
+      <Filter>07. UI\01. Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\UIText.cpp">
+      <Filter>07. UI\01. Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\UIImage.cpp">
+      <Filter>07. UI\01. Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\NumberWidget.cpp">
+      <Filter>07. UI\01. Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\RaceGUI.cpp">
+      <Filter>07. UI\02. Window</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\ItemWidget.cpp">
+      <Filter>07. UI\01. Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\TimerWidget.cpp">
+      <Filter>07. UI\01. Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\CoinWidget.cpp">
+      <Filter>07. UI\01. Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Banana.cpp">
+      <Filter>03. Object\02. Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Item.cpp">
+      <Filter>03. Object\02. Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\GreenShell.cpp">
+      <Filter>03. Object\02. Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\RedShell.cpp">
+      <Filter>03. Object\02. Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Coin.cpp">
+      <Filter>03. Object\04. Map Object\01. Floor</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\ItemBox.cpp">
+      <Filter>03. Object\04. Map Object\01. Floor</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\RampHorizontal.cpp">
+      <Filter>03. Object\04. Map Object\01. Floor</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\RampVertical.cpp">
+      <Filter>03. Object\04. Map Object\01. Floor</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\OilSlick.cpp">
+      <Filter>03. Object\04. Map Object\01. Floor</Filter>
+    </ClCompile>
+    <ClCompile Include="AI\AIGradientDescent.cpp">
+      <Filter>09. AI</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Lakitu.cpp">
+      <Filter>03. Object\01. Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\RankWidget.cpp">
+      <Filter>07. UI\01. Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\CoinEffect.cpp">
+      <Filter>03. Object\04. Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\CollisionEffect.cpp">
+      <Filter>03. Object\04. Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\RaceScene.cpp">
+      <Filter>02. Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Map\CScrollMap.cpp">
+      <Filter>08. Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\TitleScene.cpp">
+      <Filter>02. Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\TitleUI.cpp">
+      <Filter>07. UI\02. Window</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\UISpriteText.cpp">
+      <Filter>07. UI\01. Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Mode7Demo.cpp">
+      <Filter>02. Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\Mode7UI.cpp">
+      <Filter>07. UI\02. Window</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\RaceMenuUI.cpp">
+      <Filter>07. UI\02. Window</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\SelectScene.cpp">
+      <Filter>02. Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\DriverWidget.cpp">
+      <Filter>07. UI\01. Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\DriverSelectUI.cpp">
+      <Filter>07. UI\02. Window</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\DriverSelectTitle.cpp">
+      <Filter>07. UI\01. Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\CourseSelectUI.cpp">
+      <Filter>07. UI\02. Window</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\CourseWindow.cpp">
+      <Filter>07. UI\02. Window</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Flower.cpp">
+      <Filter>03. Object\04. Map Object\02. Wall</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Pipe.cpp">
+      <Filter>03. Object\04. Map Object\02. Wall</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Thwomp.cpp">
+      <Filter>03. Object\04. Map Object\02. Wall</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GameInfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameManager.h">
+      <Filter>01. GamaManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>01. GamaManager\01. Timer</Filter>
+    </ClInclude>
+    <ClInclude Include="Ref.h">
+      <Filter>01. GamaManager\02. Ref</Filter>
+    </ClInclude>
+    <ClInclude Include="Math.h">
+      <Filter>01. GamaManager\03. Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>01. GamaManager\04. Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Flag.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SharedPtr.h">
+      <Filter>01. GamaManager\05. SharedPtr</Filter>
+    </ClInclude>
+    <ClInclude Include="PathManager.h">
+      <Filter>01. GamaManager\06. Path</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\SceneManager.h">
+      <Filter>02. Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\Texture.h">
+      <Filter>04. Resource\01. Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\ResourceManager.h">
+      <Filter>04. Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\SceneResource.h">
+      <Filter>02. Scene\01. Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Camera.h">
+      <Filter>02. Scene\03. Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\GameObject.h">
+      <Filter>03. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Player.h">
+      <Filter>03. Object\01. Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Character.h">
+      <Filter>03. Object\01. Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\WallObject.h">
+      <Filter>03. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\CollisionData.h">
+      <Filter>03. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\KartProperties.h">
+      <Filter>03. Object\03. Kart</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Driver.h">
+      <Filter>03. Object\01. Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\ObjectInfo.h">
+      <Filter>03. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation\AnimationInfo.h">
+      <Filter>05. Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\AnimationSequence.h">
+      <Filter>04. Resource\02. Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation\Animation.h">
+      <Filter>05. Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Map\MapInfo.h">
+      <Filter>08. Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation\DriverAnimator.h">
+      <Filter>04. Resource\02. Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\CollisionHash.h">
+      <Filter>02. Scene\02. Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="fmod.h">
+      <Filter>04. Resource\03. Sound\01. FMOD</Filter>
+    </ClInclude>
+    <ClInclude Include="fmod.hpp">
+      <Filter>04. Resource\03. Sound\01. FMOD</Filter>
+    </ClInclude>
+    <ClInclude Include="fmod_codec.h">
+      <Filter>04. Resource\03. Sound\01. FMOD</Filter>
+    </ClInclude>
+    <ClInclude Include="fmod_common.h">
+      <Filter>04. Resource\03. Sound\01. FMOD</Filter>
+    </ClInclude>
+    <ClInclude Include="fmod_dsp.h">
+      <Filter>04. Resource\03. Sound\01. FMOD</Filter>
+    </ClInclude>
+    <ClInclude Include="fmod_dsp_effects.h">
+      <Filter>04. Resource\03. Sound\01. FMOD</Filter>
+    </ClInclude>
+    <ClInclude Include="fmod_errors.h">
+      <Filter>04. Resource\03. Sound\01. FMOD</Filter>
+    </ClInclude>
+    <ClInclude Include="fmod_output.h">
+      <Filter>04. Resource\03. Sound\01. FMOD</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\Sound.h">
+      <Filter>04. Resource\03. Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\Font.h">
+      <Filter>04. Resource\04. Font</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\EditorDlg.h">
+      <Filter>02. Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\EditorScene.h">
+      <Filter>02. Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Map\MapBase.h">
+      <Filter>08. Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Map\TileMap.h">
+      <Filter>08. Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Map\Tile.h">
+      <Filter>08. Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\FloorObject.h">
+      <Filter>03. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\UIWindow.h">
+      <Filter>07. UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\WidgetComponent.h">
+      <Filter>07. UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\UIWidget.h">
+      <Filter>07. UI\01. Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Scene.h">
+      <Filter>02. Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\UIText.h">
+      <Filter>07. UI\01. Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\UIImage.h">
+      <Filter>07. UI\01. Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\NumberWidget.h">
+      <Filter>07. UI\01. Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\RaceGUI.h">
+      <Filter>07. UI\02. Window</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\ItemWidget.h">
+      <Filter>07. UI\01. Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\TimerWidget.h">
+      <Filter>07. UI\01. Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\CoinWidget.h">
+      <Filter>07. UI\01. Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Banana.h">
+      <Filter>03. Object\02. Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Item.h">
+      <Filter>03. Object\02. Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\GreenShell.h">
+      <Filter>03. Object\02. Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\RedShell.h">
+      <Filter>03. Object\02. Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Coin.h">
+      <Filter>03. Object\04. Map Object\01. Floor</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\ItemBox.h">
+      <Filter>03. Object\04. Map Object\01. Floor</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\RampHorizontal.h">
+      <Filter>03. Object\04. Map Object\01. Floor</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\RampVertical.h">
+      <Filter>03. Object\04. Map Object\01. Floor</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\OilSlick.h">
+      <Filter>03. Object\04. Map Object\01. Floor</Filter>
+    </ClInclude>
+    <ClInclude Include="AI\AIGradientDescent.h">
+      <Filter>09. AI</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Lakitu.h">
+      <Filter>03. Object\01. Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\RankWidget.h">
+      <Filter>07. UI\01. Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\CoinEffect.h">
+      <Filter>03. Object\04. Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\CollisionEffect.h">
+      <Filter>03. Object\04. Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\RaceScene.h">
+      <Filter>02. Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Map\CScrollMap.h">
+      <Filter>08. Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\TitleScene.h">
+      <Filter>02. Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\TitleUI.h">
+      <Filter>07. UI\02. Window</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\UISpriteText.h">
+      <Filter>07. UI\01. Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Mode7Demo.h">
+      <Filter>02. Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\Mode7UI.h">
+      <Filter>07. UI\02. Window</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\RaceMenuUI.h">
+      <Filter>07. UI\02. Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\SelectScene.h">
+      <Filter>02. Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\DriverWidget.h">
+      <Filter>07. UI\01. Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\DriverSelectUI.h">
+      <Filter>07. UI\02. Window</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\DriverSelectTitle.h">
+      <Filter>07. UI\01. Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\CourseSelectUI.h">
+      <Filter>07. UI\02. Window</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\CourseWindow.h">
+      <Filter>07. UI\02. Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Flower.h">
+      <Filter>03. Object\04. Map Object\02. Wall</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Pipe.h">
+      <Filter>03. Object\04. Map Object\02. Wall</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Thwomp.h">
+      <Filter>03. Object\04. Map Object\02. Wall</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Portfolio.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="icon1.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="fmod.cs">
+      <Filter>04. Resource\03. Sound\01. FMOD</Filter>
+    </None>
+    <None Include="fmod_dsp.cs">
+      <Filter>04. Resource\03. Sound\01. FMOD</Filter>
+    </None>
+    <None Include="fmod_errors.cs">
+      <Filter>04. Resource\03. Sound\01. FMOD</Filter>
+    </None>
+  </ItemGroup>
+</Project>
