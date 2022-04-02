@@ -180,7 +180,7 @@ bool CRCGEnemy::Init()
 
 	m_RunSpeed = 550.0f;
 
-	m_JumpSpeed = 20.0f;
+	m_JumpSpeed = 40.0f;
 
 	m_OnGround = false;
 
@@ -190,7 +190,7 @@ bool CRCGEnemy::Init()
 
 	m_Physics = false;
 
-	m_Gravity = -5.0f;
+	m_Gravity = -10.0f;
 
 	m_Invincible = false;
 
@@ -204,7 +204,7 @@ bool CRCGEnemy::Init()
 
 	m_HealthPoint = 350;
 
-	m_MaxFallSpeed = -15.0f;
+	m_MaxFallSpeed = -30.0f;
 
 	m_SpawnTime = 0.0f;
 
@@ -274,8 +274,8 @@ void CRCGEnemy::Update(float deltaTime)
 			ApplyForce(0.0f, m_KnockbackForce.y * deltaTime, true);
 			ApplyForce(0.0f, m_KnockbackForce.y * -0.01f * deltaTime, true);
 
-			if (m_Velocity.y >= 5.0f)
-				m_Velocity.y = 5.0f;
+			if (m_Velocity.y >= 10.0f)
+				m_Velocity.y = 10.0f;
 		}
 
 		if (!CheckState(EEnemyState::KNOCKDOWN) && !CheckState(EEnemyState::BLOWNBACK))
@@ -488,7 +488,7 @@ void CRCGEnemy::GetHit(EAttackType type, const Vector2& dir, int damage, float f
 			{
 				m_KnockbackForce = Vector2(1.0f, 0.5f);
 				m_KnockbackForce.Normalize();
-				m_KnockbackForce *= 4.5f;
+				m_KnockbackForce *= 5.0f;
 
 				if (!right)
 				{

@@ -151,7 +151,7 @@ void CMisuzuAttack::Tackle()
 	if(!misuzu->IsTackleFollowing())
 		return;
 
-	m_LerpTime += CEngine::GetInst()->GetDeltaTime() * 0.9f;
+	m_LerpTime += 1.0f / 60.0f;
 
 	CGameObject* player = CSceneManager::GetInst()->GetScene()->GetPlayerObject();
 
@@ -167,7 +167,7 @@ void CMisuzuAttack::Tackle()
 		misuzu->SetTackleDirection(dir);
 		m_LerpTime = 0.0f;
 
-		m_NPC->AddWorldPos(dir * followSpeed * 1.25f * CEngine::GetInst()->GetDeltaTime());
+		m_NPC->AddWorldPos(dir * followSpeed * 1.25f * 1.0f / 60.0f);
 
 		if (m_NPC->IsFacingRight() && dir.x < 0.0f)
 		{
@@ -200,7 +200,7 @@ void CMisuzuAttack::Tackle()
 
 		lerpDir.Normalize();
 
-		m_NPC->AddWorldPos(lerpDir * followSpeed * 1.25f * CEngine::GetInst()->GetDeltaTime());
+		m_NPC->AddWorldPos(lerpDir * followSpeed * 1.25f * 1.0f / 60.0f);
 
 		if (m_NPC->IsFacingRight() && lerpDir.x < 0.0f)
 			m_NPC->GetSpriteComponent()->ChangeAnimation("Tackle_turn");
@@ -224,5 +224,5 @@ void CMisuzuAttack::Meteor()
 
 	dir.Normalize();
 
-	m_NPC->AddWorldPos(dir * followSpeed * 2.0f * CEngine::GetInst()->GetDeltaTime());
+	m_NPC->AddWorldPos(dir * followSpeed * 2.0f * 1.0f / 60.0f);
 }

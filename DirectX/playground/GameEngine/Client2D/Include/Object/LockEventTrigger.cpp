@@ -73,22 +73,26 @@ void CLockEventTrigger::Update(float deltaTime)
                 {
                 case 0:
                     enemy = m_Scene->CreateGameObject<CSchoolBoy>("SchoolBoy " + std::to_string(m_SpawnCnt + 1));
+                    ((CSchoolBoy*)enemy)->SetPursueState();
                     break;
                 case 1:
                     enemy = m_Scene->CreateGameObject<CSchoolGirl>("SchoolGirl " + std::to_string(m_SpawnCnt + 1));
+                    ((CSchoolGirl*)enemy)->SetPursueState();
                     break;
                 case 2:
                     enemy = m_Scene->CreateGameObject<CMT>("MT " + std::to_string(m_SpawnCnt + 1));
+                    ((CMT*)enemy)->SetPursueState();
                     break;
                 case 3:
                     enemy = m_Scene->CreateGameObject<CCheerleader>("Cheerleader " + std::to_string(m_SpawnCnt + 1));
+                    ((CCheerleader*)enemy)->SetPursueState();
                     break;
                 default:
                     enemy = m_Scene->CreateGameObject<CSchoolBoy>("SchoolBoy " + std::to_string(m_SpawnCnt + 1));
+                    ((CSchoolBoy*)enemy)->SetPursueState();
                     break;
                 }
 
-                ((CSchoolBoy*)enemy)->SetPursueState();
                 Vector3 spawnPos = CClientManager::GetInst()->GetManager()->GetRandomSpanwPoint();
                 enemy->SetWorldPos(spawnPos);
                 enemy->StartSpawn();

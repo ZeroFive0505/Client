@@ -287,7 +287,7 @@ void CMT::SetMoveSetInfo()
     info.attackType = EAttackType::BLOWNBACK;
     info.forceDir = Vector2(1.0f, 0.15f);
     info.forceDir.Normalize();
-    info.force = 8.0f;
+    info.force = 16.0f;
     info.damage = 8;
     info.forceTime = 0.4f;
 
@@ -298,7 +298,7 @@ void CMT::SetMoveSetInfo()
     info.attackType = EAttackType::BLOWNBACK;
     info.forceDir = Vector2(1.0f, 0.05f);
     info.forceDir.Normalize();
-    info.force = 8.0f;
+    info.force = 16.0f;
     info.damage = 12;
     info.forceTime = 0.45f;
 
@@ -309,7 +309,7 @@ void CMT::SetMoveSetInfo()
     info.attackType = EAttackType::KNOCKDOWN;
     info.forceDir = Vector2(0.3f, 0.8f);
     info.forceDir.Normalize();
-    info.force = 5.5f;
+    info.force = 10.0f;
     info.damage = 9;
     info.forceTime = 0.4f;
 
@@ -320,7 +320,7 @@ void CMT::SetMoveSetInfo()
     info.attackType = EAttackType::KNOCKDOWN;
     info.forceDir = Vector2(0.3f, 0.5f);
     info.forceDir.Normalize();
-    info.force = 6.0f;
+    info.force = 12.0f;
     info.damage = 5;
     info.forceTime = 0.45f;
 
@@ -331,7 +331,7 @@ void CMT::SetMoveSetInfo()
     info.attackType = EAttackType::KNOCKDOWN;
     info.forceDir = Vector2(0.3f, 0.5f);
     info.forceDir.Normalize();
-    info.force = 5.0f;
+    info.force = 10.0f;
     info.damage = 3;
     info.forceTime = 0.35f;
 

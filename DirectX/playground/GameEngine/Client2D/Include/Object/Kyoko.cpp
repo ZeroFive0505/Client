@@ -275,7 +275,7 @@ void CKyoko::Update(float deltaTime)
 	{
 		if (m_Jump)
 		{
-			if (m_CurrentTime - m_JumpTime <= 0.15f)
+			if (m_CurrentTime - m_JumpTime <= 0.2f)
 			{
 				ApplyForce(0.0f, m_JumpSpeed * deltaTime, true);
 
@@ -291,13 +291,13 @@ void CKyoko::Update(float deltaTime)
 			ApplyForce(0.0f, m_KnockbackForce.y * deltaTime, true);
 			ApplyForce(0.0f, m_KnockbackForce.y * -0.01f * deltaTime, true);
 
-			if (m_Velocity.y >= 5.0f)
-				m_Velocity.y = 5.0f;
+			if (m_Velocity.y >= 10.0f)
+				m_Velocity.y = 10.0f;
 		}
 
 		if (m_WallJump)
 		{
-			if (m_CurrentTime - m_WallJumpTime <= 0.25f)
+			if (m_CurrentTime - m_WallJumpTime <= 0.3f)
 			{
 				ApplyAbsForce(m_WallJumpSpeed * deltaTime, 0.0f);
 
@@ -429,9 +429,9 @@ void CKyoko::Update(float deltaTime)
 
 	if (m_AirBoostJump)
 	{
-		if (m_CurrentTime - m_AirBoostTime <= 0.25f)
+		if (m_CurrentTime - m_AirBoostTime <= 0.2f)
 		{
-			ApplyForce(0.0f, 20.0f * deltaTime, true);
+			ApplyForce(0.0f, 60.0f * deltaTime, true);
 		}
 		else
 			m_AirBoostJump = false;
@@ -613,7 +613,7 @@ void CKyoko::SetMoveSetInfo()
 	info.attackType = EAttackType::HIT;
 	info.forceDir = Vector2(0.2f, 0.25f);
 	info.forceDir.Normalize();
-	info.forceTime = 0.1f;
+	info.forceTime = 0.25f;
 	info.force = 2.0f;
 	info.sp = 0;
 	info.getSP = 2;
@@ -637,7 +637,7 @@ void CKyoko::SetMoveSetInfo()
 	info.attackType = EAttackType::HIT;
 	info.forceDir = Vector2(0.2f, 0.25f);
 	info.forceDir.Normalize();
-	info.forceTime = 0.1f;
+	info.forceTime = 0.25f;
 	info.force = 2.0f;
 	info.sp = 0;
 	info.getSP = 2;
@@ -661,7 +661,7 @@ void CKyoko::SetMoveSetInfo()
 	info.attackType = EAttackType::HIT;
 	info.forceDir = Vector2(0.2f, 0.25f);
 	info.forceDir.Normalize();
-	info.forceTime = 0.1f;
+	info.forceTime = 0.25f;
 	info.force = 2.0f;
 	info.sp = 0;
 	info.getSP = 2;
@@ -685,7 +685,7 @@ void CKyoko::SetMoveSetInfo()
 	info.attackType = EAttackType::HIT;
 	info.forceDir = Vector2(0.2f, 0.25f);
 	info.forceDir.Normalize();
-	info.forceTime = 0.1f;
+	info.forceTime = 0.25f;
 	info.force = 2.0f;
 	info.sp = 0;
 	info.getSP = 2;
@@ -709,7 +709,7 @@ void CKyoko::SetMoveSetInfo()
 	info.attackType = EAttackType::KNOCKDOWN;
 	info.forceDir = Vector2(0.1f, 1.0f);
 	info.forceDir.Normalize();
-	info.force = 3.5f;
+	info.force = 7.5f;
 	info.forceTime = 0.25f;
 	info.sp = 0;
 	info.getSP = 5;
@@ -730,7 +730,7 @@ void CKyoko::SetMoveSetInfo()
 	info.attackType = EAttackType::KNOCKDOWN;
 	info.forceDir = Vector2(0.1f, -1.0f);
 	info.forceDir.Normalize();
-	info.force = 6.0f;
+	info.force = 12.0f;
 	info.forceTime = 0.4f;
 	info.sp = 0;
 	info.getSP = 7;
@@ -751,7 +751,7 @@ void CKyoko::SetMoveSetInfo()
 	info.attackType = EAttackType::KNOCKDOWN;
 	info.forceDir = Vector2(0.8f, 1.0f);
 	info.forceDir.Normalize();
-	info.force = 7.5f;
+	info.force = 15.0f;
 	info.forceTime = 0.35f;
 	info.sp = 0;
 	info.getSP = 7;
@@ -772,7 +772,7 @@ void CKyoko::SetMoveSetInfo()
 	info.attackType = EAttackType::KNOCKDOWN;
 	info.forceDir = Vector2(0.2f, 1.0f);
 	info.forceDir.Normalize();
-	info.force = 7.5f;
+	info.force = 15.0f;
 	info.forceTime = 0.3f;
 	info.sp = 0;
 	info.getSP = 5;
@@ -793,7 +793,7 @@ void CKyoko::SetMoveSetInfo()
 	info.attackType = EAttackType::BLOWNBACK;
 	info.forceDir = Vector2(1.0f, 0.05f);
 	info.forceDir.Normalize();
-	info.force = 15.5f;
+	info.force = 30.0f;
 	info.forceTime = 0.3f;
 	info.sp = 0;
 	info.getSP = 7;
@@ -815,8 +815,8 @@ void CKyoko::SetMoveSetInfo()
 	info.attackType = EAttackType::HIT;
 	info.forceDir = Vector2(0.2f, 0.25f);
 	info.forceDir.Normalize();
-	info.forceTime = 0.1f;
-	info.force = 2.0f;
+	info.forceTime = 0.2f;
+	info.force = 4.0f;
 	info.sp = 0;
 	info.getSP = 3;
 	info.damage = 4;
@@ -838,7 +838,7 @@ void CKyoko::SetMoveSetInfo()
 	info.forceDir = Vector2(0.2f, 0.1f);
 	info.forceDir.Normalize();
 	info.forceTime = 0.2f;
-	info.force = 2.5f;
+	info.force = 5.0f;
 	info.sp = 0;
 	info.getSP = 2;
 	info.damage = 6;
@@ -860,7 +860,7 @@ void CKyoko::SetMoveSetInfo()
 	info.forceDir = Vector2(0.5f, -0.7f);
 	info.forceDir.Normalize();
 	info.forceTime = 0.4f;
-	info.force = 9.0f;
+	info.force = 22.0f;
 	info.sp = 15;
 	info.getSP = 5;
 	info.damage = 24;
@@ -881,7 +881,7 @@ void CKyoko::SetMoveSetInfo()
 	info.forceDir = Vector2(0.5f, 0.25f);
 	info.forceDir.Normalize();
 	info.forceTime = 0.15f;
-	info.force = 5.0f;
+	info.force = 10.0f;
 	info.getSP = 0;
 	info.sp = 20;
 	info.damage = 14;
@@ -936,7 +936,7 @@ void CKyoko::SetMoveSetInfo()
 	info.attackType = EAttackType::KNOCKDOWN;
 	info.forceDir = Vector2(0.01f, 1.0f);
 	info.forceDir.Normalize();
-	info.force = 8.0f;
+	info.force = 16.0f;
 	info.forceTime = 0.35f;
 	info.getSP = 5;
 	info.sp = 0;
@@ -957,7 +957,7 @@ void CKyoko::SetMoveSetInfo()
 	info.attackType = EAttackType::BLOWNBACK;
 	info.forceDir = Vector2(3.0f, 0.15f);
 	info.forceDir.Normalize();
-	info.force = 15.0f;
+	info.force = 30.0f;
 	info.forceTime = 0.5f;
 	info.sp = 15;
 	info.getSP = 0;
@@ -996,7 +996,7 @@ void CKyoko::SetMoveSetInfo()
 	info.forceDir = Vector2(0.5f, 1.0f);
 	info.forceDir.Normalize();
 	info.forceTime = 0.35f;
-	info.force = 5.5f;
+	info.force = 10.0f;
 	info.sp = 20;
 	info.getSP = 0;
 	info.damage = 16;
@@ -1017,7 +1017,7 @@ void CKyoko::SetMoveSetInfo()
 	info.forceDir = Vector2(0.1f, 1.0f);
 	info.forceDir.Normalize();
 	info.forceTime = 0.2f;
-	info.force = 5.0f;
+	info.force = 10.0f;
 	info.sp = 35;
 	info.getSP = 0;
 	info.damage = 2;
@@ -1038,7 +1038,7 @@ void CKyoko::SetMoveSetInfo()
 	info.forceDir = Vector2(1.2f, 0.9f);
 	info.forceDir.Normalize();
 	info.forceTime = 0.2f;
-	info.force = 5.0f;
+	info.force = 10.0f;
 	info.sp = 25;
 	info.getSP = 0;
 	info.damage = 7;
@@ -1059,7 +1059,7 @@ void CKyoko::SetMoveSetInfo()
 	info.attackType = EAttackType::KNOCKDOWN;
 	info.forceDir = Vector2(-1.0f, 0.5f);
 	info.forceDir.Normalize();
-	info.force = 5.5f;
+	info.force = 10.0f;
 	info.forceTime = 0.35f;
 	info.getSP = 5;
 	info.sp = 0;
@@ -1100,7 +1100,7 @@ void CKyoko::SetMoveSetInfo()
 	info.forceDir = Vector2(-0.5f, 1.0f);
 	info.forceDir.Normalize();
 	info.forceTime = 0.5f;
-	info.force = 5.0f;
+	info.force = 10.0f;
 	info.getSP = 5;
 	info.sp = 0;
 	info.damage = 12;
@@ -1120,7 +1120,7 @@ void CKyoko::SetMoveSetInfo()
 	info.forceDir = Vector2(-0.01f, 0.005f);
 	info.forceDir.Normalize();
 	info.forceTime = 0.5f;
-	info.force = 5.0f;
+	info.force = 10.0f;
 	info.sp = 15;
 	info.getSP = 0;
 	info.damage = 14;
@@ -1140,7 +1140,7 @@ void CKyoko::SetMoveSetInfo()
 	info.forceDir = Vector2(-0.15f, 1.0f);
 	info.forceDir.Normalize();
 	info.forceTime = 0.5f;
-	info.force = 5.5f;
+	info.force = 10.0f;
 	info.getSP = 10;
 	info.sp = 0;
 	info.damage = 16;
@@ -1610,7 +1610,7 @@ void CKyoko::StartAcrocircus()
 
 	CResourceManager::GetInst()->SoundPlay(name);
 
-	m_UpwardForce = 30.0f;
+	m_UpwardForce = 70.0f;
 
 	m_AfterImage->SetEffect(true);
 	m_AfterImage->SetAnimation("Acrocircus_loop");
@@ -1694,14 +1694,44 @@ void CKyoko::ApplyPush()
 	case EKyokoMoveSet::DASH_WEAK_BACK_ELBOW:
 		if (m_FacingRight)
 		{
-			m_PushForce = 24.0f;
+			m_PushForce = 48.0f;
 		}
 		else
 		{
-			m_PushForce = -24.0f;
+			m_PushForce = -48.0f;
 		}
 		break;
 	case EKyokoMoveSet::DASH_HEAVY_DIVE:
+		if (m_FacingRight)
+		{
+			m_PushForce = 60.0f;
+		}
+		else
+		{
+			m_PushForce = -60.0f;
+		}
+		break;
+	case EKyokoMoveSet::DASH_SPECIAL_DROPKICK:
+		if (m_FacingRight)
+		{
+			m_PushForce = 100.0f;
+		}
+		else
+		{
+			m_PushForce = -100.0f;
+		}
+		break;
+	case EKyokoMoveSet::SPECIAL_ACROCIRCUS:
+		if (m_FacingRight)
+		{
+			m_PushForce = 14.0f;
+		}
+		else
+		{
+			m_PushForce = -14.0f;
+		}
+		break;
+	case EKyokoMoveSet::SPECIAL_CHEERDRILL:
 		if (m_FacingRight)
 		{
 			m_PushForce = 30.0f;
@@ -1711,44 +1741,14 @@ void CKyoko::ApplyPush()
 			m_PushForce = -30.0f;
 		}
 		break;
-	case EKyokoMoveSet::DASH_SPECIAL_DROPKICK:
-		if (m_FacingRight)
-		{
-			m_PushForce = 50.0f;
-		}
-		else
-		{
-			m_PushForce = -50.0f;
-		}
-		break;
-	case EKyokoMoveSet::SPECIAL_ACROCIRCUS:
-		if (m_FacingRight)
-		{
-			m_PushForce = 7.0f;
-		}
-		else
-		{
-			m_PushForce = -7.0f;
-		}
-		break;
-	case EKyokoMoveSet::SPECIAL_CHEERDRILL:
-		if (m_FacingRight)
-		{
-			m_PushForce = 15.5f;
-		}
-		else
-		{
-			m_PushForce = -15.5f;
-		}
-		break;
 	case EKyokoMoveSet::SPECIAL_HURRICANEKICK:
 		if (m_FacingRight)
 		{
-			m_PushForce = 1.2f;
+			m_PushForce = 2.4f;
 		}
 		else
 		{
-			m_PushForce = -1.2f;
+			m_PushForce = -2.4f;
 		}
 		break;
 	}
@@ -1858,11 +1858,11 @@ void CKyoko::PogoKick()
 	m_Velocity.y = 0.001f;
 
 	if (m_FacingRight)
-		m_KnockbackForce = Vector2(7.0f, 20.0f);
+		m_KnockbackForce = Vector2(14.0f, 40.0f);
 	else
-		m_KnockbackForce = Vector2(-7.0f, 20.0f);
+		m_KnockbackForce = Vector2(-14.0f, 40.0f);
 
-	PushState(EKyokoState::POGOKICK, m_CurrentTime + 0.2f);
+	PushState(EKyokoState::POGOKICK, m_CurrentTime + 0.3f);
 
 	m_Physics = true;
 
@@ -2014,7 +2014,13 @@ void CKyoko::OnGround(const sCollisionResult& result)
 		m_Physics = false;
 		m_WallJump = false;
 		m_Jump = false;
-		m_JumpSpeed = 35.0f;
+		m_JumpSpeed = 70.0f;
+
+		if (m_Offset.y != 0.0f)
+		{
+			ResetSpriteOffset();
+			m_Offset = Vector3(0.0f, 0.0f, 0.0f);
+		}
 		
 		if (m_BattleStart)
 		{

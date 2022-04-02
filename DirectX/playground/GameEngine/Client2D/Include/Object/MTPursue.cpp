@@ -27,7 +27,7 @@ void CMTPursue::Update()
 	if (!mt->IsMovingStart())
 		return;
 
-	m_ElapsedTime += CEngine::GetInst()->GetDeltaTime();
+	m_ElapsedTime += 1.0f / 60.0f;
 
 	CRCGPlayer* player = (CRCGPlayer*)CSceneManager::GetInst()->GetScene()->GetPlayerObject();
 

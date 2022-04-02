@@ -261,7 +261,7 @@ void CRCGStage01::SceneChange()
 	CClientManager::GetInst()->GetManager()->ClearEnemies();
 	CClientManager::GetInst()->GetManager()->ClearSpawnPoint();
 	CSceneManager::GetInst()->CreateNextScene();
-	CSceneManager::GetInst()->CreateSceneMode<CRCGStage02>(false);
+	CSceneManager::GetInst()->CreateSceneMode<CRCGBossStage>(false);
 }
 
 void CRCGStage01::ReloadScene(float deltaTime)

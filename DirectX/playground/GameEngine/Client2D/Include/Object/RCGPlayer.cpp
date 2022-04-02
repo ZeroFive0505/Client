@@ -158,9 +158,9 @@ bool CRCGPlayer::Init()
 
 	m_DoubleTapCheckTime = 0.2f;
 
-	m_JumpSpeed = 35.0f;
+	m_JumpSpeed = 70.0f;
 
-	m_Gravity = -8.0f;
+	m_Gravity = -16.0f;
 
 	m_IsRunning = false;
 
@@ -236,7 +236,7 @@ void CRCGPlayer::Update(float deltaTime)
 	if (m_BattleStart)
 	{
 		if(!m_OnGround)
-			ApplyAbsForce(20.0f * deltaTime, 0.0f);
+			ApplyAbsForce(40.0f * deltaTime, 0.0f);
 		return;
 	}
 
@@ -358,13 +358,13 @@ void CRCGPlayer::Update(float deltaTime)
 		{
 		case EMoveDirection::UP:
 			if (!m_TopWallCollision)
-				ApplyForce(0.0f, 30.0f * deltaTime);
+				ApplyForce(0.0f, 70.0f * deltaTime);
 			else
 				m_Velocity.y = 0.0f;
 			break;
 		case EMoveDirection::DOWN:
 			if (!m_BottomWallCollision)
-				ApplyForce(0.0f, -30.0f * deltaTime);
+				ApplyForce(0.0f, -70.0f * deltaTime);
 			else
 				m_Velocity.y = 0.0f;
 			break;
@@ -943,7 +943,7 @@ void CRCGPlayer::JumpStart(float deltaTime)
 		if (m_LeftWallCollision)
 		{
 			m_WallJump = true; 
-			m_WallJumpSpeed = 15.0f;
+			m_WallJumpSpeed = 25.0f;
 			if (!m_FacingRight)
 			{
 				m_FacingRight = true;
@@ -956,7 +956,7 @@ void CRCGPlayer::JumpStart(float deltaTime)
 		else if (m_RightWallCollision)
 		{
 			m_WallJump = true;
-			m_WallJumpSpeed = -15.0f;
+			m_WallJumpSpeed = -25.0f;
 			if (m_FacingRight)
 			{
 				m_FacingRight = false;
@@ -1307,9 +1307,9 @@ void CRCGPlayer::GetHit(EAttackType type, const Vector2& dir, int damage, float 
 	}
 
 	m_Health -= damage;
-	m_MainWidget->SetEmpty();
 	if (m_Health > 0 && m_Health != m_MaxHealth)
 	{
+		m_MainWidget->SetEmpty();
 		int iterations = m_Health / 10;
 		int remain = m_Health % 10;
 		int i;
@@ -1342,6 +1342,7 @@ void CRCGPlayer::HitStatusEnd()
 	else if (m_OnGround && m_Stunned)
 	{
 		m_Sprite->ChangeAnimation("Stunned");
+		CResourceManager::GetInst()->SoundPlay("Dizzy");
 		m_Stunned = false;
 		PushState(EKyokoState::STUNNED, m_CurrentTime + 3.0f);
 	}

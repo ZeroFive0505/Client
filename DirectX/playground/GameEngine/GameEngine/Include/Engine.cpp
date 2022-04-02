@@ -300,7 +300,7 @@ void CEngine::Logic()
 	if (m_ElapsedTime < (1.0f / 60.0f))
 		return;
 
-	m_ElapsedTime = 0.0f;
+	m_ElapsedTime = m_ElapsedTime - (1.0f / 60.0f);
 
 	float deltaTime = 1.0f / 60.0f;
 

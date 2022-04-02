@@ -283,7 +283,7 @@ void CCheerleader::SetMoveSetInfo()
     info.attackType = EAttackType::KNOCKDOWN;
     info.forceDir = Vector2(0.15f, 1.0f);
     info.forceDir.Normalize();
-    info.force = 5.0f;
+    info.force = 10.0f;
     info.damage = 5;
     info.forceTime = 0.4f;
 
@@ -305,7 +305,7 @@ void CCheerleader::SetMoveSetInfo()
     info.attackType = EAttackType::KNOCKDOWN;
     info.forceDir = Vector2(1.0f, 0.35f);
     info.forceDir.Normalize();
-    info.force = 5.5f;
+    info.force = 10.0f;
     info.damage = 10;
     info.forceTime = 0.45f;
 
@@ -317,7 +317,7 @@ void CCheerleader::SetMoveSetInfo()
     info.attackType = EAttackType::KNOCKDOWN;
     info.forceDir = Vector2(1.0f, 0.25f);
     info.forceDir.Normalize();
-    info.force = 4.5f;
+    info.force = 9.0f;
     info.damage = 7;
     info.forceTime = 0.4f;
 
@@ -328,7 +328,7 @@ void CCheerleader::SetMoveSetInfo()
     info.attackType = EAttackType::HIT;
     info.forceDir = Vector2(1.0f, 0.1f);
     info.forceDir.Normalize();
-    info.force = 1.2f;
+    info.force = 2.4f;
     info.damage = 3;
     info.forceTime = 0.2f;
 

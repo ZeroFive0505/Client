@@ -206,9 +206,9 @@ void CSchoolGirl::Update(float deltaTime)
 	if (m_Push)
 	{
 		if(m_FacingRight && !m_RightWallCollision)
-			AddWorldPos(GetWorldAxis(AXIS_X) * 150.0f * deltaTime);
+			AddWorldPos(GetWorldAxis(AXIS_X) * 200.0f * deltaTime);
 		else if(!m_FacingRight && !m_LeftWallCollision)
-			AddWorldPos(GetWorldAxis(AXIS_X) * -150.0f * deltaTime);
+			AddWorldPos(GetWorldAxis(AXIS_X) * -200.0f * deltaTime);
 	}
 
 	if (!m_OnGround && m_Velocity.y <= 0.0f && m_CurrentMove == ESchoolGirlMoveSet::TORNATOKICK)
@@ -264,7 +264,7 @@ void CSchoolGirl::SetMoveSetInfo()
 	info.attackType = EAttackType::HIT;
 	info.forceDir = Vector2(1.0f, 0.1f);
 	info.forceDir.Normalize();
-	info.force = 2.0f;
+	info.force = 4.0f;
 	info.damage = 2;
 	info.forceTime = 0.15f;
 
@@ -275,7 +275,7 @@ void CSchoolGirl::SetMoveSetInfo()
 	info.attackType = EAttackType::KNOCKDOWN;
 	info.forceDir = Vector2(1.0f, 0.25f);
 	info.forceDir.Normalize();
-	info.force = 5.5f;
+	info.force = 10.0f;
 	info.damage = 8;
 	info.forceTime = 0.4f;
 
@@ -286,7 +286,7 @@ void CSchoolGirl::SetMoveSetInfo()
 	info.attackType = EAttackType::KNOCKDOWN;
 	info.forceDir = Vector2(1.0f, 0.25f);
 	info.forceDir.Normalize();
-	info.force = 4.0f;
+	info.force = 8.0f;
 	info.damage = 4;
 	info.forceTime = 0.35f;
 	
@@ -299,7 +299,7 @@ void CSchoolGirl::SetMoveSetInfo()
 	info.forceDir.Normalize();
 	info.forceTime = 0.4f;
 	info.damage = 7;
-	info.force = 8.0f;
+	info.force = 16.0f;
 
 	m_mapMoveset[ESchoolGirlMoveSet::KICK] = info;
 
@@ -309,7 +309,7 @@ void CSchoolGirl::SetMoveSetInfo()
 	info.forceDir = Vector2(1.0f, 0.5f);
 	info.forceDir.Normalize();
 	info.damage = 8;
-	info.force = 5.0f;
+	info.force = 10.0f;
 	info.forceTime = 0.4f;
 
 	m_mapMoveset[ESchoolGirlMoveSet::TORNATOKICK] = info;

@@ -22,7 +22,7 @@ void CSchoolGirlPursue::Update()
 	if (m_NPC->OnGuard())
 		return;
 
-	m_ElapsedTime += CEngine::GetInst()->GetDeltaTime();
+	m_ElapsedTime += 1.0f / 60.0f;
 
 	CRCGPlayer* player = (CRCGPlayer*)CSceneManager::GetInst()->GetScene()->GetPlayerObject();
 
