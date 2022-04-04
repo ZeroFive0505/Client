@@ -226,6 +226,9 @@ bool CKyoko::Init()
 	m_Sprite->GetAnimationInstance()->AddNotify<CKyoko>("Newcheerdrill", "NewcheerdrillHitBoxOff", 7, this, &CKyoko::DeactivateHitBox);
 
 
+	m_Sprite->GetAnimationInstance()->AddNotify<CKyoko>("Donkeykick", "DonkeykickHitBoxOn", 4, this, &CKyoko::ActivateHitBox);
+	m_Sprite->GetAnimationInstance()->AddNotify<CKyoko>("Donkeykick", "DonkeykickHitBoxOff", 5, this, &CKyoko::DeactivateHitBox);
+
 	m_Sprite->GetAnimationInstance()->SetEndFunction<CKyoko>("Acrocircus_land", this, &CKyoko::GroundAttackEndCallback);
 	m_Sprite->GetAnimationInstance()->AddNotify<CKyoko>("Acrocircus_land", "BounceEnd", 5, this, &CKyoko::BounceOff);
 
@@ -275,7 +278,7 @@ void CKyoko::Update(float deltaTime)
 	{
 		if (m_Jump)
 		{
-			if (m_CurrentTime - m_JumpTime <= 0.2f)
+			if (m_CurrentTime - m_JumpTime <= 0.17f)
 			{
 				ApplyForce(0.0f, m_JumpSpeed * deltaTime, true);
 
@@ -1059,7 +1062,7 @@ void CKyoko::SetMoveSetInfo()
 	info.attackType = EAttackType::KNOCKDOWN;
 	info.forceDir = Vector2(-1.0f, 0.5f);
 	info.forceDir.Normalize();
-	info.force = 10.0f;
+	info.force = 20.0f;
 	info.forceTime = 0.35f;
 	info.getSP = 5;
 	info.sp = 0;
@@ -1199,7 +1202,7 @@ void CKyoko::HeavyAttack(float deltaTime)
 
 				if (enemy->IsInvincible() ||
 					enemy->CheckState(EEnemyState::DEFEADTED) ||
-					enemy->GetCurrentHP() < 0)
+					enemy->GetCurrentHP() <= 0)
 					continue;
 
 				if (enemy->CheckState(EEnemyState::DOWN))
@@ -1414,10 +1417,6 @@ void CKyoko::HitBoxUpdate()
 		m_HitBox->SetExtent(size.x, size.y);
 		m_HitBox->SetOffset(0.0f, -size.y * 0.5f, 0.0f);
 		break;
-	case EKyokoMoveSet::GROUND_HEAVY_STOMP:
-		m_HitBox->SetExtent(size.x, size.y * 0.5f);
-		m_HitBox->SetOffset(0.0f, -size.y * 0.5f, 0.0f);
-		break;
 	case EKyokoMoveSet::GROUND_HEAVY_VOLLEYSET:
 		if (m_FacingRight)
 		{
@@ -1503,6 +1502,9 @@ void CKyoko::HitBoxCheck(const sCollisionResult& result)
 					else
 						right = false;
 
+					if (m_CurrentMove == EKyokoMoveSet::GUARD_HEAVY_DONKEYKICK)
+						right = !right;
+
 					CRCGEnemy* enemy = (CRCGEnemy*)(*iter).first;
 
 					if (enemy->IsInvincible())
@@ -1536,7 +1538,7 @@ void CKyoko::HitBoxCheck(const sCollisionResult& result)
 						{
 							Vector2 dir = Vector2(1.0f, 0.2f);
 							dir.Normalize();
-							float force = 8.5f;
+							float force = 20.0f;
 							float forceTime = 0.35f;
 
 							enemy->GetHit(EAttackType::BLOWNBACK, dir, moveSet.damage * 2, force, forceTime, right);
@@ -1998,9 +2000,9 @@ void CKyoko::AirCheerDrillBeginCallback()
 	m_Push = true;
 	m_Upward = false;
 	if (m_FacingRight)
-		m_PushForce = 10.0f;
+		m_PushForce = 30.0f;
 	else
-		m_PushForce = -10.0f;
+		m_PushForce = -30.0f;
 	m_Velocity = Vector2(0.0f, 0.0f);
 	m_AbsVel = Vector2(0.0f, 0.0f);
 }

@@ -167,6 +167,8 @@ bool CRCGEnemy::Init()
 
 	m_Bottom->SetRelativePos(0.0f, -70.0f, 0.0f);
 
+	m_Shadow->SetRelativePos(0.0f, -10.0f, 0.0f);
+
 	m_Bottom->AddChild(m_Shadow);
 
 	m_Bottom->AddCollisionCallback<CRCGEnemy>(Collision_State::Begin, this, &CRCGEnemy::OnGround);
@@ -585,9 +587,10 @@ void CRCGEnemy::GetHit(EAttackType type, const Vector2& dir, int damage, float f
 
 			m_Sprite->ChangeAnimation("Knockdown");
 				
-			m_Velocity.y = 0.005f;				
+			m_Velocity.y = 0.1f;				
 			m_OnGround = false;
 
+			m_Jump = false;
 
 			m_Physics = true;
 
@@ -615,11 +618,12 @@ void CRCGEnemy::GetHit(EAttackType type, const Vector2& dir, int damage, float f
 
 			m_Sprite->ChangeAnimation("Blownback");
 
-			m_Velocity.y = 0.005f;
+			m_Velocity.y = 0.1f;
 			m_OnGround = false;
 
 			m_Physics = true;
 
+			m_Jump = false;
 
 			m_Velocity = Vector2(0.0f, 0.0f);
 			m_AbsVel = Vector2(0.0f, 0.0f);

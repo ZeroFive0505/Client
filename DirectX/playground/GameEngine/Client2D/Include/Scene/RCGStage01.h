@@ -24,6 +24,8 @@ private:
 	float m_ElapsedTime;
 	float m_TimeToSpawn;
 
+	bool m_AIStart;
+
 public:
 	virtual bool Init();
 	virtual void Update(float deltaTime);
@@ -35,7 +37,9 @@ private:
 
 public:
 	void SceneChange();
+	void ColliderDebug(float deltaTime);
 	void ReloadScene(float deltaTime);
+	void AIStart(float deltaTime);
 	void SpawnStart(float deltaTime);
 
 	template <typename T>

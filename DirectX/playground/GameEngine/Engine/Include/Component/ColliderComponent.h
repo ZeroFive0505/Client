@@ -118,6 +118,11 @@ public:
 		return m_CurrentCollisionList;
 	}
 
+	inline void RenderToggle()
+	{
+		m_Render = !m_Render;
+	}
+
 public:
 	// 이 충돌체 컴포넌트의 충돌 프로파일을 설정
 	void SetCollisionProfile(const std::string& name);

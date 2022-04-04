@@ -413,6 +413,14 @@ public:
 		m_HitBox->Enable(false);
 	}
 
+	inline void CollidersRenderToggle()
+	{
+		m_Body->RenderToggle();
+		m_Bottom->RenderToggle();
+		m_HitBox->RenderToggle();
+		m_ContactBox->RenderToggle();
+	}
+
 public:
 	void AddWallCollisionCallback(CColliderBox2D* collider);
 	void DeleteWallCollisionCallback(CColliderBox2D* collider);

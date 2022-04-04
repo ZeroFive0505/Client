@@ -232,7 +232,7 @@ void CCheerleader::Update(float deltaTime)
         }
     }
 
-    if (m_Sprite->GetAnimationInstance()->CheckCurrentAnimation("Jump") && !m_DiveKickStart && m_Velocity.y >= -0.01f && m_Velocity.y <= 0.01f)
+    if (m_Sprite->GetAnimationInstance()->CheckCurrentAnimation("Jump") && !m_DiveKickStart && m_Velocity.y <= -0.1f)
     {
         m_Sprite->ChangeAnimation("Divekick_start");
         m_DiveKickStart = true;
@@ -283,7 +283,7 @@ void CCheerleader::SetMoveSetInfo()
     info.attackType = EAttackType::KNOCKDOWN;
     info.forceDir = Vector2(0.15f, 1.0f);
     info.forceDir.Normalize();
-    info.force = 10.0f;
+    info.force = 12.0f;
     info.damage = 5;
     info.forceTime = 0.4f;
 
@@ -305,7 +305,7 @@ void CCheerleader::SetMoveSetInfo()
     info.attackType = EAttackType::KNOCKDOWN;
     info.forceDir = Vector2(1.0f, 0.35f);
     info.forceDir.Normalize();
-    info.force = 10.0f;
+    info.force = 12.0f;
     info.damage = 10;
     info.forceTime = 0.45f;
 
@@ -317,7 +317,7 @@ void CCheerleader::SetMoveSetInfo()
     info.attackType = EAttackType::KNOCKDOWN;
     info.forceDir = Vector2(1.0f, 0.25f);
     info.forceDir.Normalize();
-    info.force = 9.0f;
+    info.force = 14.0f;
     info.damage = 7;
     info.forceTime = 0.4f;
 
@@ -347,7 +347,7 @@ void CCheerleader::OnGround(const sCollisionResult& result)
         m_DiveKickStart = false;
         m_Velocity = Vector2(0.0f, 0.0f);
         m_AbsVel = Vector2(0.0f, 0.0f);
-
+        m_Gravity = -10.0f;
 
         if (!m_MoveStart)
         {
@@ -362,10 +362,7 @@ void CCheerleader::OnGround(const sCollisionResult& result)
             PushState(EEnemyState::DOWN, m_CurrentTime + 3.0f);
         }
         else if (m_CurrentMove == ECheerleaderMoveSet::DIVEKICK)
-        {
             m_Sprite->ChangeAnimation("Divekick_end");
-            m_Gravity = -5.0f;
-        }
         else
             m_Sprite->ChangeAnimation("Idle");
     }
@@ -530,6 +527,10 @@ void CCheerleader::SetIdleState()
 void CCheerleader::SetPursueState()
 {
     SAFE_DELETE(m_State);
+
+    m_MoveStart = true;
+
+    m_Sprite->GetAnimationInstance()->Play();
 
     m_State = (CState*)new CCheerleaderPursue(this, m_NextState);
 }

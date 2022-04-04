@@ -48,6 +48,8 @@ public:
 	inline void SetEffect(bool effectOn)
 	{
 		m_EffectOn = effectOn;
+
+		m_Index = 0;
 	}
 
 	void SetAnimation(const std::string name);

@@ -130,6 +130,7 @@ public:
 public:
 	void HitBoxUpdate();
 	void HitBoxCheck(const sCollisionResult& result);
+	virtual void GetHit(EAttackType type, const Vector2& dir, int damage, float force, float forceTime, bool right);
 
 public:
 	void SetIdleState();

@@ -40,21 +40,8 @@ void CMisuzuPursue::Update()
 
 	if (m_ElapsedTime >= 1.5f)
 	{
-		EMisuzuPhase phase = misuzu->GetMisuzuPhase();
-
-		switch (phase)
-		{
-		case EMisuzuPhase::PHASE1:
-			m_NPC->GetNavAgent()->SetMoveSpeed(m_NPC->GetWalkSpeed());
-			break;
-		case EMisuzuPhase::PHASE2:
-			m_NPC->GetNavAgent()->SetMoveSpeed(m_NPC->GetWalkSpeed() + 25.0f);
-			break;
-		case EMisuzuPhase::PHASE3:
-			m_NPC->GetNavAgent()->SetMoveSpeed(m_NPC->GetWalkSpeed() + 50.0f);
-			break;
-		}
-
+		m_NPC->GetNavAgent()->SetMoveSpeed(m_NPC->GetWalkSpeed());
+		
 		m_NPC->GetSpriteComponent()->ChangeAnimation("Walk");
 
 		CTileMapComponent* tileMap = CSceneManager::GetInst()->GetScene()->GetNavigationManager()->GetNavData();
@@ -96,12 +83,12 @@ void CMisuzuPursue::Update()
 		m_ElapsedTime = 0.0f;
 	}
 
-	if (player->GetWorldPos().SqrDistance(m_NPC->GetWorldPos()) <= 3600.0f)
+	if (player->GetWorldPos().SqrDistance(m_NPC->GetWorldPos()) <= 4225.0f)
 		m_NPC->GetSpriteComponent()->ChangeAnimation("Idle");
 
 	float prob;
 
-	if (player->GetWorldPos().SqrDistance(m_NPC->GetWorldPos()) >= 640000.0f)
+	if (player->GetWorldPos().SqrDistance(m_NPC->GetWorldPos()) >= 640000.0f && m_NPC->IsOnGround())
 	{
 		prob = (float)rand() / (float)RAND_MAX;
 
@@ -115,7 +102,6 @@ void CMisuzuPursue::Update()
 				misuzu->Meteor();
 				m_NPC->GetNavAgent()->SetInterrupted(true);
 				m_NextState = (CState*)new CMisuzuAttack(m_NPC, m_NextState);
-				CResourceManager::GetInst()->SoundPlay("Misuzu_meteor_drop_jump");
 				m_Stage = EVENT::EXIT;
 				return;
 			}

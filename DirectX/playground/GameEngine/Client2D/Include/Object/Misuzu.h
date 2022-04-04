@@ -253,6 +253,7 @@ public:
 	inline void MeteorStart()
 	{
 		m_Invincible = true;
+		CResourceManager::GetInst()->SoundPlay("Misuzu_meteor_drop_jump");
 	}
 
 	inline void MeteorMiss()

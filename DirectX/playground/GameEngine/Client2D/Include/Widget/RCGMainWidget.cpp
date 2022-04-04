@@ -12,7 +12,6 @@ CRCGMainWidget::CRCGMainWidget(const CRCGMainWidget& window)
 {
 	m_Border = FindWidget<CImage>("Border");
 	m_PlayerHUD = FindWidget<CImage>("PlayerHUD");
-	m_FPSText = FindWidget<CText>("FPSText");
 	m_CharacterIcon = FindWidget<CImage>("CharacterIcon");
 	m_SpecialBar = FindWidget<CProgressBar>("SpecialBar");
 	m_SpecialBarBack = FindWidget<CImage>("SpecialBarBack");
@@ -98,15 +97,6 @@ bool CRCGMainWidget::Init()
 		m_HPBar.push_back(hp);
 	}
 
-	m_FPSText = CreateWidget<CText>("FPSText");
-
-	m_FPSText->SetText(TEXT("FPS"));
-	m_FPSText->SetPos(900.0f, 650.0f);
-	m_FPSText->SetSize(300.0f, 40.0f);
-	m_FPSText->SetZOrder(1);
-	m_FPSText->SetColor(0.0f, 1.0f, 0.0f);
-	m_FPSText->SetAlignH(TEXT_ALIGN_H::Center);
-
 	m_LerpStart = false;
 	m_FadeOutStart = false;
 	m_FadeOutComplete = false;
@@ -149,16 +139,6 @@ bool CRCGMainWidget::Init()
 void CRCGMainWidget::Update(float deltaTime)
 {
 	CWidgetWindow::Update(deltaTime);
-
-	char fps[256] = {};
-	sprintf_s(fps, "FPS : %.5f", CEngine::GetInst()->GetFPS());
-
-	TCHAR wFPS[256] = {};
-
-	int length = MultiByteToWideChar(CP_ACP, 0, fps, -1, 0, 0);
-	MultiByteToWideChar(CP_ACP, 0, fps, -1, wFPS, length);
-
-	m_FPSText->SetText(wFPS);
 
 	if (m_LerpStart)
 	{

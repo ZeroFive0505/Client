@@ -56,10 +56,12 @@ bool CClientManager::Init(HINSTANCE hInst)
     CInput::GetInst()->CreateKey("Spawn", VK_LBUTTON);
     CInput::GetInst()->CreateKey("MoveTo", VK_RBUTTON);
     CInput::GetInst()->CreateKey("Play", 'P');
+    CInput::GetInst()->CreateKey("AI", 'W');
     CInput::GetInst()->CreateKey("WeakAttack", 'Z');
     CInput::GetInst()->CreateKey("HeavyAttack", 'X');
     CInput::GetInst()->CreateKey("Special", 'C');
     CInput::GetInst()->CreateKey("Guard", 'A');
+    CInput::GetInst()->CreateKey("Debug", 'Q');
     CInput::GetInst()->CreateKey("Enter", VK_RETURN);
     CInput::GetInst()->CreateKey("Exit", VK_ESCAPE);
 

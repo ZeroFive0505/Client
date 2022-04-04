@@ -501,5 +501,9 @@ void CMT::SetPursueState()
 {
     SAFE_DELETE(m_State);
 
+    m_MoveStart = true;
+
+    m_Sprite->GetAnimationInstance()->Play();
+
     m_State = (CState*)new CMTPursue(this, m_NextState);
 }

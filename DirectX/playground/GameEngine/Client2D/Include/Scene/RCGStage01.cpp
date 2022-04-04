@@ -21,6 +21,7 @@ CRCGStage01::CRCGStage01()
     SetTypeID<CRCGStage01>();
 	m_ElapsedTime = 0.0f;
 	m_SpawnEnemies = false;
+	m_AIStart = false;
 }
 
 CRCGStage01::~CRCGStage01()
@@ -100,6 +101,8 @@ bool CRCGStage01::Init()
 
 	CInput::GetInst()->SetCallback<CRCGStage01>("Enter", KeyState_Down, this, &CRCGStage01::ReloadScene);
 	CInput::GetInst()->SetCallback<CRCGStage01>("Play", KeyState_Down, this, &CRCGStage01::SpawnStart);
+	CInput::GetInst()->SetCallback<CRCGStage01>("Debug", KeyState_Down, this, &CRCGStage01::ColliderDebug);
+	CInput::GetInst()->SetCallback<CRCGStage01>("AI", KeyState_Down, this, &CRCGStage01::AIStart);
 
     return true;
 }
@@ -261,7 +264,24 @@ void CRCGStage01::SceneChange()
 	CClientManager::GetInst()->GetManager()->ClearEnemies();
 	CClientManager::GetInst()->GetManager()->ClearSpawnPoint();
 	CSceneManager::GetInst()->CreateNextScene();
-	CSceneManager::GetInst()->CreateSceneMode<CRCGBossStage>(false);
+	CSceneManager::GetInst()->CreateSceneMode<CRCGStage02>(false);
+}
+
+void CRCGStage01::ColliderDebug(float deltaTime)
+{
+	m_Scene->TileCollidersRenderToggle();
+
+	m_Player->CollidersRenderToggle();
+
+	auto enemies = CClientManager::GetInst()->GetManager()->GetEnemies();
+
+	auto iter = enemies.begin();
+	auto iterEnd = enemies.end();
+
+	for (; iter != iterEnd; iter++)
+	{
+		(*iter)->CollidersRenderToggle();
+	}
 }
 
 void CRCGStage01::ReloadScene(float deltaTime)
@@ -276,12 +296,20 @@ void CRCGStage01::ReloadScene(float deltaTime)
 	}
 }
 
+void CRCGStage01::AIStart(float deltaTime)
+{
+	if (m_AIStart)
+		return;
+
+	m_DummyEnemy->SetHealth(250);
+	((CSchoolBoy*)*m_DummyEnemy)->SetPursueState();
+	m_AIStart = true;
+}
+
 void CRCGStage01::SpawnStart(float deltaTime)
 {
 	m_SpawnEnemies = true;
 	m_TimeToSpawn = 1.5f;
 	m_SpawnCnt = 0;
 	m_EnemiesToSpawn = 3;
-	m_DummyEnemy->SetHealth(250);
-	((CSchoolBoy*)*m_DummyEnemy)->SetPursueState();
 }

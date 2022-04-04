@@ -148,6 +148,8 @@ bool CRCGPlayer::Init()
 
 	m_Bottom->SetRelativePos(0.0f, -70.0f, 0.0f);
 
+	m_Shadow->SetRelativePos(0.0f, -10.0f, 0.0f);
+
 	m_WalkSpeed = 300.0f;
 
 	m_RunSpeed = 600.0f;
@@ -1265,6 +1267,8 @@ void CRCGPlayer::GetHit(EAttackType type, const Vector2& dir, int damage, float 
 
 			m_Physics = true;
 
+			m_Jump = false;
+
 			PushState(EKyokoState::KNOCKDOWN, m_CurrentTime + forceTime);
 		}
 		else
@@ -1301,6 +1305,7 @@ void CRCGPlayer::GetHit(EAttackType type, const Vector2& dir, int damage, float 
 
 			m_Physics = true;
 
+			m_Jump = false;
 
 			PushState(EKyokoState::BLOWNBACK, m_CurrentTime + forceTime);
 		}

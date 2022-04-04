@@ -249,7 +249,7 @@ void CSchoolBoy::SetMoveSetInfo()
     info.forceDir.Normalize();
     info.forceTime = 0.35f;
     info.damage = 5;
-    info.force = 10.0f;
+    info.force = 12.0f;
 
     m_mapMoveset[ESchoolBoyMoveSet::AXEKICK] = info;
 
@@ -271,7 +271,7 @@ void CSchoolBoy::SetMoveSetInfo()
     info.forceDir.Normalize();
     info.forceTime = 0.3f;
     info.damage = 4;
-    info.force = 10.0f;
+    info.force = 12.0f;
     
 
     m_mapMoveset[ESchoolBoyMoveSet::ELBOW_UPPERCUT] = info;
@@ -283,7 +283,7 @@ void CSchoolBoy::SetMoveSetInfo()
     info.forceDir.Normalize();
     info.forceTime = 0.25f;
     info.damage = 5;
-    info.force = 7.0f;
+    info.force = 10.0f;
 
     m_mapMoveset[ESchoolBoyMoveSet::JUMP_PUNCH] = info;
 
@@ -294,7 +294,7 @@ void CSchoolBoy::SetMoveSetInfo()
     info.forceDir.Normalize();
     info.forceTime = 0.35f;
     info.damage = 10;
-    info.force = 15.0f;
+    info.force = 20.0f;
     
     m_mapMoveset[ESchoolBoyMoveSet::RIGHTSTRAIGHT_PUNCH] = info;
 

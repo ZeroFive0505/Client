@@ -450,6 +450,14 @@ public:
 		return m_SpecialGauge;
 	}
 
+	inline void CollidersRenderToggle()
+	{
+		m_Body->RenderToggle();
+		m_Bottom->RenderToggle();
+		m_HitBox->RenderToggle();
+		m_ContactBox->RenderToggle();
+	}
+
 private: // Navigation test
 	void MouseRDown(float deltaTime);
 };

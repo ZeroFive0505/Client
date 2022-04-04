@@ -275,7 +275,7 @@ void CSchoolGirl::SetMoveSetInfo()
 	info.attackType = EAttackType::KNOCKDOWN;
 	info.forceDir = Vector2(1.0f, 0.25f);
 	info.forceDir.Normalize();
-	info.force = 10.0f;
+	info.force = 15.0f;
 	info.damage = 8;
 	info.forceTime = 0.4f;
 
@@ -286,7 +286,7 @@ void CSchoolGirl::SetMoveSetInfo()
 	info.attackType = EAttackType::KNOCKDOWN;
 	info.forceDir = Vector2(1.0f, 0.25f);
 	info.forceDir.Normalize();
-	info.force = 8.0f;
+	info.force = 12.0f;
 	info.damage = 4;
 	info.forceTime = 0.35f;
 	
@@ -299,7 +299,7 @@ void CSchoolGirl::SetMoveSetInfo()
 	info.forceDir.Normalize();
 	info.forceTime = 0.4f;
 	info.damage = 7;
-	info.force = 16.0f;
+	info.force = 18.0f;
 
 	m_mapMoveset[ESchoolGirlMoveSet::KICK] = info;
 
@@ -309,7 +309,7 @@ void CSchoolGirl::SetMoveSetInfo()
 	info.forceDir = Vector2(1.0f, 0.5f);
 	info.forceDir.Normalize();
 	info.damage = 8;
-	info.force = 10.0f;
+	info.force = 15.0f;
 	info.forceTime = 0.4f;
 
 	m_mapMoveset[ESchoolGirlMoveSet::TORNATOKICK] = info;
@@ -443,6 +443,14 @@ void CSchoolGirl::HitBoxCheck(const sCollisionResult& result)
 			}
 		}
 	}
+}
+
+void CSchoolGirl::GetHit(EAttackType type, const Vector2& dir, int damage, float force, float forceTime, bool right)
+{
+	if (m_CurrentMove == ESchoolGirlMoveSet::TORNATOKICK)
+		m_CurrentMove = ESchoolGirlMoveSet::IDLE;
+
+	CRCGEnemy::GetHit(type, dir, damage, force, forceTime, right);
 }
 
 void CSchoolGirl::SetIdleState()

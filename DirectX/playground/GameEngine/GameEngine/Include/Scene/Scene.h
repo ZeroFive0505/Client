@@ -101,6 +101,16 @@ public:
 		return m_vecTileColliders;
 	}
 
+	inline void TileCollidersRenderToggle()
+	{
+		size_t size = m_vecTileColliders.size();
+
+		for (size_t i = 0; i < size; i++)
+		{
+			m_vecTileColliders[i]->RenderToggle();
+		}
+	}
+
 public:
 	void Start();
 	void Update(float deltaTime);

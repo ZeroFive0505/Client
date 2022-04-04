@@ -28,7 +28,6 @@ private:
 	CSharedPtr<CImage> m_SpecialBarBack;
 	std::vector<CSharedPtr<CImage>> m_HPBar;
 	CSharedPtr<CImage> m_BattleIntro;
-	CSharedPtr<CText> m_FPSText;
 	std::function<void()> m_SceneChangeCallback;
 
 	float m_StartTime;

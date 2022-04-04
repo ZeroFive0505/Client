@@ -112,7 +112,7 @@ bool CMisuzu::Init()
 
 	m_Body->SetOffset(0.0f, 80.0f, 0.0f);
 
-	m_Body->SetExtent(80.0f, 80.0f);
+	m_Body->SetExtent(80.0f, 70.0f);
 
 	m_ContactBox->SetExtent(60.0f, 60.0f);
 
@@ -120,6 +120,7 @@ bool CMisuzu::Init()
 
 	m_Sprite->SetWorldPos(m_Transform->GetWorldPos().x, -60.0f, m_Transform->GetWorldPos().z);
 	m_Body->SetWorldPos(m_Transform->GetWorldPos().x, -60.0f, m_Transform->GetWorldPos().z);
+	m_Shadow->SetRelativePos(0.0f, 0.0f, 0.0f);
 
 	m_Shadow->SetRelativeScale(120.0f, 25.0f, 1.0f);
 
@@ -302,7 +303,6 @@ void CMisuzu::Update(float deltaTime)
 		{
 			if (!m_Stunned && m_PhaseChangeStart)
 			{
-				
 				m_Invincible = true;
 				m_Sprite->ChangeAnimation("Getup_roar");
 				m_Velocity = Vector2(0.0f, 0.0f);
@@ -315,6 +315,13 @@ void CMisuzu::Update(float deltaTime)
 				m_AbsVel = Vector2(0.0f, 0.0f);
 				PushState(EEnemyState::DOWN, m_CurrentTime + 3.1f);
 				PushState(EEnemyState::STUNNED, m_CurrentTime + 3.0f);
+			}
+			else
+			{
+				m_Invincible = true;
+				m_Sprite->ChangeAnimation("Getup");
+				m_Velocity = Vector2(0.0f, 0.0f);
+				m_AbsVel = Vector2(0.0f, 0.0f);
 			}
 		}
 		else
@@ -494,7 +501,7 @@ void CMisuzu::RoarStart()
 		m_Sprite->GetAnimationInstance()->SetPlayScale("Walk", 1.1f);
 		m_Sprite->GetAnimationInstance()->SetPlayScale("Slap", 1.1f);
 		m_Sprite->GetAnimationInstance()->SetPlayScale("Elbow", 1.1f);
-		m_WalkSpeed *= 1.2f;
+		m_WalkSpeed = 250.0f * 1.2f;
 	}
 	else if (m_Phase == EMisuzuPhase::PHASE2)
 	{
@@ -505,7 +512,7 @@ void CMisuzu::RoarStart()
 		m_Sprite->GetAnimationInstance()->SetPlayScale("Walk", 1.25f);
 		m_Sprite->GetAnimationInstance()->SetPlayScale("Slap", 1.25f);
 		m_Sprite->GetAnimationInstance()->SetPlayScale("Elbow", 1.25f);
-		m_WalkSpeed *= 1.2f;
+		m_WalkSpeed = 250.0f * 1.5f;
 	}
 
 
@@ -566,7 +573,7 @@ void CMisuzu::GetUpAttack()
 		else
 			right = false;
 
-		player->GetHit(EAttackType::KNOCKDOWN, Vector2(1.0f, 0.3f), 5, 5.0f, 0.4f, right);
+		player->GetHit(EAttackType::KNOCKDOWN, Vector2(1.0f, 0.3f), 5, 18.0f, 0.4f, right);
 	}
 }
 
@@ -595,7 +602,7 @@ void CMisuzu::OnPilarBottomCollision(const sCollisionResult& result)
 
 			Vector2 dir = Vector2(1.0f, 0.25f);
 			dir.Normalize();
-			GetHit(EAttackType::KNOCKDOWN, dir, 0, 5.0f, 0.3f, right);
+			GetHit(EAttackType::KNOCKDOWN, dir, 0, 12.0f, 0.3f, right);
 
 			CRCGPilar* pilar = (CRCGPilar*)result.src->GetGameObject();
 			m_Stunned = true;
@@ -822,7 +829,7 @@ void CMisuzu::GetHit(EAttackType type, const Vector2& dir, int damage, float for
 			m_Velocity = Vector2(0.0f, 0.0f);
 			m_AbsVel = Vector2(0.0f, 0.0f);
 
-			m_Velocity.y = 0.005f;
+			m_Velocity.y = 1.0f;
 
 			m_Physics = true;
 
@@ -852,7 +859,7 @@ void CMisuzu::GetHit(EAttackType type, const Vector2& dir, int damage, float for
 			m_Velocity = Vector2(0.0f, 0.0f);
 			m_AbsVel = Vector2(0.0f, 0.0f);
 
-			m_Velocity.y = 0.005f;
+			m_Velocity.y = 1.0f;
 
 			m_Sprite->ChangeAnimation("Blownback");
 
@@ -880,7 +887,7 @@ void CMisuzu::GetHit(EAttackType type, const Vector2& dir, int damage, float for
 	{
 		CResourceManager::GetInst()->SoundPlay("Boss_finalhit");
 		m_Sprite->SetBaseColor(1.0f, 1.0f, 1.0f, 1.0f);
-		CEngine::GetInst()->SetSlowMotion(3.0f, 0.5f);
+		CEngine::GetInst()->SetSlowMotion(3.0f, 0.75f);
 	}
 
 	PopStateEnd(EEnemyState::ATTACK);
@@ -1080,27 +1087,6 @@ void CMisuzu::OnGround(const sCollisionResult& result)
 				PushState(EEnemyState::ATTACK);
 				m_Invincible = false;
 				CResourceManager::GetInst()->SoundPlay("Misuzu_meteor_drop_impact");
-
-				std::vector<CRCGPilar*> pilars = m_Trigger->GetPilars();
-
-				size_t size = pilars.size();
-
-				if ((int)size != 0)
-				{
-					CRCGPilar* closestPilar = pilars.front();
-					for (size_t i = 0; i < size; i++)
-					{
-						if (m_Bottom->GetWorldPos().Distance(pilars[i]->GetPilarBottomCollider()->GetWorldPos()) <
-							m_Bottom->GetWorldPos().Distance(closestPilar->GetPilarBottomCollider()->GetWorldPos()))
-							closestPilar = pilars[i];
-					}
-
-					if (closestPilar->GetWorldPos().Distance(m_Bottom->GetWorldPos()) <= 200.0f)
-					{
-						closestPilar->ResetTile();
-						closestPilar->Destroy();
-					}
-				}
 			}
 			else if (m_CurrentMove == EMisuzuMoveSet::METEOR && !m_MeteorHit)
 			{
