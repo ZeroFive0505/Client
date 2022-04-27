@@ -28,10 +28,12 @@ private:
 
 private:
 	class CFlowField* m_Field;
+	class CPath* m_Path;
 
 	Vector2 m_Velocity;
 	Vector2 m_Acceleration;
 	Vector2 m_Resolution;
+	float m_MaxDist;
 	float m_MaxSpeed;
 	float m_MaxForce;
 	float m_Mass;
@@ -42,11 +44,17 @@ public:
 		m_Field = field;
 	}
 
+	inline void SetPath(class CPath* path)
+	{
+		m_Path = path;
+	}
+
 public:
 	void Seek(const Vector2& target, float deltaTime);
 	void Flee(const Vector2& target, float deltaTime);
 	void Arrive(const Vector2& target, float deltaTime);
 	void Follow();
+	void PathFollow(float deltaTime);
 	void ApplyForce(const Vector2& force);
 	void ApplyForce(float x, float y);
 	void CheckEdge();

@@ -16,6 +16,7 @@
 #include "../Object/Spring.h"
 #include "../Object/Vehicle.h"
 #include "../Object/FlowField.h"
+#include "../Object/Path.h"
 #include "Input.h"
 
 static float RandomNumber(float Min, float Max)
@@ -34,6 +35,7 @@ CNatureOfCode::CNatureOfCode() :
 CNatureOfCode::~CNatureOfCode()
 {
 	SAFE_DELETE(m_Field);
+	SAFE_DELETE(m_Path);
 }
 
 bool CNatureOfCode::Init()
@@ -65,9 +67,12 @@ bool CNatureOfCode::Init()
 
 	m_Radius = 50.0f;*/
 
-	m_Field = new CFlowField;
+	//m_Field = new CFlowField;
 
-	SetPlayerObject(observer);
+	//SetPlayerObject(observer);
+
+	m_Path = new CPath;
+	m_Path->Init();
 
 	CInput::GetInst()->SetCallback<CNatureOfCode>("Spawn", KeyState_Down, this, &CNatureOfCode::SpawnVehicle);
 
@@ -213,7 +218,8 @@ void CNatureOfCode::SpawnVehicle(float deltaTime)
 	CVehicle* vehicle = m_Scene->CreateGameObject<CVehicle>("Vehicle " + std::to_string((int)size + 1));
 
 	vehicle->SetWorldPos(mousePos.x, mousePos.y, 0.0f);
-	vehicle->SetFlowField(m_Field);
+	// vehicle->SetFlowField(m_Field);
+	vehicle->SetPath(m_Path);
 
 	m_vecVehicle.push_back(vehicle);
 }

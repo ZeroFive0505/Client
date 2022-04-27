@@ -13,7 +13,7 @@ public:
 public:
 	virtual void Enter()
 	{
-		if (m_NPC->IsOnGround() && m_NPC->GetCurrentState() == (int)EEnemyState::NORMAL && !m_NPC->OnGuard())
+		if (m_NPC->IsOnGround() && m_NPC->GetCurrentState() == (int)EEnemyState::NORMAL && !m_NPC->OnGuard() && !m_NPC->IsInvincible())
 			m_NPC->GetSpriteComponent()->ChangeAnimation("Idle");
 		CState::Enter();
 	}
@@ -22,6 +22,9 @@ public:
 
 	virtual void Exit()
 	{
+		if (m_NPC->IsOnGround() && m_NPC->GetCurrentState() == (int)EEnemyState::NORMAL && !m_NPC->OnGuard() && !m_NPC->IsInvincible())
+			m_NPC->GetSpriteComponent()->ChangeAnimation("Idle");
+
 		CState::Exit();
 	}
 

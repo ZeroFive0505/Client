@@ -9,7 +9,7 @@ CCameraComponent::CCameraComponent()
 	m_Shake = false;
 	m_TraumaAmount = 20.0f;
 	m_RecoverySpeed = 20.0f;
-	m_CameraType = Camera_Type::Camera2D;
+	m_CameraType = Camera_Type::Camera3D;
 	m_ViewAngle = 90.0f;
 	m_Distance = 1000.0f;
 }

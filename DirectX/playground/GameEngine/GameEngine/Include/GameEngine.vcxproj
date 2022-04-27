@@ -75,22 +75,34 @@
     <OutDir>../Bin/</OutDir>
     <IntDir>../BinObj/</IntDir>
     <TargetName>$(ProjectName)_Debug</TargetName>
+    <IncludePath>Resource/Mesh/;Resource/Mesh/fbxsdk/;$(IncludePath)</IncludePath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>../Bin/</OutDir>
     <IntDir>../BinObj/</IntDir>
+    <IncludePath>Resource/Mesh/;Resource/Mesh/fbxsdk/;$(IncludePath)</IncludePath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>../Bin/</OutDir>
     <IntDir>../BinObj/</IntDir>
     <TargetName>$(ProjectName)_Debug</TargetName>
+    <IncludePath>Resource/Mesh/;Resource/Mesh/fbxsdk/;$(IncludePath)</IncludePath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>../Bin/</OutDir>
     <IntDir>../BinObj/</IntDir>
+    <IncludePath>Resource/Mesh/;Resource/Mesh/fbxsdk/;$(IncludePath)</IncludePath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -98,6 +110,9 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>Default</LanguageStandard>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -116,6 +131,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -134,6 +151,9 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>Default</LanguageStandard>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -152,6 +172,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -167,8 +189,12 @@
   <ItemGroup>
     <ClInclude Include="Animation\AnimationSequence2DData.h" />
     <ClInclude Include="Animation\AnimationSequence2DInstance.h" />
+    <ClInclude Include="Animation\AnimationSequenceData.h" />
+    <ClInclude Include="Animation\AnimationSequenceInstance.h" />
     <ClInclude Include="Collision\Collision.h" />
     <ClInclude Include="Collision\CollisionManager.h" />
+    <ClInclude Include="Component\AnimationMeshComponent.h" />
+    <ClInclude Include="Component\ArmComponent.h" />
     <ClInclude Include="Component\CameraComponent.h" />
     <ClInclude Include="Component\ColliderBox2D.h" />
     <ClInclude Include="Component\ColliderCircle.h" />
@@ -233,10 +259,16 @@
     <ClInclude Include="Render\RenderState.h" />
     <ClInclude Include="Render\RenderStateManager.h" />
     <ClInclude Include="Resource\Animation\AnimationManager.h" />
+    <ClInclude Include="Resource\Animation\AnimationManager3D.h" />
+    <ClInclude Include="Resource\Animation\AnimationSequence.h" />
     <ClInclude Include="Resource\Animation\AnimationSequence2D.h" />
+    <ClInclude Include="Resource\Animation\Skeleton.h" />
     <ClInclude Include="Resource\Font\FontManager.h" />
     <ClInclude Include="Resource\Material\Material.h" />
     <ClInclude Include="Resource\Material\MaterialManager.h" />
+    <ClInclude Include="Resource\Mesh\AnimationMesh.h" />
+    <ClInclude Include="Resource\Mesh\FBXLoader.h" />
+    <ClInclude Include="Resource\Mesh\fbxsdk.h" />
     <ClInclude Include="Resource\Mesh\Mesh.h" />
     <ClInclude Include="Resource\Mesh\MeshManager.h" />
     <ClInclude Include="Resource\Mesh\SpriteMesh.h" />
@@ -245,6 +277,8 @@
     <ClInclude Include="Resource\Particle\ParticleManager.h" />
     <ClInclude Include="Resource\ResourceManager.h" />
     <ClInclude Include="Resource\Shader\Animation2DConstantBuffer.h" />
+    <ClInclude Include="Resource\Shader\AnimationUpdateConstantBuffer.h" />
+    <ClInclude Include="Resource\Shader\AnimationUpdateShader.h" />
     <ClInclude Include="Resource\Shader\ColliderConstantBuffer.h" />
     <ClInclude Include="Resource\Shader\ColliderPixelShader.h" />
     <ClInclude Include="Resource\Shader\ColliderShader.h" />
@@ -268,6 +302,7 @@
     <ClInclude Include="Resource\Shader\Shader.h" />
     <ClInclude Include="Resource\Shader\ShaderManager.h" />
     <ClInclude Include="Resource\Shader\Standard2DConstantBuffer.h" />
+    <ClInclude Include="Resource\Shader\Standard3DShader.h" />
     <ClInclude Include="Resource\Shader\StructuredBuffer.h" />
     <ClInclude Include="Resource\Shader\TileMapConstantBuffer.h" />
     <ClInclude Include="Resource\Shader\TileMapShader.h" />
@@ -310,8 +345,12 @@
   <ItemGroup>
     <ClCompile Include="Animation\AnimationSequence2DData.cpp" />
     <ClCompile Include="Animation\AnimationSequence2DInstance.cpp" />
+    <ClCompile Include="Animation\AnimationSequenceData.cpp" />
+    <ClCompile Include="Animation\AnimationSequenceInstance.cpp" />
     <ClCompile Include="Collision\Collision.cpp" />
     <ClCompile Include="Collision\CollisionManager.cpp" />
+    <ClCompile Include="Component\AnimationMeshComponent.cpp" />
+    <ClCompile Include="Component\ArmComponent.cpp" />
     <ClCompile Include="Component\CameraComponent.cpp" />
     <ClCompile Include="Component\ColliderBox2D.cpp" />
     <ClCompile Include="Component\ColliderCircle.cpp" />
@@ -364,10 +403,15 @@
     <ClCompile Include="Render\RenderState.cpp" />
     <ClCompile Include="Render\RenderStateManager.cpp" />
     <ClCompile Include="Resource\Animation\AnimationManager.cpp" />
+    <ClCompile Include="Resource\Animation\AnimationManager3D.cpp" />
+    <ClCompile Include="Resource\Animation\AnimationSequence.cpp" />
     <ClCompile Include="Resource\Animation\AnimationSequence2D.cpp" />
+    <ClCompile Include="Resource\Animation\Skeleton.cpp" />
     <ClCompile Include="Resource\Font\FontManager.cpp" />
     <ClCompile Include="Resource\Material\Material.cpp" />
     <ClCompile Include="Resource\Material\MaterialManager.cpp" />
+    <ClCompile Include="Resource\Mesh\AnimationMesh.cpp" />
+    <ClCompile Include="Resource\Mesh\FBXLoader.cpp" />
     <ClCompile Include="Resource\Mesh\Mesh.cpp" />
     <ClCompile Include="Resource\Mesh\MeshManager.cpp" />
     <ClCompile Include="Resource\Mesh\SpriteMesh.cpp" />
@@ -376,6 +420,8 @@
     <ClCompile Include="Resource\Particle\ParticleManager.cpp" />
     <ClCompile Include="Resource\ResourceManager.cpp" />
     <ClCompile Include="Resource\Shader\Animation2DConstantBuffer.cpp" />
+    <ClCompile Include="Resource\Shader\AnimationUpdateConstantBuffer.cpp" />
+    <ClCompile Include="Resource\Shader\AnimationUpdateShader.cpp" />
     <ClCompile Include="Resource\Shader\ColliderConstantBuffer.cpp" />
     <ClCompile Include="Resource\Shader\ColliderPixelShader.cpp" />
     <ClCompile Include="Resource\Shader\ColliderShader.cpp" />
@@ -399,6 +445,7 @@
     <ClCompile Include="Resource\Shader\Shader.cpp" />
     <ClCompile Include="Resource\Shader\ShaderManager.cpp" />
     <ClCompile Include="Resource\Shader\Standard2DConstantBuffer.cpp" />
+    <ClCompile Include="Resource\Shader\Standard3DShader.cpp" />
     <ClCompile Include="Resource\Shader\StructuredBuffer.cpp" />
     <ClCompile Include="Resource\Shader\TileMapConstantBuffer.cpp" />
     <ClCompile Include="Resource\Shader\TileMapShader.cpp" />
@@ -435,6 +482,20 @@
     <ClCompile Include="Widget\WidgetWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="..\Bin\Shader\AnimationUpdate.fx">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AnimationUpdateCS</EntryPointName>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AnimationUpdateCS</EntryPointName>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">AnimationUpdateCS</EntryPointName>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">AnimationUpdateCS</EntryPointName>
+    </FxCompile>
     <FxCompile Include="..\Bin\Shader\Collider.fx">
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
@@ -496,6 +557,20 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </FxCompile>
+    <FxCompile Include="..\Bin\Shader\Standard3D.fx">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Standard3DVS</EntryPointName>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Standard3DVS</EntryPointName>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Standard3DVS</EntryPointName>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Standard3DVS</EntryPointName>
     </FxCompile>
     <FxCompile Include="..\Bin\Shader\TileMap.fx">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Effect</ShaderType>

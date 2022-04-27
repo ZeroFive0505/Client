@@ -1,5 +1,4 @@
 #include "MTBlock.h"
-#include "MTPursue.h"
 
 CMTBlock::CMTBlock(CRCGEnemy* npc, CState* nextState) :
     CState(npc, nextState)

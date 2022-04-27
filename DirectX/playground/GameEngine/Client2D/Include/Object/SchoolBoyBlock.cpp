@@ -1,5 +1,4 @@
 #include "SchoolBoyBlock.h"
-#include "SchoolBoyPursue.h"
 #include "RCGPlayer.h"
 
 CSchoolBoyBlock::CSchoolBoyBlock(CRCGEnemy* npc, CState* nextState) :

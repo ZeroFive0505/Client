@@ -222,3 +222,10 @@ enum class Nav_Node_Type
 	Open,
 	Close
 };
+
+enum class Mesh_Type
+{
+	Sprite,
+	Static,
+	Animation
+};

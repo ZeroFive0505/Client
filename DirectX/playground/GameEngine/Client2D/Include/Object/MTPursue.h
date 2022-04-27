@@ -19,7 +19,7 @@ public:
 	{
 		CMT* mt = (CMT*)m_NPC;
 
-		if (m_NPC->IsOnGround() && m_NPC->GetCurrentState() == (int)EEnemyState::NORMAL && !m_NPC->OnGuard() && mt->IsMovingStart())
+		if (m_NPC->IsOnGround() && m_NPC->GetCurrentState() == (int)EEnemyState::NORMAL && !m_NPC->OnGuard() && mt->IsMovingStart() && !m_NPC->IsInvincible())
 			m_NPC->GetSpriteComponent()->ChangeAnimation("Idle");
 		else if (m_NPC->IsSpawning())
 			m_NPC->GetSpriteComponent()->ChangeAnimation("Idle");
@@ -32,6 +32,11 @@ public:
 
 	virtual void Exit()
 	{
+		CMT* mt = (CMT*)m_NPC;
+
+		if (m_NPC->IsOnGround() && m_NPC->GetCurrentState() == (int)EEnemyState::NORMAL && !m_NPC->OnGuard() && mt->IsMovingStart() && !m_NPC->IsInvincible())
+			m_NPC->GetSpriteComponent()->ChangeAnimation("Idle");
+
 		CState::Exit();
 	}
 

@@ -13,6 +13,7 @@ private:
 	LARGE_INTEGER m_Second;
 
 	float m_DeltaTime;
+	float m_CurrentTime;
 
 	float m_FPS;
 	float m_FPSTime;
@@ -27,6 +28,11 @@ public:
 	inline float GetFPS() const
 	{
 		return m_FPS;
+	}
+
+	inline float GetCurrentPlayTime() const
+	{
+		return m_CurrentTime;
 	}
 
 public:

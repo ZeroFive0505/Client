@@ -38,18 +38,6 @@ CRCGPlayer::CRCGPlayer(const CRCGPlayer& obj) :
 
 CRCGPlayer::~CRCGPlayer()
 {
-	const std::vector<CColliderComponent*> vecTileColliders = m_Scene->GetTileColliders();
-
-	size_t size = vecTileColliders.size();
-
-	if (size <= 0)
-		return;
-
-	for (size_t i = 0; i < size; i++)
-	{
-		CColliderBox2D* box = (CColliderBox2D*)vecTileColliders[i];
-		box->DeleteCollisionCallback((CGameObject*)this);
-	}
 }
 
 
@@ -197,8 +185,10 @@ bool CRCGPlayer::Init()
 	m_Sprite->SetWorldPos(m_Transform->GetWorldPos().x, -75.0f, m_Transform->GetWorldPos().z);
 	m_Body->SetWorldPos(m_Transform->GetWorldPos().x, -75.0f, m_Transform->GetWorldPos().z);
 
-	m_Health = CClientManager::GetInst()->GetManager()->GetHealth();
-	m_SpecialGauge = CClientManager::GetInst()->GetManager()->GetSpecialGuage();
+	// m_Health = CClientManager::GetInst()->GetManager()->GetHealth();
+	// m_SpecialGauge = CClientManager::GetInst()->GetManager()->GetSpecialGuage();
+	m_Health = 160;
+	m_SpecialGauge = 100;
 
 	// Locomotion
 	CInput::GetInst()->SetCallback<CRCGPlayer>("MoveUp", KeyState_Push, this, &CRCGPlayer::MoveUp);
@@ -1103,7 +1093,7 @@ void CRCGPlayer::WallJump()
 	m_WallJumpTime = m_CurrentTime;
 	m_Jump = true;
 	m_JumpTime = m_CurrentTime - 0.05f;;
-	m_JumpSpeed = 20.0f;
+	m_JumpSpeed = 50.0f;
 	m_Sprite->ChangeAnimation("Jump");
 	m_LeftWallCollision = false;
 	m_RightWallCollision = false;
@@ -1130,6 +1120,10 @@ void CRCGPlayer::GutPunch()
 void CRCGPlayer::GetHit(EAttackType type, const Vector2& dir, int damage, float force, float forceTime, bool right)
 {
 	m_HitBox->Enable(false);
+
+	PopStateEnd(EKyokoState::ATTACK);
+	PushState(EKyokoState::GETHIT);
+	DodgeEnd();
 
 	if (!m_GravityEnable)
 		m_GravityEnable = true;
@@ -1332,9 +1326,6 @@ void CRCGPlayer::GetHit(EAttackType type, const Vector2& dir, int damage, float 
 		m_AbleToAttack = false;
 		m_AbleToMove = false;
 	}
-
-	PopStateEnd(EKyokoState::ATTACK);
-	PushState(EKyokoState::GETHIT);
 }
 
 void CRCGPlayer::HitStatusEnd()
@@ -1366,6 +1357,7 @@ void CRCGPlayer::AddWallCollisionCallback(CColliderBox2D* collider)
 
 void CRCGPlayer::DeleteWallCollisionCallback(CColliderBox2D* collider)
 {
+	m_ContactBox->DeleteCollisionCallback(collider->GetGameObject());
 	collider->DeleteCollisionCallback((CGameObject*)this);
 }
 

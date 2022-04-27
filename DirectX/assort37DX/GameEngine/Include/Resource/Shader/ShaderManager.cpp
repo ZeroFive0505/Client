@@ -12,6 +12,8 @@
 #include "ParticleUpdateShader.h"
 #include "ParticleRenderShader.h"
 #include "TileMapShader.h"
+#include "Standard3DShader.h"
+#include "AnimationUpdateShader.h"
 
 CShaderManager::CShaderManager()
 {
@@ -67,6 +69,14 @@ bool CShaderManager::Init()
 		return false;
 
 
+	if (!CreateShader<CStandard3DShader>("Standard3DShader"))
+		return false;
+
+
+	if (!CreateShader<CAnimationUpdateShader>("AnimationUpdateShader"))
+		return false;
+
+
 
 
 	// =================== 상수버퍼 ===================
@@ -104,6 +114,9 @@ bool CShaderManager::Init()
 
 	CreateConstantBuffer("TileMapCBuffer", sizeof(TileMapCBuffer), 11,
 		(int)Buffer_Shader_Type::Graphic);
+
+	CreateConstantBuffer("AnimationCBuffer", sizeof(AnimationCBuffer), 11,
+		(int)Buffer_Shader_Type::Compute);
 
 	return true;
 }

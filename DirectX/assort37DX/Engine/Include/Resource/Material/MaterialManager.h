@@ -18,6 +18,10 @@ private:
 public:
 	bool Init();
 	CMaterial* FindMaterial(const std::string& Name);
+	CMaterialConstantBuffer* GetMaterialConstantBuffer()	const
+	{
+		return m_CBuffer;
+	}
 	void ReleaseMaterial(const std::string& Name);
 
 public:

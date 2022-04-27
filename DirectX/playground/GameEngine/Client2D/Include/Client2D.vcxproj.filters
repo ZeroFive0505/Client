@@ -55,9 +55,6 @@
     <Filter Include="02. Object\03. Enemy\MT">
       <UniqueIdentifier>{f7ffeebe-2e25-4106-911e-5e65fe1fbd8c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. Object\Ex. NOC">
-      <UniqueIdentifier>{8c0fa300-7d89-44a8-9e89-93951ee68a94}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. Object\07. Environment">
       <UniqueIdentifier>{4bd728b1-525d-43b2-8118-153e22528756}</UniqueIdentifier>
     </Filter>
@@ -69,6 +66,9 @@
     </Filter>
     <Filter Include="02. Object\08. Effect">
       <UniqueIdentifier>{5e51cd49-6227-4921-ad23-065b177d5254}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Object\08. Effect\Ex. NOC">
+      <UniqueIdentifier>{8c0fa300-7d89-44a8-9e89-93951ee68a94}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -178,31 +178,31 @@
       <Filter>02. Object\06. TileMap</Filter>
     </ClCompile>
     <ClCompile Include="Object\Attractor.cpp">
-      <Filter>02. Object\Ex. NOC</Filter>
+      <Filter>02. Object\08. Effect\Ex. NOC</Filter>
     </ClCompile>
     <ClCompile Include="Object\Line.cpp">
-      <Filter>02. Object\Ex. NOC</Filter>
+      <Filter>02. Object\08. Effect\Ex. NOC</Filter>
     </ClCompile>
     <ClCompile Include="Object\Liquid.cpp">
-      <Filter>02. Object\Ex. NOC</Filter>
+      <Filter>02. Object\08. Effect\Ex. NOC</Filter>
     </ClCompile>
     <ClCompile Include="Object\Mover.cpp">
-      <Filter>02. Object\Ex. NOC</Filter>
+      <Filter>02. Object\08. Effect\Ex. NOC</Filter>
     </ClCompile>
     <ClCompile Include="Object\Pendulum.cpp">
-      <Filter>02. Object\Ex. NOC</Filter>
+      <Filter>02. Object\08. Effect\Ex. NOC</Filter>
     </ClCompile>
     <ClCompile Include="Object\Spring.cpp">
-      <Filter>02. Object\Ex. NOC</Filter>
+      <Filter>02. Object\08. Effect\Ex. NOC</Filter>
     </ClCompile>
     <ClCompile Include="Object\Vehicle.cpp">
-      <Filter>02. Object\Ex. NOC</Filter>
+      <Filter>02. Object\08. Effect\Ex. NOC</Filter>
     </ClCompile>
     <ClCompile Include="Object\Circle.cpp">
-      <Filter>02. Object\Ex. NOC</Filter>
+      <Filter>02. Object\08. Effect\Ex. NOC</Filter>
     </ClCompile>
     <ClCompile Include="Object\FlowField.cpp">
-      <Filter>02. Object\Ex. NOC</Filter>
+      <Filter>02. Object\08. Effect\Ex. NOC</Filter>
     </ClCompile>
     <ClCompile Include="Object\State.cpp">
       <Filter>02. Object\03. Enemy</Filter>
@@ -363,6 +363,9 @@
     <ClCompile Include="Object\HitAnimation.cpp">
       <Filter>02. Object\08. Effect</Filter>
     </ClCompile>
+    <ClCompile Include="Object\Path.cpp">
+      <Filter>02. Object\08. Effect\Ex. NOC</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -474,31 +477,31 @@
       <Filter>02. Object\06. TileMap</Filter>
     </ClInclude>
     <ClInclude Include="Object\Attractor.h">
-      <Filter>02. Object\Ex. NOC</Filter>
+      <Filter>02. Object\08. Effect\Ex. NOC</Filter>
     </ClInclude>
     <ClInclude Include="Object\Line.h">
-      <Filter>02. Object\Ex. NOC</Filter>
+      <Filter>02. Object\08. Effect\Ex. NOC</Filter>
     </ClInclude>
     <ClInclude Include="Object\Liquid.h">
-      <Filter>02. Object\Ex. NOC</Filter>
+      <Filter>02. Object\08. Effect\Ex. NOC</Filter>
     </ClInclude>
     <ClInclude Include="Object\Mover.h">
-      <Filter>02. Object\Ex. NOC</Filter>
+      <Filter>02. Object\08. Effect\Ex. NOC</Filter>
     </ClInclude>
     <ClInclude Include="Object\Pendulum.h">
-      <Filter>02. Object\Ex. NOC</Filter>
+      <Filter>02. Object\08. Effect\Ex. NOC</Filter>
     </ClInclude>
     <ClInclude Include="Object\Spring.h">
-      <Filter>02. Object\Ex. NOC</Filter>
+      <Filter>02. Object\08. Effect\Ex. NOC</Filter>
     </ClInclude>
     <ClInclude Include="Object\Vehicle.h">
-      <Filter>02. Object\Ex. NOC</Filter>
+      <Filter>02. Object\08. Effect\Ex. NOC</Filter>
     </ClInclude>
     <ClInclude Include="Object\Circle.h">
-      <Filter>02. Object\Ex. NOC</Filter>
+      <Filter>02. Object\08. Effect\Ex. NOC</Filter>
     </ClInclude>
     <ClInclude Include="Object\FlowField.h">
-      <Filter>02. Object\Ex. NOC</Filter>
+      <Filter>02. Object\08. Effect\Ex. NOC</Filter>
     </ClInclude>
     <ClInclude Include="Object\State.h">
       <Filter>02. Object\03. Enemy</Filter>
@@ -658,6 +661,9 @@
     </ClInclude>
     <ClInclude Include="Object\HitAnimation.h">
       <Filter>02. Object\08. Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Path.h">
+      <Filter>02. Object\08. Effect\Ex. NOC</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

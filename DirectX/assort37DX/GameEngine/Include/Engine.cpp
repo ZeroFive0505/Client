@@ -21,7 +21,7 @@ CEngine::CEngine()	:
 	m_Timer(nullptr),
 	m_Start(false),
 	m_Play(true),
-	m_Space(Engine_Space::Space2D),
+	m_Space(Engine_Space::Space3D),
 	m_MouseState(Mouse_State::Normal),
 	m_ShowCursorCount(0),
 	m_GlobalCBuffer(nullptr),
@@ -225,6 +225,8 @@ void CEngine::Logic()
 	m_GlobalCBuffer->UpdateCBuffer();
 
 	CIMGUIManager::GetInst()->Update(DeltaTime);
+
+	CResourceManager::GetInst()->Update();
 
 	CInput::GetInst()->Update(DeltaTime);
 

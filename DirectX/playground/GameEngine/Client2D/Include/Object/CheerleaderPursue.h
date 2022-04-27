@@ -19,7 +19,7 @@ public:
 	{
 		CCheerleader* cheerleader = (CCheerleader*)m_NPC;
 
-		if (m_NPC->IsOnGround() && m_NPC->GetCurrentState() == (int)EEnemyState::NORMAL && !m_NPC->OnGuard() && cheerleader->IsMovingStart())
+		if (m_NPC->IsOnGround() && m_NPC->GetCurrentState() == (int)EEnemyState::NORMAL && !m_NPC->OnGuard() && cheerleader->IsMovingStart() && !m_NPC->IsInvincible())
 			m_NPC->GetSpriteComponent()->ChangeAnimation("Idle");
 		else if(m_NPC->IsSpawning())
 			m_NPC->GetSpriteComponent()->ChangeAnimation("Idle");
@@ -32,6 +32,11 @@ public:
 
 	virtual void Exit()
 	{
+		CCheerleader* cheerleader = (CCheerleader*)m_NPC;
+
+		if (m_NPC->IsOnGround() && m_NPC->GetCurrentState() == (int)EEnemyState::NORMAL && !m_NPC->OnGuard() && cheerleader->IsMovingStart() && !m_NPC->IsInvincible())
+			m_NPC->GetSpriteComponent()->ChangeAnimation("Idle");
+
 		CState::Exit();
 	}
 

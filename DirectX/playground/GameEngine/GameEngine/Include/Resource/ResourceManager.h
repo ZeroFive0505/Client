@@ -5,6 +5,7 @@
 #include "Material/MaterialManager.h"
 #include "Texture/TextureManager.h"
 #include "Animation/AnimationManager.h"
+#include "Animation/AnimationManager3D.h"
 #include "Sound/SoundManager.h"
 #include "Font/FontManager.h"
 #include "Particle/ParticleManager.h"
@@ -20,6 +21,7 @@ private:
 	CMaterialManager* m_MaterialManager;
 	CTextureManager* m_TextureManger;
 	CAnimationManager* m_AnimationManager;
+	CAnimationManager3D* m_AnimationManager3D;
 	CSoundManager* m_SoundManager;
 	CFontManager* m_FontManager;
 	CParticleManager* m_ParticleManager;
@@ -30,6 +32,16 @@ public:
 
 public: // =========================== Mesh ===========================
 	class CMesh* FindMesh(const std::string& name);
+
+	bool LoadMesh(Mesh_Type type, const std::string& name, const TCHAR* fileName,
+		const std::string& pathName = MESH_PATH, class CScene* scene = nullptr);
+	bool LoadMeshFullPath(Mesh_Type type, const std::string& name, const TCHAR* fullPath, class CScene* scene = nullptr);
+	bool LoadMeshMultibyte(Mesh_Type type, const std::string& name, const char* fileName,
+		const std::string& pathName = MESH_PATH, class CScene* scene = nullptr);
+	bool LoadMeshFullPathMultibyte(Mesh_Type type, const std::string& name, const char* fullPath, class CScene* scene = nullptr);
+	bool SetMeshSkeleton(const std::string& name, const std::string& skeletonName);
+	bool SetMeshSkeleton(const std::string& name, class CSkeleton* skeleton);
+
 
 	void ReleaseMesh(const std::string& name);
 
@@ -157,6 +169,32 @@ public: // =========================== Particle ===========================
 	bool CreateParticle(const std::string& name);
 	CParticle* FindParticle(const std::string& name);
 	void ReleaseParticle(const std::string& name);
+
+public: // =========================== Animation3D ===========================
+	bool LoadAnimationSequence(const std::string& name, bool loop,
+		struct _tagFbxAnimationClip* clip, class CScene* scene = nullptr);
+	bool LoadAnimationSequence(const std::string& name, bool loop,
+		int startFrame, int endFrame, float playTime,
+		const std::vector<BoneKeyFrame*>& vecFrame, class CScene* scene = nullptr);
+	bool LoadAnimationSequence(bool loop, const std::string& name, const TCHAR* fileName,
+		const std::string& pathName = ANIMATION_PATH, class CScene* scene = nullptr);
+	bool LoadAnimationSequenceFullPath(bool loop, const std::string& name, const TCHAR* fullPath, class CScene* scene = nullptr);
+	bool LoadAnimationSequenceMultibyte(bool loop, const std::string& name, const char* fileName,
+		const std::string& pathName = ANIMATION_PATH, class CScene* scene = nullptr);
+	bool LoadAnimationSequenceFullPathMultibyte(bool loop, const std::string& name, const char* fullPath, class CScene* scene = nullptr);
+	CAnimationSequence* FindAnimationSequence(const std::string& name);
+	void ReleaseAnimationSequence3D(const std::string& name);
+
+	bool LoadSkeleton(const std::string& name, const TCHAR* fileName,
+		const std::string& pathName = ANIMATION_PATH, class CScene* scene = nullptr);
+	bool LoadSkeletonFullPath(const std::string& name, const TCHAR* fullPath, class CScene* scene = nullptr);
+	bool LoadSkeletonMulitybyte(const std::string& name, const char* fileName,
+		const std::string& pathName = ANIMATION_PATH, class CScene* scene = nullptr);
+	bool LoadSkeletonFullPathMultibyte(const std::string& name, const char* fullPath,
+		class CScene* scene = nullptr);
+
+	CSkeleton* FindSkeleton(const std::string& name);
+	void ReleaseSkeleton(const std::string& name);
 
 	DECLARE_SINGLE(CResourceManager)
 };

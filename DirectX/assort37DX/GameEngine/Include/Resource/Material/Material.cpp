@@ -5,9 +5,18 @@
 #include "../../Scene/SceneResource.h"
 #include "../../Render/RenderManager.h"
 #include "../../Render/RenderState.h"
+#include "../Shader/MaterialConstantBuffer.h"
+#include "MaterialManager.h"
 
 CMaterial::CMaterial()	:
 	m_BaseColor(Vector4::White),
+	m_AmbientColor(Vector4(0.2f, 0.2f, 0.2f, 1.f)),
+	m_SpecularColor(Vector4::White),
+	m_EmissiveColor(Vector4::Black),
+	m_Animation3D(false),
+	m_SpecularTex(false),
+	m_EmissiveTex(false),
+	m_Bump(false),
 	m_Scene(nullptr),
 	m_CBuffer(nullptr),
 	m_Opacity(1.f),
@@ -40,6 +49,43 @@ CMaterial::~CMaterial()
 	}
 
 	SAFE_DELETE(m_CBuffer);
+}
+
+void CMaterial::CreateConstantBuffer()
+{
+	SAFE_DELETE(m_CBuffer);
+
+	m_CBuffer = new CMaterialConstantBuffer;
+
+	m_CBuffer->Init();
+}
+
+void CMaterial::EnableBump()
+{
+	m_Bump = true;
+
+	m_CBuffer->SetBump(true);
+}
+
+void CMaterial::EnableAnimation3D()
+{
+	m_Animation3D = true;
+
+	m_CBuffer->SetAnimation3D(true);
+}
+
+void CMaterial::EnableSpecularTex()
+{
+	m_SpecularTex = true;
+
+	m_CBuffer->SetSpecularTex(true);
+}
+
+void CMaterial::EnableEmissiveTex()
+{
+	m_EmissiveTex = true;
+
+	m_CBuffer->SetEmissiveTex(true);
 }
 
 void CMaterial::SetRenderState(CRenderState* State)
@@ -90,6 +136,41 @@ void CMaterial::SetBaseColor(float r, float g, float b, float a)
 	m_BaseColor = Vector4(r, g, b, a);
 }
 
+void CMaterial::SetAmbientColor(const Vector4& Color)
+{
+	m_AmbientColor = Color;
+}
+
+void CMaterial::SetAmbientColor(float r, float g, float b, float a)
+{
+	m_AmbientColor = Vector4(r, g, b, a);
+}
+
+void CMaterial::SetSpecularColor(const Vector4& Color)
+{
+	m_SpecularColor = Color;
+}
+
+void CMaterial::SetSpecularColor(float r, float g, float b, float a)
+{
+	m_SpecularColor = Vector4(r, g, b, a);
+}
+
+void CMaterial::SetEmissiveColor(const Vector4& Color)
+{
+	m_EmissiveColor = Color;
+}
+
+void CMaterial::SetEmissiveColor(float r, float g, float b, float a)
+{
+	m_EmissiveColor = Vector4(r, g, b, a);
+}
+
+void CMaterial::SetSpecularPower(float Power)
+{
+	m_SpecularColor.w = Power;
+}
+
 void CMaterial::AddTexture(int Register, int ShaderType, const std::string& Name, CTexture* Texture)
 {
 	m_TextureInfo.push_back(MaterialTextureInfo());
@@ -132,10 +213,26 @@ void CMaterial::AddTexture(int Register, int ShaderType, const std::string& Name
 	m_TextureInfo[Index].ShaderType = ShaderType;
 }
 
-void CMaterial::AddTextureFullPath(int Register, int ShaderType, const std::string& Name, const TCHAR* FullPath)
+void CMaterial::AddTextureFullPath(int Register, int ShaderType, 
+	const std::string& Name, const TCHAR* FullPath)
 {
-	/*if (!CResourceManager::GetInst()->LoadTexture(Name, FileName, PathName))
-		return;
+	CTexture* Texture = nullptr;
+
+	if (!m_Scene)
+	{
+		if (!CResourceManager::GetInst()->LoadTextureFullPath(Name, FullPath))
+			return;
+
+		Texture = CResourceManager::GetInst()->FindTexture(Name);
+	}
+
+	else
+	{
+		if (!m_Scene->GetResource()->LoadTextureFullPath(Name, FullPath))
+			return;
+
+		Texture = m_Scene->GetResource()->FindTexture(Name);
+	}
 
 	m_TextureInfo.push_back(MaterialTextureInfo());
 
@@ -143,14 +240,31 @@ void CMaterial::AddTextureFullPath(int Register, int ShaderType, const std::stri
 
 	m_TextureInfo[Index].Register = Register;
 	m_TextureInfo[Index].Name = Name;
-	m_TextureInfo[Index].Texture = CResourceManager::GetInst()->FindTexture(Name);
-	m_TextureInfo[Index].ShaderType = ShaderType;*/
+	m_TextureInfo[Index].Texture = Texture;
+	m_TextureInfo[Index].ShaderType = ShaderType;
 }
 
-void CMaterial::AddTexture(int Register, int ShaderType, const std::string& Name, const std::vector<TCHAR*>& vecFileName, const std::string& PathName)
+void CMaterial::AddTexture(int Register, int ShaderType, 
+	const std::string& Name, const std::vector<TCHAR*>& vecFileName, 
+	const std::string& PathName)
 {
-	/*if (!CResourceManager::GetInst()->LoadTexture(Name, FileName, PathName))
-		return;
+	CTexture* Texture = nullptr;
+
+	if (!m_Scene)
+	{
+		if (!CResourceManager::GetInst()->LoadTexture(Name, vecFileName, PathName))
+			return;
+
+		Texture = CResourceManager::GetInst()->FindTexture(Name);
+	}
+
+	else
+	{
+		if (!m_Scene->GetResource()->LoadTexture(Name, vecFileName, PathName))
+			return;
+
+		Texture = m_Scene->GetResource()->FindTexture(Name);
+	}
 
 	m_TextureInfo.push_back(MaterialTextureInfo());
 
@@ -158,8 +272,8 @@ void CMaterial::AddTexture(int Register, int ShaderType, const std::string& Name
 
 	m_TextureInfo[Index].Register = Register;
 	m_TextureInfo[Index].Name = Name;
-	m_TextureInfo[Index].Texture = CResourceManager::GetInst()->FindTexture(Name);
-	m_TextureInfo[Index].ShaderType = ShaderType;*/
+	m_TextureInfo[Index].Texture = Texture;
+	m_TextureInfo[Index].ShaderType = ShaderType;
 }
 
 void CMaterial::SetTexture(int Index, int Register, int ShaderType, const std::string& Name, CTexture* Texture)
@@ -237,6 +351,9 @@ void CMaterial::Render()
 	if (m_CBuffer)
 	{
 		m_CBuffer->SetBaseColor(m_BaseColor);
+		m_CBuffer->SetAmbientColor(m_AmbientColor);
+		m_CBuffer->SetSpecularColor(m_SpecularColor);
+		m_CBuffer->SetEmissiveColor(m_EmissiveColor);
 		m_CBuffer->SetOpacity(m_Opacity);
 		
 		m_CBuffer->UpdateCBuffer();
@@ -280,7 +397,7 @@ void CMaterial::Reset()
 	}
 }
 
-CMaterial* CMaterial::Clone()
+CMaterial* CMaterial::Clone()	const
 {
 	return new CMaterial(*this);
 }
@@ -295,7 +412,14 @@ void CMaterial::Save(FILE* File)
 	fwrite(ShaderName.c_str(), sizeof(char), Length, File);
 
 	fwrite(&m_BaseColor, sizeof(Vector4), 1, File);
+	fwrite(&m_AmbientColor, sizeof(Vector4), 1, File);
+	fwrite(&m_SpecularColor, sizeof(Vector4), 1, File);
+	fwrite(&m_EmissiveColor, sizeof(Vector4), 1, File);
 	fwrite(&m_Opacity, sizeof(float), 1, File);
+	fwrite(&m_Animation3D, sizeof(bool), 1, File);
+	fwrite(&m_SpecularTex, sizeof(bool), 1, File);
+	fwrite(&m_EmissiveTex, sizeof(bool), 1, File);
+	fwrite(&m_Bump, sizeof(bool), 1, File);
 
 	for (int i = 0; i < (int)RenderState_Type::Max; ++i)
 	{
@@ -338,6 +462,8 @@ void CMaterial::Save(FILE* File)
 
 void CMaterial::Load(FILE* File)
 {
+	CreateConstantBuffer();
+
 	char	ShaderName[256] = {};
 
 	int	Length = 0;
@@ -348,7 +474,19 @@ void CMaterial::Load(FILE* File)
 	m_Shader = (CGraphicShader*)CResourceManager::GetInst()->FindShader(ShaderName);
 
 	fread(&m_BaseColor, sizeof(Vector4), 1, File);
+	fread(&m_AmbientColor, sizeof(Vector4), 1, File);
+	fread(&m_SpecularColor, sizeof(Vector4), 1, File);
+	fread(&m_EmissiveColor, sizeof(Vector4), 1, File);
 	fread(&m_Opacity, sizeof(float), 1, File);
+	fread(&m_Animation3D, sizeof(bool), 1, File);
+	fread(&m_SpecularTex, sizeof(bool), 1, File);
+	fread(&m_EmissiveTex, sizeof(bool), 1, File);
+	fread(&m_Bump, sizeof(bool), 1, File);
+
+	m_CBuffer->SetAnimation3D(m_Animation3D);
+	m_CBuffer->SetBump(m_Bump);
+	m_CBuffer->SetSpecularTex(m_SpecularTex);
+	m_CBuffer->SetEmissiveTex(m_EmissiveTex);
 
 	for (int i = 0; i < (int)RenderState_Type::Max; ++i)
 	{

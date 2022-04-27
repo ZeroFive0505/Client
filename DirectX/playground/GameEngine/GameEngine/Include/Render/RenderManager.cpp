@@ -141,7 +141,7 @@ bool CRenderManager::Init()
 
 void CRenderManager::Render()
 {
-	m_DepthDisable->SetState();
+	// m_DepthDisable->SetState();
 
 	{
 		auto iter = m_RenderLayerList.begin();
@@ -190,7 +190,7 @@ void CRenderManager::Render()
 		}
 	}
 
-	m_DepthDisable->ResetState();
+	// m_DepthDisable->ResetState();
 
 	m_DepthDisable->SetState();
 

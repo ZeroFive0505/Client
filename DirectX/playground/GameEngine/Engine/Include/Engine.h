@@ -24,13 +24,13 @@ private:
 
 	bool m_SceneChangeStart;
 
-	float m_ElapsedTime;
+	// float m_ElapsedTime;
 
 private:
-	bool m_Slow;
-	float m_SlowTime;
-	float m_SlowDuration;
-	float m_SlowScale;
+	// bool m_Slow;
+	// float m_SlowTime;
+	// float m_SlowDuration;
+	// float m_SlowScale;
 
 private:
 	float* m_NoiseSeed1D;
@@ -49,18 +49,18 @@ public:
 	void PerlinNoise1D();
 	void PerlinNoise2D();
 
-public:
-	inline bool IsSlowMotion() const
-	{
-		return m_Slow;
-	}
-
-	inline void SetSlowMotion(float duration, float scale)
-	{
-		m_Slow = true;
-		m_SlowTime = 0.0f;
-		m_SlowDuration = duration;
-	}
+//public:
+//	inline bool IsSlowMotion() const
+//	{
+//		return m_Slow;
+//	}
+//
+//	inline void SetSlowMotion(float duration, float scale)
+//	{
+//		m_Slow = true;
+//		m_SlowTime = 0.0f;
+//		m_SlowDuration = duration;
+//	}
 
 public:
 	inline float GetNoise1D(int x) const
@@ -151,6 +151,11 @@ public:
 	inline float GetDeltaTime() const
 	{
 		return m_Timer->GetDeltaTime();
+	}
+
+	inline float GetCurrentPlayTime() const
+	{
+		return m_Timer->GetCurrentPlayTime();
 	}
 
 public:

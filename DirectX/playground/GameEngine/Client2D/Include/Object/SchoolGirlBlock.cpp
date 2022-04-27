@@ -1,5 +1,4 @@
 #include "SchoolGirlBlock.h"
-#include "SchoolGirlPursue.h"
 
 CSchoolGirlBlock::CSchoolGirlBlock(CRCGEnemy* npc, CState* nextState) :
     CState(npc, nextState)

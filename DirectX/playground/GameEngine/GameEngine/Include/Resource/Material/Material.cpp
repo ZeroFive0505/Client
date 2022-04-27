@@ -4,9 +4,17 @@
 #include "../../Scene/SceneResource.h"
 #include "../../Render/RenderManager.h"
 #include "../../Render/RenderState.h"
+#include "../Shader/MaterialConstantBuffer.h"
 
 CMaterial::CMaterial() :
 	m_BaseColor(Vector4::White),
+	m_AmbientColor(Vector4(0.2f, 0.2f, 0.2f, 1.0f)),
+	m_SpecularColor(Vector4::White),
+	m_EmissiveColor(Vector4::Black),
+	m_Animation3D(false),
+	m_SpecularTex(false),
+	m_EmissiveTex(false),
+	m_Bump(false),
 	m_Scene(nullptr),
 	m_CBuffer(nullptr),
 	m_Opacity(1.0f),
@@ -41,6 +49,43 @@ CMaterial::~CMaterial()
 	}
 
 	SAFE_DELETE(m_CBuffer);
+}
+
+void CMaterial::CreateConstantBuffer()
+{
+	SAFE_DELETE(m_CBuffer);
+
+	m_CBuffer = new CMaterialConstantBuffer;
+
+	m_CBuffer->Init();
+}
+
+void CMaterial::EnableBump()
+{
+	m_Bump = true;
+
+	m_CBuffer->SetBump(true);
+}
+
+void CMaterial::EnableAnimation3D()
+{
+	m_Animation3D = true;
+
+	m_CBuffer->SetAnimation3D(true);
+}
+
+void CMaterial::EnableSpecularTex()
+{
+	m_SpecularTex = true;
+
+	m_CBuffer->SetSpecularTex(true);
+}
+
+void CMaterial::EnableEmissiveTex()
+{
+	m_EmissiveTex = true;
+
+	m_CBuffer->SetEmissiveTex(true);
 }
 
 void CMaterial::SetRenderState(CRenderState* state)
@@ -89,6 +134,41 @@ void CMaterial::SetBaseColor(float r, float g, float b, float a)
 	m_BaseColor = Vector4(r, g, b, a);
 }
 
+void CMaterial::SetAmbientColor(const Vector4& color)
+{
+	m_AmbientColor = color;
+}
+
+void CMaterial::SetAmbientColor(float r, float g, float b, float a)
+{
+	m_AmbientColor = Vector4(r, g, b, a);
+}
+
+void CMaterial::SetSpecularColor(const Vector4& color)
+{
+	m_SpecularColor = color;
+}
+
+void CMaterial::SetSpecularColor(float r, float g, float b, float a)
+{
+	m_SpecularColor = Vector4(r, g, b, a);
+}
+
+void CMaterial::SetEmissiveColor(const Vector4& color)
+{
+	m_EmissiveColor = color;
+}
+
+void CMaterial::SetEmissiveColor(float r, float g, float b, float a)
+{
+	m_EmissiveColor = Vector4(r, g, b, a);
+}
+
+void CMaterial::SetSpecularPower(float power)
+{
+	m_SpecularColor.w = power;
+}
+
 void CMaterial::AddTexture(int registerNum, int shaderType, const std::string& name, CTexture* texture)
 {
 	m_vecTextureInfo.push_back(sMaterialTextureInfo());
@@ -133,10 +213,25 @@ void CMaterial::AddTexture(int registerNum, int shaderType, const std::string& n
 	m_vecTextureInfo[index].shaderType = shaderType;
 }
 
-void CMaterial::AddTextureFullPath(int registerNum, int shaderType, const std::string& name, const TCHAR* fullPath)
+void CMaterial::AddTextureFullPath(int registerNum, int shaderType, 
+	const std::string& name, const TCHAR* fullPath)
 {
-	/*if (!CResourceManager::GetInst()->LoadTexture(name, fileName, pathName))
-		return;
+	CTexture* texture = nullptr;
+
+	if (!m_Scene)
+	{
+		if (!CResourceManager::GetInst()->LoadTextureFullPath(name, fullPath))
+			return;
+
+		texture = CResourceManager::GetInst()->FindTexture(name);
+	}
+	else
+	{
+		if (!m_Scene->GetSceneResource()->LoadTextureFullPath(name, fullPath))
+			return;
+
+		texture = m_Scene->GetSceneResource()->FindTexture(name);
+	}
 
 	m_vecTextureInfo.push_back(sMaterialTextureInfo());
 
@@ -144,14 +239,29 @@ void CMaterial::AddTextureFullPath(int registerNum, int shaderType, const std::s
 
 	m_vecTextureInfo[index].registerNum = registerNum;
 	m_vecTextureInfo[index].name = name;
-	m_vecTextureInfo[index].texture = CResourceManager::GetInst()->FindTexture(name);
-	m_vecTextureInfo[index].shaderType = shaderType;*/
+	m_vecTextureInfo[index].texture = texture;
+	m_vecTextureInfo[index].shaderType = shaderType;
 }
 
-void CMaterial::AddTexture(int registerNum, int shaderType, const std::string& name, const std::vector<TCHAR*>& vecFileName, const std::string& pathName)
+void CMaterial::AddTexture(int registerNum, int shaderType, const std::string& name, 
+	const std::vector<TCHAR*>& vecFileName, const std::string& pathName)
 {
-	/*if (!CResourceManager::GetInst()->LoadTexture(name, fileName, pathName))
-		return;
+	CTexture* texture = nullptr;
+
+	if (!m_Scene)
+	{
+		if (!CResourceManager::GetInst()->LoadTexture(name, vecFileName, pathName))
+			return;
+
+		texture = CResourceManager::GetInst()->FindTexture(name);
+	}
+	else
+	{
+		if (!m_Scene->GetSceneResource()->LoadTexture(name, vecFileName, pathName))
+			return;
+
+		texture = m_Scene->GetSceneResource()->FindTexture(name);
+	}
 
 	m_vecTextureInfo.push_back(sMaterialTextureInfo());
 
@@ -159,8 +269,8 @@ void CMaterial::AddTexture(int registerNum, int shaderType, const std::string& n
 
 	m_vecTextureInfo[index].registerNum = registerNum;
 	m_vecTextureInfo[index].name = name;
-	m_vecTextureInfo[index].texture = CResourceManager::GetInst()->FindTexture(name);
-	m_vecTextureInfo[index].shaderType = shaderType;*/
+	m_vecTextureInfo[index].texture = texture;
+	m_vecTextureInfo[index].shaderType = shaderType;
 }
 
 void CMaterial::SetTexture(int index, int registerNum, int shaderType, const std::string& name, CTexture* texture)
@@ -239,6 +349,9 @@ void CMaterial::Render()
 	if (m_CBuffer)
 	{
 		m_CBuffer->SetBaseColor(m_BaseColor);
+		m_CBuffer->SetAmbientColor(m_AmbientColor);
+		m_CBuffer->SetSpecularColor(m_SpecularColor);
+		m_CBuffer->SetEmissiveColor(m_EmissiveColor);
 		m_CBuffer->SetOpacity(m_Opacity);
 
 		m_CBuffer->UpdateCBuffer();
@@ -299,7 +412,14 @@ void CMaterial::Save(FILE* pFile)
 	fwrite(shaderName.c_str(), sizeof(char), length, pFile);
 
 	fwrite(&m_BaseColor, sizeof(Vector4), 1, pFile);
+	fwrite(&m_AmbientColor, sizeof(Vector4), 1, pFile);
+	fwrite(&m_SpecularColor, sizeof(Vector4), 1, pFile);
+	fwrite(&m_EmissiveColor, sizeof(Vector4), 1, pFile);
 	fwrite(&m_Opacity, sizeof(float), 1, pFile);
+	fwrite(&m_Animation3D, sizeof(bool), 1, pFile);
+	fwrite(&m_SpecularTex, sizeof(bool), 1, pFile);
+	fwrite(&m_EmissiveTex, sizeof(bool), 1, pFile);
+	fwrite(&m_Bump, sizeof(bool), 1, pFile);
 
 	// 렌더 스테이트도 이름으로 저장한다.
 	for (int i = 0; i < (int)RenderState_Type::MAX; i++)
@@ -346,6 +466,8 @@ void CMaterial::Save(FILE* pFile)
 
 void CMaterial::Load(FILE* pFile)
 {
+	CreateConstantBuffer();
+
 	// 쉐이더 이름을 받아온다.
 	char shaderName[256] = {};
 
@@ -358,7 +480,19 @@ void CMaterial::Load(FILE* pFile)
 	m_Shader = (CGraphicShader*)CResourceManager::GetInst()->FindShader(shaderName);
 
 	fread(&m_BaseColor, sizeof(Vector4), 1, pFile);
+	fread(&m_AmbientColor, sizeof(Vector4), 1, pFile);
+	fread(&m_SpecularColor, sizeof(Vector4), 1, pFile);
+	fread(&m_EmissiveColor, sizeof(Vector4), 1, pFile);
 	fread(&m_Opacity, sizeof(float), 1, pFile);
+	fread(&m_Animation3D, sizeof(bool), 1, pFile);
+	fread(&m_SpecularTex, sizeof(bool), 1, pFile);
+	fread(&m_EmissiveTex, sizeof(bool), 1, pFile);
+	fread(&m_Bump, sizeof(bool), 1, pFile);
+
+	m_CBuffer->SetAnimation3D(m_Animation3D);
+	m_CBuffer->SetBump(m_Bump);
+	m_CBuffer->SetSpecularTex(m_SpecularTex);
+	m_CBuffer->SetEmissiveTex(m_EmissiveTex);
 
 	// 렌더스테이트 정보를 불러온다.
 	for (int i = 0; i < (int)RenderState_Type::MAX; i++)

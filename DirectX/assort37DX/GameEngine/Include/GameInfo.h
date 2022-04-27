@@ -57,6 +57,7 @@
 #define	ANIMATION_PATH	"Animation"
 #define	SCENE_PATH		"Scene"
 #define	SOUND_PATH		"Sound"
+#define	MESH_PATH		"Mesh"
 
 #define	SAFE_DELETE(p)	if(p)	{ delete p; p = nullptr; }
 #define	SAFE_DELETE_ARRAY(p)	if(p)	{ delete[] p; p = nullptr; }
@@ -110,16 +111,19 @@ struct VertexBuffer
 	ID3D11Buffer* Buffer;
 	int		Size;
 	int		Count;
+	void* Data;
 
 	VertexBuffer() :
 		Buffer(nullptr),
 		Size(0),
-		Count(0)
+		Count(0),
+		Data(nullptr)
 	{
 	}
 
 	~VertexBuffer()
 	{
+		SAFE_DELETE_ARRAY(Data);
 		SAFE_RELEASE(Buffer);
 	}
 };
@@ -130,17 +134,20 @@ struct IndexBuffer
 	int		Size;
 	int		Count;
 	DXGI_FORMAT	Fmt;
+	void* Data;
 
 	IndexBuffer() :
 		Buffer(nullptr),
 		Size(0),
 		Count(0),
-		Fmt(DXGI_FORMAT_UNKNOWN)
+		Fmt(DXGI_FORMAT_UNKNOWN),
+		Data(nullptr)
 	{
 	}
 
 	~IndexBuffer()
 	{
+		SAFE_DELETE_ARRAY(Data);
 		SAFE_RELEASE(Buffer);
 	}
 };
@@ -153,6 +160,20 @@ struct MeshContainer
 	std::vector<IndexBuffer>	vecIB;
 	D3D11_PRIMITIVE_TOPOLOGY	Primitive;
 };
+
+struct MeshSlot
+{
+	VertexBuffer* VB;
+	IndexBuffer* IB;
+	D3D11_PRIMITIVE_TOPOLOGY	Primitive;
+
+	MeshSlot() :
+		VB(nullptr),
+		IB(nullptr)
+	{
+	}
+};
+
 
 struct TransformCBuffer
 {
@@ -187,8 +208,15 @@ struct VertexUV
 struct MaterialCBuffer
 {
 	Vector4	BaseColor;
+	Vector4	AmbientColor;
+	Vector4	SpecularColor;
+	Vector4	EmissiveColor;
 	float	Opacity;
 	int		PaperBurnEnable;
+	int		BumpEnable;
+	int		Animation3DEnable;
+	int		SpecularTex;
+	int		EmissiveTex;
 	Vector2	Empty;
 };
 
@@ -427,3 +455,32 @@ struct NavResultData
 	std::function<void(const std::list<Vector3>&)>	Callback;
 	std::list<Vector3>	vecPath;
 };
+
+struct Vertex3D
+{
+	Vector3	Pos;
+	Vector3	Normal;
+	Vector2	UV;
+	Vector3	Tangent;
+	Vector3	Binormal;
+	Vector4	BlendWeight;
+	Vector4	BlendIndex;
+};
+
+
+struct AnimationCBuffer
+{
+	int	BoneCount;
+	int	CurrentFrame;
+	int	NextFrame;
+	float	Ratio;
+	int	FrameCount;
+	int	RowIndex;
+	int	ChangeAnimation;
+	float	ChangeRatio;
+	int		ChangeFrameCount;
+	Vector3	Empty;
+};
+
+
+

@@ -3,6 +3,7 @@
 #include "../Widget/RCGEnemyHUD.h"
 #include "MTIdle.h"
 #include "MTPursue.h"
+#include "Engine.h"
 
 CMT::CMT() :
     m_State(nullptr),
@@ -244,15 +245,18 @@ void CMT::Update(float deltaTime)
 
     if (CheckState(EEnemyState::DEFEADTED))
     {
+        m_BlinkTime += deltaTime;
+
         if (m_HalfOpacity)
             m_Sprite->SetOpacity(0.5f);
         else
             m_Sprite->SetOpacity(1.0f);
 
-        m_BlinkTime += deltaTime;
-
-        if (m_BlinkTime >= 0.25f)
+        if (m_BlinkTime >= 0.1f)
+        {
             m_HalfOpacity = !m_HalfOpacity;
+            m_BlinkTime = 0.0f;
+        }
     }
 
     if (m_CurrentState != (int)EEnemyState::NORMAL)
@@ -420,7 +424,7 @@ void CMT::HitBoxCheck(const sCollisionResult& result)
 
                 if (player->OnGuard())
                 {
-                    if (m_CurrentTime - player->GetGuardStartTime() <= 1.7f)
+                    if (CEngine::GetInst()->GetCurrentPlayTime() - player->GetGuardStartTime() <= 0.1f)
                     {
                         PushState(EEnemyState::PARALYSIS, m_CurrentTime + 1.0f);
                         m_Sprite->ChangeAnimation("Hit1");

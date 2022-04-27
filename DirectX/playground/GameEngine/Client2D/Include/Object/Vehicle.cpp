@@ -4,6 +4,7 @@
 #include "Scene/Scene.h"
 #include "Scene/SceneResource.h"
 #include "FlowField.h"
+#include "Path.h"
 
 CVehicle::CVehicle()
 {
@@ -38,9 +39,13 @@ bool CVehicle::Init()
 
 	m_Mass = 1.0f;
 
-	m_MaxSpeed = 1.0f;
+	m_MaxSpeed = 10.0f;
 
-	m_MaxForce = 0.01f;
+	m_MaxForce = 10.0f;
+	
+	m_Velocity.x = 5.0f;
+
+	m_MaxDist = FLT_MAX;
 
 	return true;
 }
@@ -49,10 +54,19 @@ void CVehicle::Update(float deltaTime)
 {
 	CGameObject::Update(deltaTime);
 
-	Follow();
+	// Follow();
 	// Arrive(CInput::GetInst()->GetMouseWorld2DPos(), deltaTime);
 	// Seek(CInput::GetInst()->GetMouseWorld2DPos(), deltaTime);
 	// Flee(CInput::GetInst()->GetMouseWorld2DPos(), deltaTime);
+	PathFollow(deltaTime);
+
+	m_Velocity += m_Acceleration;
+
+	m_Velocity.x = std::fmaxf(-m_MaxSpeed, std::fminf(m_Velocity.x, m_MaxSpeed));
+	m_Velocity.y = std::fmaxf(-m_MaxSpeed, std::fminf(m_Velocity.y, m_MaxSpeed));
+
+	AddWorldPos(m_Velocity.x, m_Velocity.y, 0.0f);
+	m_Acceleration *= 0.0f;
 
 	CheckEdge();
 }
@@ -151,6 +165,76 @@ void CVehicle::Follow()
 	ApplyForce(steer);
 }
 
+void CVehicle::PathFollow(float deltaTime)
+{
+	if (m_Path)
+	{
+		std::vector<Vector2> vecPoints = m_Path->GetVecPoints();
+
+		size_t size = vecPoints.size();
+
+		m_MaxDist = FLT_MAX;
+
+		Vector2 target;
+		Vector2 predict = m_Velocity;
+		Vector2 normal;
+
+		predict.Normalize();
+		predict *= 10.0f;
+
+		Vector3 worldPos = GetWorldPos();
+
+		Vector2 predictLoc = Vector2(worldPos.x, worldPos.y) + predict;
+
+		for (size_t i = 0; i < size - 1; i++)
+		{
+			Vector2 pathStart = vecPoints[i];
+			Vector2 pathEnd = vecPoints[i + 1];
+
+			Vector2 a = predictLoc - pathStart;
+			Vector2 b = pathEnd - pathStart;
+
+
+			b.Normalize();
+
+			b *= a.Dot(b);
+
+			Vector2 normalPoint = pathStart + b;
+
+			if (normalPoint.x < a.x || normalPoint.x > b.x)
+			{
+				normalPoint = pathEnd;
+			}
+
+			float dist = predictLoc.Distance(normalPoint);
+
+			if (dist < m_MaxDist)
+			{
+				m_MaxDist = dist;
+
+				normal = normalPoint;
+
+				Vector2 dir = b - a;
+
+				dir.Normalize();
+
+				dir *= 1.5f;
+
+				target = normalPoint;
+
+				target += dir;
+
+				// Seek(target, deltaTime);
+			}
+			//else
+			//	ApplyForce(m_Velocity * deltaTime);
+		}
+
+		if (m_MaxDist > m_Path->GetPathRadius())
+			Seek(target, deltaTime);
+	}
+}
+
 void CVehicle::ApplyForce(const Vector2& force)
 {
 	Vector2 accel = force / m_Mass;
@@ -179,7 +263,7 @@ void CVehicle::CheckEdge()
 {
 	if (m_Sprite->GetWorldPos().x < 0.0f)
 		m_Sprite->SetWorldPos(m_Resolution.x - 1.0f, m_Sprite->GetWorldPos().y, 0.0f);
-	
+
 	if (m_Sprite->GetWorldPos().x >= m_Resolution.x)
 		m_Sprite->SetWorldPos(0.0f, m_Sprite->GetWorldPos().y, 0.0f);
 

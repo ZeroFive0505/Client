@@ -11,7 +11,8 @@ CResourceManager::CResourceManager() :
 	m_AnimationManager(nullptr),
 	m_SoundManager(nullptr),
 	m_FontManager(nullptr),
-	m_ParticleManager(nullptr)
+	m_ParticleManager(nullptr),
+	m_AnimationManager3D(nullptr)
 {
 
 }
@@ -26,6 +27,7 @@ CResourceManager::~CResourceManager()
 	SAFE_DELETE(m_ShaderManager);
 	SAFE_DELETE(m_MeshManager);
 	SAFE_DELETE(m_TextureManger);
+	SAFE_DELETE(m_AnimationManager3D);
 }
 
 bool CResourceManager::Init()
@@ -72,6 +74,11 @@ bool CResourceManager::Init()
 	if (!m_ParticleManager->Init())
 		return false;
 
+	m_AnimationManager3D = new CAnimationManager3D;
+
+	if (!m_AnimationManager3D->Init())
+		return false;
+
 	return true;
 }
 
@@ -83,6 +90,45 @@ void CResourceManager::Update()
 CMesh* CResourceManager::FindMesh(const std::string& name)
 {
 	return m_MeshManager->FindMesh(name);
+}
+
+bool CResourceManager::LoadMesh(Mesh_Type type, const std::string& name, const TCHAR* fileName, const std::string& pathName,
+	class CScene* scene)
+{
+	return m_MeshManager->LoadMesh(type, name, fileName, pathName, scene);
+}
+
+bool CResourceManager::LoadMeshFullPath(Mesh_Type type, const std::string& name, const TCHAR* fullPath,
+	class CScene* scene)
+{
+	return m_MeshManager->LoadMeshFullPath(type, name, fullPath, scene);
+}
+
+bool CResourceManager::LoadMeshMultibyte(Mesh_Type type, const std::string& name, const char* fileName, const std::string& pathName,
+	class CScene* scene)
+{
+	return m_MeshManager->LoadMeshMultibyte(type, name, fileName, pathName, scene);
+}
+
+bool CResourceManager::LoadMeshFullPathMultibyte(Mesh_Type type, const std::string& name, const char* fullPath,
+	class CScene* scene )
+{
+	return m_MeshManager->LoadMeshFullPathMultibyte(type, name, fullPath, scene);
+}
+
+bool CResourceManager::SetMeshSkeleton(const std::string& name, const std::string& skeletonName)
+{
+	CSkeleton* skeleton = FindSkeleton(skeletonName);
+
+	if (!skeleton)
+		return false;
+
+	return SetMeshSkeleton(name, skeleton);
+}
+
+bool CResourceManager::SetMeshSkeleton(const std::string& name, CSkeleton* skeleton)
+{
+	return m_MeshManager->SetMeshSkeleton(name, skeleton);
 }
 
 void CResourceManager::ReleaseMesh(const std::string& name)
@@ -390,4 +436,74 @@ CParticle* CResourceManager::FindParticle(const std::string& name)
 void CResourceManager::ReleaseParticle(const std::string& name)
 {
 	m_ParticleManager->ReleaseParticle(name);
+}
+
+bool CResourceManager::LoadAnimationSequence(const std::string& name, bool loop, _tagFbxAnimationClip* clip, CScene* scene)
+{
+	return m_AnimationManager3D->LoadAnimationSequence(name, loop, clip, scene);
+}
+
+bool CResourceManager::LoadAnimationSequence(const std::string& name, bool loop, int startFrame, int endFrame, float playTime, const std::vector<BoneKeyFrame*>& vecFrame, CScene* scene)
+{
+	return m_AnimationManager3D->LoadAnimationSequence(name, loop, startFrame, endFrame, playTime, vecFrame, scene);
+}
+
+bool CResourceManager::LoadAnimationSequence(bool loop, const std::string& name, const TCHAR* fileName, const std::string& pathName, CScene* scene)
+{
+	return m_AnimationManager3D->LoadAnimationSequence(loop, name, fileName, pathName, scene);
+}
+
+bool CResourceManager::LoadAnimationSequenceFullPath(bool loop, const std::string& name, const TCHAR* fullPath, CScene* scene)
+{
+	return m_AnimationManager3D->LoadAnimationSequenceFullPath(loop, name, fullPath, scene);
+}
+
+bool CResourceManager::LoadAnimationSequenceMultibyte(bool loop, const std::string& name, const char* fileName, const std::string& pathName, CScene* scene)
+{
+	return m_AnimationManager3D->LoadAnimationSequenceMultibyte(loop, name, fileName, pathName, scene);
+}
+
+bool CResourceManager::LoadAnimationSequenceFullPathMultibyte(bool loop, const std::string& name, const char* fullPath, CScene* scene)
+{
+	return m_AnimationManager3D->LoadAnimationSequenceFullPathMultibyte(loop, name, fullPath, scene);
+}
+
+CAnimationSequence* CResourceManager::FindAnimationSequence(const std::string& name)
+{
+	return m_AnimationManager3D->FindAnimationSequence(name);
+}
+
+void CResourceManager::ReleaseAnimationSequence3D(const std::string& name)
+{
+	m_AnimationManager3D->ReleaseSequence(name);
+}
+
+bool CResourceManager::LoadSkeleton(const std::string& name, const TCHAR* fileName, const std::string& pathName, CScene* scene)
+{
+	return m_AnimationManager3D->LoadSkeleton(name, fileName, pathName, scene);
+}
+
+bool CResourceManager::LoadSkeletonFullPath(const std::string& name, const TCHAR* fullPath, CScene* scene)
+{
+	return m_AnimationManager3D->LoadSkeletonFullPath(name, fullPath, scene);
+}
+
+bool CResourceManager::LoadSkeletonMulitybyte(const std::string& name, const char* fileName, const std::string& pathName, CScene* scene)
+{
+	return m_AnimationManager3D->LoadSkeletonMulitybyte(name, fileName, pathName, scene);
+}
+
+bool CResourceManager::LoadSkeletonFullPathMultibyte(const std::string& name, const char* fullPath, CScene* scene)
+{
+	return m_AnimationManager3D->LoadSkeletonFullPathMultibyte(name, fullPath, scene);
+}
+
+CSkeleton* CResourceManager::FindSkeleton(const std::string& name)
+{
+	return m_AnimationManager3D->FindSkeleton(name);
+}
+
+void CResourceManager::ReleaseSkeleton(const std::string& name)
+{
+	m_AnimationManager3D->ReleaseSkeleton(name);
 }

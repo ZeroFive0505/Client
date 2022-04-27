@@ -11,5 +11,12 @@ protected:
 
 public:
 	virtual bool Init();
+	virtual bool LoadMeshFullPathMultibyte(const char* FullPath);
+
+
+public:
+	virtual bool ConvertFBX(class CFBXLoader* Loader, const char* FullPath);
+	virtual bool SaveMesh(FILE* File);
+	virtual bool LoadMesh(FILE* File);
 };
 

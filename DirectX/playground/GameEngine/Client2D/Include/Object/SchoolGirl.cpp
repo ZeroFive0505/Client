@@ -3,6 +3,7 @@
 #include "../Widget/RCGEnemyHUD.h"
 #include "SchoolGirlIdle.h"
 #include "SchoolGirlPursue.h"
+#include "Engine.h"
 
 CSchoolGirl::CSchoolGirl()
 {
@@ -213,7 +214,7 @@ void CSchoolGirl::Update(float deltaTime)
 
 	if (!m_OnGround && m_Velocity.y <= 0.0f && m_CurrentMove == ESchoolGirlMoveSet::TORNATOKICK)
 	{
-		if (m_Body->GetWorldPos().SqrDistance(m_Bottom->GetWorldPos()) <= 30000.0f)
+		if (m_Body->GetWorldPos().SqrDistance(m_Bottom->GetWorldPos()) <= 22500.0f)
 		{
 			m_Sprite->ChangeAnimation("Tornadokick_end");
 		}
@@ -221,15 +222,18 @@ void CSchoolGirl::Update(float deltaTime)
 
 	if (CheckState(EEnemyState::DEFEADTED))
 	{
+		m_BlinkTime += deltaTime;
+
 		if (m_HalfOpacity)
 			m_Sprite->SetOpacity(0.5f);
 		else
 			m_Sprite->SetOpacity(1.0f);
 
-		m_BlinkTime += deltaTime;
-
-		if (m_BlinkTime >= 0.25f)
+		if (m_BlinkTime >= 0.1f)
+		{
 			m_HalfOpacity = !m_HalfOpacity;
+			m_BlinkTime = 0.0f;
+		}
 	}
 
 	if (m_CurrentState != (int)EEnemyState::NORMAL)
@@ -421,7 +425,7 @@ void CSchoolGirl::HitBoxCheck(const sCollisionResult& result)
 
 				if (player->OnGuard())
 				{
-					if (m_CurrentTime - player->GetGuardStartTime() <= 1.7f)
+					if (CEngine::GetInst()->GetCurrentPlayTime() - player->GetGuardStartTime() <= 0.1f)
 					{
 						PushState(EEnemyState::PARALYSIS, m_CurrentTime + 1.0f);
 						m_Sprite->ChangeAnimation("Hit1");

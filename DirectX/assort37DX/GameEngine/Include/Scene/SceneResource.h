@@ -6,6 +6,8 @@
 #include "../Resource/Material/Material.h"
 #include "../Resource/Texture/Texture.h"
 #include "../Resource/Animation/AnimationSequence2D.h"
+#include "../Resource/Animation/AnimationSequence.h"
+#include "../Resource/Animation/Skeleton.h"
 #include "../Resource/ResourceManager.h"
 #include "../Resource/Sound/Sound.h"
 #include "../Resource/Particle/Particle.h"
@@ -29,9 +31,21 @@ private:
 	std::unordered_map<std::string, CSharedPtr<CAnimationSequence2D>>	m_mapSequence2D;
 	std::unordered_map<std::string, CSharedPtr<CSound>>		m_mapSound;
 	std::unordered_map<std::string, CSharedPtr<CParticle>>		m_mapParticle;
+	std::unordered_map<std::string, CSharedPtr<CAnimationSequence>>	m_mapSequence;
+	std::unordered_map<std::string, CSharedPtr<CSkeleton>>	m_mapSkeleton;
 
 public:	// =================== Mesh =====================
 
+	bool LoadMesh(Mesh_Type Type, const std::string& Name, const TCHAR* FileName,
+		const std::string& PathName = MESH_PATH);
+	bool LoadMeshFullPath(Mesh_Type Type, const std::string& Name,
+		const TCHAR* FullPath);
+	bool LoadMeshMultibyte(Mesh_Type Type, const std::string& Name, const char* FileName,
+		const std::string& PathName = MESH_PATH);
+	bool LoadMeshFullPathMultibyte(Mesh_Type Type, const std::string& Name,
+		const char* FullPath);
+	bool SetMeshSkeleton(const std::string& Name, const std::string& SkeletonName);
+	bool SetMeshSkeleton(const std::string& Name, class CSkeleton* Skeleton);
 
 	CMesh* FindMesh(const std::string& Name);
 
@@ -118,5 +132,27 @@ public:	// =================== Sound =====================
 public:	// =================== Particle =====================
 	bool CreateParticle(const std::string& Name);
 	CParticle* FindParticle(const std::string& Name);
+
+public:	// =================== Sequence3D =====================
+	bool LoadAnimationSequence(const std::string& Name, bool Loop,
+		struct _tagFbxAnimationClip* Clip);
+	bool LoadAnimationSequence(const std::string& Name, bool Loop,
+		int StartFrame, int EndFrame, float PlayTime,
+		const std::vector<BoneKeyFrame*>& vecFrame);
+	bool LoadAnimationSequence(bool Loop, const std::string& Name, const TCHAR* FileName,
+		const std::string& PathName = ANIMATION_PATH);
+	bool LoadAnimationSequenceFullPath(bool Loop, const std::string& Name, const TCHAR* FullPath);
+	bool LoadAnimationSequenceMultibyte(bool Loop, const std::string& Name, const char* FileName,
+		const std::string& PathName = ANIMATION_PATH);
+	bool LoadAnimationSequenceFullPathMultibyte(bool Loop, const std::string& Name, const char* FullPath);
+	CAnimationSequence* FindAnimationSequence(const std::string& Name);
+
+	bool LoadSkeleton(const std::string& Name, const TCHAR* FileName,
+		const std::string& PathName = ANIMATION_PATH);
+	bool LoadSkeletonFullPath(const std::string& Name, const TCHAR* FullPath);
+	bool LoadSkeletonMultibyte(const std::string& Name, const char* FileName,
+		const std::string& PathName = ANIMATION_PATH);
+	bool LoadSkeletonFullPathMultibyte(const std::string& Name, const char* FullPath);
+	CSkeleton* FindSkeleton(const std::string& Name);
 };
 

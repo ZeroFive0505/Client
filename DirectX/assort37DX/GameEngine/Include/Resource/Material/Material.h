@@ -30,7 +30,10 @@ struct RenderCallback
 class CMaterial :
     public CRef
 {
-friend class CMaterialManager;
+    friend class CMaterialManager;
+    friend class CMesh;
+    friend class CStaticMeshComponent;
+    friend class CAnimationMeshComponent;
 
 protected:
     CMaterial();
@@ -50,7 +53,14 @@ protected:
     CSharedPtr<CGraphicShader>  m_Shader;
     std::vector<MaterialTextureInfo>    m_TextureInfo;
     Vector4     m_BaseColor;
+    Vector4		m_AmbientColor;
+    Vector4		m_SpecularColor;
+    Vector4     m_EmissiveColor;
     float       m_Opacity;
+    bool        m_Animation3D;
+    bool        m_SpecularTex;
+    bool        m_EmissiveTex;
+    bool        m_Bump;
     CMaterialConstantBuffer* m_CBuffer;
     CSharedPtr<class CRenderState>  m_RenderStateArray[(int)RenderState_Type::Max];
     std::list<RenderCallback*>    m_RenderCallback;
@@ -60,6 +70,8 @@ private:
     {
         m_CBuffer = Buffer->Clone();
     }
+
+    void CreateConstantBuffer();
 
 public:
     CTexture* GetTexture(int TextureIndex = 0)  const
@@ -82,6 +94,11 @@ public:
         return m_TextureInfo.empty();
     }
 
+    void EnableBump();
+    void EnableAnimation3D();
+    void EnableSpecularTex();
+    void EnableEmissiveTex();
+
 public:
     void SetRenderState(class CRenderState* State);
     void SetRenderState(const std::string& Name);
@@ -92,6 +109,13 @@ public:
 public:
     void SetBaseColor(const Vector4& Color);
     void SetBaseColor(float r, float g, float b, float a);
+    void SetAmbientColor(const Vector4& Color);
+    void SetAmbientColor(float r, float g, float b, float a);
+    void SetSpecularColor(const Vector4& Color);
+    void SetSpecularColor(float r, float g, float b, float a);
+    void SetEmissiveColor(const Vector4& Color);
+    void SetEmissiveColor(float r, float g, float b, float a);
+    void SetSpecularPower(float Power);
 
 public:
     void AddTexture(int Register, int ShaderType, const std::string& Name, class CTexture* Texture);
@@ -112,7 +136,7 @@ public:
     void SetShader(const std::string& Name);
     void Render();
     void Reset();
-    CMaterial* Clone();
+    CMaterial* Clone()  const;
     void Save(FILE* File);
     void Load(FILE* File);
 

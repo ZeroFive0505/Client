@@ -2,6 +2,8 @@
 #include "MeshManager.h"
 #include "SpriteMesh.h"
 #include "StaticMesh.h"
+#include "AnimationMesh.h"
+#include "../../PathManager.h"
 
 CMeshManager::CMeshManager()
 {
@@ -107,6 +109,105 @@ bool CMeshManager::Init()
 		D3D11_PRIMITIVE_TOPOLOGY_POINTLIST);
 
 	m_mapMesh.insert(std::make_pair("ParticlePointMesh", ParticlePointMesh));
+
+	return true;
+}
+
+bool CMeshManager::LoadMesh(Mesh_Type Type, const std::string& Name,
+	const TCHAR* FileName, const std::string& PathName, class CScene* Scene)
+{
+	TCHAR	FullPath[MAX_PATH] = {};
+
+	const PathInfo* Info = CPathManager::GetInst()->FindPath(PathName);
+
+	if (Info)
+		lstrcpy(FullPath, Info->Path);
+
+	lstrcat(FullPath, FileName);
+
+	return LoadMeshFullPath(Type, Name, FullPath, Scene);
+}
+
+bool CMeshManager::LoadMeshFullPath(Mesh_Type Type, 
+	const std::string& Name, const TCHAR* FullPath, class CScene* Scene)
+{
+	char	FullPathMultibyte[MAX_PATH] = {};
+
+#ifdef UNICODE
+
+	int	ConvertLength = WideCharToMultiByte(CP_ACP, 0, FullPath, -1, nullptr, 0, nullptr, nullptr);
+	WideCharToMultiByte(CP_ACP, 0, FullPath, -1, FullPathMultibyte, ConvertLength, nullptr, nullptr);
+
+#else
+
+	strcpy_s(FullPathMultibyte, FullPath);
+
+#endif // UNICODE
+
+	return LoadMeshFullPathMultibyte(Type, Name, FullPathMultibyte, Scene);
+}
+
+bool CMeshManager::LoadMeshMultibyte(Mesh_Type Type,
+	const std::string& Name, const char* FileName, 
+	const std::string& PathName, class CScene* Scene)
+{
+	char	FullPath[MAX_PATH] = {};
+
+	const PathInfo* Info = CPathManager::GetInst()->FindPath(PathName);
+
+	if (Info)
+		strcpy_s(FullPath, Info->PathMultibyte);
+
+	strcat_s(FullPath, FileName);
+
+	return LoadMeshFullPathMultibyte(Type, Name, FullPath, Scene);
+}
+
+bool CMeshManager::LoadMeshFullPathMultibyte(Mesh_Type Type, const std::string& Name, const char* FullPath, class CScene* Scene)
+{
+	CMesh* Mesh = FindMesh(Name);
+
+	if (Mesh)
+		return true;
+
+	switch (Type)
+	{
+	case Mesh_Type::Sprite:
+		Mesh = new CSpriteMesh;
+		break;
+	case Mesh_Type::Static:
+		Mesh = new CStaticMesh;
+		break;
+	case Mesh_Type::Animation:
+		Mesh = new CAnimationMesh;
+		break;
+	}
+
+	Mesh->SetName(Name);
+	Mesh->SetScene(Scene);
+
+	if (!Mesh->LoadMeshFullPathMultibyte(FullPath))
+	{
+		SAFE_RELEASE(Mesh);
+		return false;
+	}
+
+	m_mapMesh.insert(std::make_pair(Name, Mesh));
+
+	return true;
+}
+
+bool CMeshManager::SetMeshSkeleton(const std::string& Name, CSkeleton* Skeleton)
+{
+	CAnimationMesh* Mesh = (CAnimationMesh*)FindMesh(Name);
+
+	if (!Mesh)
+		return false;
+
+	else if (!Mesh->CheckType<CAnimationMesh>())
+		return false;
+
+	Mesh->SetSkeleton(Skeleton);
 
 	return true;
 }

@@ -7,7 +7,7 @@ CCameraComponent::CCameraComponent()
 	SetTypeID<CCameraComponent>();
 	m_Render = false;
 
-	m_CameraType = Camera_Type::Camera2D;
+	m_CameraType = Camera_Type::Camera3D;
 	m_ViewAngle = 90.f;
 	m_Distance = 1000.f;
 }

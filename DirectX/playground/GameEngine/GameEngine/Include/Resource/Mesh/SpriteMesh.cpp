@@ -3,6 +3,7 @@
 CSpriteMesh::CSpriteMesh()
 {
 	SetTypeID<CSpriteMesh>();
+	m_MeshType = Mesh_Type::Sprite;
 }
 
 CSpriteMesh::~CSpriteMesh()

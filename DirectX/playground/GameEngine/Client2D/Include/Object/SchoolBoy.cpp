@@ -4,6 +4,7 @@
 #include "SchoolBoyIdle.h"
 #include "SchoolBoyPursue.h"
 #include "../Widget/RCGEnemyHUD.h"
+#include "Engine.h"
 
 CSchoolBoy::CSchoolBoy() :
     m_State(nullptr),
@@ -197,22 +198,27 @@ void CSchoolBoy::Update(float deltaTime)
 
 
     if (m_FinishedState & (int)EEnemyState::DEFEADTED)
+    {
         Destroy();
+    }
 
     if (m_HitBox->IsEnable())
         HitBoxUpdate();
 
     if (CheckState(EEnemyState::DEFEADTED))
     {
+        m_BlinkTime += deltaTime;
+
         if (m_HalfOpacity)
             m_Sprite->SetOpacity(0.5f);
         else
             m_Sprite->SetOpacity(1.0f);
 
-        m_BlinkTime += deltaTime;
-
-        if (m_BlinkTime >= 0.25f)
+        if (m_BlinkTime >= 0.1f)
+        {
             m_HalfOpacity = !m_HalfOpacity;
+            m_BlinkTime = 0.0f;
+        }
     }
  
     if (m_CurrentState != (int)EEnemyState::NORMAL)
@@ -417,7 +423,7 @@ void CSchoolBoy::HitBoxCheck(const sCollisionResult& result)
 
                 if (player->OnGuard())
                 {
-                    if (m_CurrentTime - player->GetGuardStartTime() <= 1.7f)
+                    if (CEngine::GetInst()->GetCurrentPlayTime() - player->GetGuardStartTime() <= 0.1f)
                     {
                         PushState(EEnemyState::PARALYSIS, m_CurrentTime + 1.0f);
                         m_Sprite->ChangeAnimation("Hit1");

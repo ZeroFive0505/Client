@@ -16,7 +16,6 @@ CLine::~CLine()
 
 bool CLine::Init()
 {
-
 	m_Mesh = CreateComponent<CStaticMeshComponent>("Line");
 
 	SetRootComponent(m_Mesh);

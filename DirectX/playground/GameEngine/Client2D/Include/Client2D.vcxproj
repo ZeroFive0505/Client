@@ -106,6 +106,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -134,6 +135,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -201,6 +203,7 @@
     <ClCompile Include="Object\MTIdle.cpp" />
     <ClCompile Include="Object\MTPursue.cpp" />
     <ClCompile Include="Object\Observer.cpp" />
+    <ClCompile Include="Object\Path.cpp" />
     <ClCompile Include="Object\Pendulum.cpp" />
     <ClCompile Include="Object\PixelTest.cpp" />
     <ClCompile Include="Object\Player2D.cpp" />
@@ -300,6 +303,7 @@
     <ClInclude Include="Object\MTIdle.h" />
     <ClInclude Include="Object\MTPursue.h" />
     <ClInclude Include="Object\Observer.h" />
+    <ClInclude Include="Object\Path.h" />
     <ClInclude Include="Object\Pendulum.h" />
     <ClInclude Include="Object\PixelTest.h" />
     <ClInclude Include="Object\Player2D.h" />

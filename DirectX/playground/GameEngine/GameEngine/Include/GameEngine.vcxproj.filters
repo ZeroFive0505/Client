@@ -220,6 +220,30 @@
     <Filter Include="08. Collision">
       <UniqueIdentifier>{fd68d3d5-41f1-4263-9870-0b8d16a29c18}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Resource\02. Shader\02. ShaderClass\07. Standard3D">
+      <UniqueIdentifier>{fc18f036-69fe-42c5-997e-61ead851c992}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. Component\01. SceneComponent\07. Arm">
+      <UniqueIdentifier>{561d60c6-cf5c-45fa-815e-e75fbb036294}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Resource\05. Animation\01. 2D">
+      <UniqueIdentifier>{0e3da737-0577-480c-84c4-69c0b1530e79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Resource\05. Animation\02. 3D">
+      <UniqueIdentifier>{b5bed9a6-0391-4da8-a032-e8a1d25271a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Animation\01. 2D">
+      <UniqueIdentifier>{88b30229-19a1-4ca3-8f7f-3d2157866526}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Animation\02. 3D">
+      <UniqueIdentifier>{94797045-5804-4911-ae19-6e0f5de031dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Resource\02. Shader\03. ConstantBuffer\11. Animation3D">
+      <UniqueIdentifier>{24882143-2edb-4dbd-9c4e-51aced5ddea0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Resource\02. Shader\02. ShaderClass\08. AnimationUpdate">
+      <UniqueIdentifier>{9d5fdf40-c89d-42d6-b1f1-5821fa94c06d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -359,18 +383,6 @@
     </ClInclude>
     <ClInclude Include="Render\RenderStateManager.h">
       <Filter>06. Render\01. RenderState</Filter>
-    </ClInclude>
-    <ClInclude Include="Resource\Animation\AnimationManager.h">
-      <Filter>02. Resource\05. Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="Resource\Animation\AnimationSequence2D.h">
-      <Filter>02. Resource\05. Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="Animation\AnimationSequence2DData.h">
-      <Filter>07. Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="Animation\AnimationSequence2DInstance.h">
-      <Filter>07. Animation</Filter>
     </ClInclude>
     <ClInclude Include="Resource\Shader\Animation2DConstantBuffer.h">
       <Filter>02. Resource\02. Shader\03. ConstantBuffer\03. Animation2D</Filter>
@@ -645,6 +657,57 @@
     <ClInclude Include="Component\NavAgent.h">
       <Filter>05. Component\02. ObjectComponent\02. NavAgent</Filter>
     </ClInclude>
+    <ClInclude Include="Resource\Mesh\AnimationMesh.h">
+      <Filter>02. Resource\01. Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\Mesh\FBXLoader.h">
+      <Filter>02. Resource\01. Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\Shader\Standard3DShader.h">
+      <Filter>02. Resource\02. Shader\02. ShaderClass\07. Standard3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\AnimationMeshComponent.h">
+      <Filter>05. Component\01. SceneComponent\01. MeshComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\ArmComponent.h">
+      <Filter>05. Component\01. SceneComponent\07. Arm</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\Animation\AnimationSequence2D.h">
+      <Filter>02. Resource\05. Animation\01. 2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\Animation\Skeleton.h">
+      <Filter>02. Resource\05. Animation\02. 3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\Animation\AnimationSequence.h">
+      <Filter>02. Resource\05. Animation\02. 3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\Animation\AnimationManager3D.h">
+      <Filter>02. Resource\05. Animation\02. 3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\Mesh\fbxsdk.h">
+      <Filter>02. Resource\01. Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation\AnimationSequence2DData.h">
+      <Filter>07. Animation\01. 2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation\AnimationSequence2DInstance.h">
+      <Filter>07. Animation\01. 2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation\AnimationSequenceData.h">
+      <Filter>07. Animation\02. 3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation\AnimationSequenceInstance.h">
+      <Filter>07. Animation\02. 3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\Shader\AnimationUpdateConstantBuffer.h">
+      <Filter>02. Resource\02. Shader\03. ConstantBuffer\11. Animation3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\Shader\AnimationUpdateShader.h">
+      <Filter>02. Resource\02. Shader\02. ShaderClass\08. AnimationUpdate</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\Animation\AnimationManager.h">
+      <Filter>02. Resource\05. Animation\01. 2D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -772,18 +835,6 @@
     </ClCompile>
     <ClCompile Include="Render\RenderStateManager.cpp">
       <Filter>06. Render\01. RenderState</Filter>
-    </ClCompile>
-    <ClCompile Include="Resource\Animation\AnimationManager.cpp">
-      <Filter>02. Resource\05. Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="Resource\Animation\AnimationSequence2D.cpp">
-      <Filter>02. Resource\05. Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="Animation\AnimationSequence2DData.cpp">
-      <Filter>07. Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="Animation\AnimationSequence2DInstance.cpp">
-      <Filter>07. Animation</Filter>
     </ClCompile>
     <ClCompile Include="Resource\Shader\Animation2DConstantBuffer.cpp">
       <Filter>02. Resource\02. Shader\03. ConstantBuffer\03. Animation2D</Filter>
@@ -1022,6 +1073,54 @@
     <ClCompile Include="Component\NavAgent.cpp">
       <Filter>05. Component\02. ObjectComponent\02. NavAgent</Filter>
     </ClCompile>
+    <ClCompile Include="Resource\Mesh\AnimationMesh.cpp">
+      <Filter>02. Resource\01. Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource\Mesh\FBXLoader.cpp">
+      <Filter>02. Resource\01. Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource\Shader\Standard3DShader.cpp">
+      <Filter>02. Resource\02. Shader\02. ShaderClass\07. Standard3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\AnimationMeshComponent.cpp">
+      <Filter>05. Component\01. SceneComponent\01. MeshComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\ArmComponent.cpp">
+      <Filter>05. Component\01. SceneComponent\07. Arm</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource\Animation\AnimationSequence2D.cpp">
+      <Filter>02. Resource\05. Animation\01. 2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource\Animation\Skeleton.cpp">
+      <Filter>02. Resource\05. Animation\02. 3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource\Animation\AnimationSequence.cpp">
+      <Filter>02. Resource\05. Animation\02. 3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource\Animation\AnimationManager3D.cpp">
+      <Filter>02. Resource\05. Animation\02. 3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation\AnimationSequence2DData.cpp">
+      <Filter>07. Animation\01. 2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation\AnimationSequence2DInstance.cpp">
+      <Filter>07. Animation\01. 2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation\AnimationSequenceData.cpp">
+      <Filter>07. Animation\02. 3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation\AnimationSequenceInstance.cpp">
+      <Filter>07. Animation\02. 3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource\Shader\AnimationUpdateConstantBuffer.cpp">
+      <Filter>02. Resource\02. Shader\03. ConstantBuffer\11. Animation3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource\Shader\AnimationUpdateShader.cpp">
+      <Filter>02. Resource\02. Shader\02. ShaderClass\08. AnimationUpdate</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource\Animation\AnimationManager.cpp">
+      <Filter>02. Resource\05. Animation\01. 2D</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="..\Bin\Shader\ShaderInfo.fx">
@@ -1043,6 +1142,12 @@
       <Filter>02. Resource\02. Shader\01. HLSL</Filter>
     </FxCompile>
     <FxCompile Include="..\Bin\Shader\TileMap.fx">
+      <Filter>02. Resource\02. Shader\01. HLSL</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Bin\Shader\Standard3D.fx">
+      <Filter>02. Resource\02. Shader\01. HLSL</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Bin\Shader\AnimationUpdate.fx">
       <Filter>02. Resource\02. Shader\01. HLSL</Filter>
     </FxCompile>
   </ItemGroup>

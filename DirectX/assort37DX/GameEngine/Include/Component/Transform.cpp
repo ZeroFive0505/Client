@@ -21,7 +21,9 @@ CTransform::CTransform()	:
 	m_UpdateScale(true),
 	m_UpdateRot(true),
 	m_UpdatePos(true),
-	m_CBuffer(nullptr)
+	m_CBuffer(nullptr),
+	m_RelativeScale(1.f, 1.f, 1.f),
+	m_WorldScale(1.f, 1.f, 1.f)
 {
 	for (int i = 0; i < AXIS_MAX; ++i)
 	{

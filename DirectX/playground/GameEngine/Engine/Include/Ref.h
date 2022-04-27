@@ -60,9 +60,7 @@ public:
 
 		if (m_RefCount <= 0)
 		{
-			CRef* temp = this;
 			delete	this;
-			temp = nullptr;
 			return 0;
 		}
 

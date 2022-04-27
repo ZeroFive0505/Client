@@ -16,6 +16,8 @@ CSceneResource::~CSceneResource()
             std::string name = iter->first;
 
             iter = m_mapMesh.erase(iter);
+
+            CResourceManager::GetInst()->ReleaseMesh(name);
         }
     }
 
@@ -28,6 +30,8 @@ CSceneResource::~CSceneResource()
             std::string name = iter->first;
 
             iter = m_mapShader.erase(iter);
+
+            CResourceManager::GetInst()->ReleaseShader(name);
         }
     }
 
@@ -40,6 +44,8 @@ CSceneResource::~CSceneResource()
             std::string name = iter->first;
 
             iter = m_mapTexture.erase(iter);
+
+            CResourceManager::GetInst()->ReleaseTexture(name);
         }
     }
 
@@ -52,6 +58,8 @@ CSceneResource::~CSceneResource()
             std::string name = iter->first;
 
             iter = m_mapMaterial.erase(iter);
+
+            CResourceManager::GetInst()->ReleaseMaterial(name);
         }
     }
 
@@ -59,9 +67,13 @@ CSceneResource::~CSceneResource()
         auto iter = m_mapSequence2D.begin();
         auto iterEnd = m_mapSequence2D.end();
 
-        for (; iter != iterEnd; iter++)
+        for (; iter != iterEnd;)
         {
             std::string name = iter->first;
+
+            iter = m_mapSequence2D.erase(iter);
+
+            CResourceManager::GetInst()->ReleaseAnimationSequnce2D(name);
         }
     }
 
@@ -69,11 +81,77 @@ CSceneResource::~CSceneResource()
         auto iter = m_mapParticle.begin();
         auto iterEnd = m_mapParticle.end();
 
-        for (; iter != iterEnd; iter++)
+        for (; iter != iterEnd;)
         {
             std::string name = iter->first;
+
+            iter = m_mapParticle.erase(iter);
+
+            CResourceManager::GetInst()->ReleaseParticle(name);
         }
     }
+}
+
+bool CSceneResource::LoadMesh(Mesh_Type type, const std::string& name, const TCHAR* fileName, const std::string& pathName)
+{
+    if (FindMesh(name))
+        return true;
+
+    if (!CResourceManager::GetInst()->LoadMesh(type, name, fileName, pathName, m_Scene))
+        return false;
+
+    m_mapMesh.insert(std::make_pair(name, CResourceManager::GetInst()->FindMesh(name)));
+
+    return true;
+}
+
+bool CSceneResource::LoadMeshFullPath(Mesh_Type type, const std::string& name, const TCHAR* fullPath)
+{
+    if (FindMesh(name))
+        return true;
+
+    if (!CResourceManager::GetInst()->LoadMeshFullPath(type, name, fullPath, m_Scene))
+        return false;
+
+    m_mapMesh.insert(std::make_pair(name, CResourceManager::GetInst()->FindMesh(name)));
+
+    return true;
+}
+
+bool CSceneResource::LoadMeshMultibyte(Mesh_Type type, const std::string& name, const char* fileName, const std::string& pathName)
+{
+    if (FindMesh(name))
+        return true;
+
+    if (!CResourceManager::GetInst()->LoadMeshMultibyte(type, name, fileName, pathName, m_Scene))
+        return false;
+
+    m_mapMesh.insert(std::make_pair(name, CResourceManager::GetInst()->FindMesh(name)));
+
+    return true;
+}
+
+bool CSceneResource::LoadMeshFullPathMultibyte(Mesh_Type type, const std::string& name, const char* fullPath)
+{
+    if (FindMesh(name))
+        return true;
+
+    if (!CResourceManager::GetInst()->LoadMeshFullPathMultibyte(type, name, fullPath, m_Scene))
+        return false;
+
+    m_mapMesh.insert(std::make_pair(name, CResourceManager::GetInst()->FindMesh(name)));
+
+    return true;
+}
+
+bool CSceneResource::SetMeshSkeleton(const std::string& name, const std::string& skeletonName)
+{
+    return CResourceManager::GetInst()->SetMeshSkeleton(name, skeletonName);
+}
+
+bool CSceneResource::SetMeshSkeleton(const std::string& name, CSkeleton* skeleton)
+{
+    return CResourceManager::GetInst()->SetMeshSkeleton(name, skeleton);
 }
 
 CMesh* CSceneResource::FindMesh(const std::string& name)
@@ -475,6 +553,174 @@ CParticle* CSceneResource::FindParticle(const std::string& name)
         m_mapParticle.insert(std::make_pair(name, particle));
 
         return particle;
+    }
+
+    return iter->second;
+}
+
+bool CSceneResource::LoadAnimationSequence(const std::string& name, bool loop, _tagFbxAnimationClip* clip, CScene* scene)
+{
+    if (FindAnimationSequence(name))
+        return true;
+
+    if (!CResourceManager::GetInst()->LoadAnimationSequence(name, loop, clip, m_Scene))
+        return false;
+
+    m_mapSequence.insert(std::make_pair(name, CResourceManager::GetInst()->FindAnimationSequence(name)));
+
+    return true;
+}
+
+bool CSceneResource::LoadAnimationSequence(const std::string& name, bool loop, int startFrame, int endFrame, float playTime, const std::vector<BoneKeyFrame*>& vecFrame, CScene* scene)
+{
+    if (FindAnimationSequence(name))
+        return true;
+
+    if (!CResourceManager::GetInst()->LoadAnimationSequence(name, loop, startFrame, endFrame, playTime, vecFrame, m_Scene))
+        return false;
+
+    m_mapSequence.insert(std::make_pair(name, CResourceManager::GetInst()->FindAnimationSequence(name)));
+
+    return true;
+}
+
+bool CSceneResource::LoadAnimationSequence(bool loop, const std::string& name, const TCHAR* fileName, const std::string& pathName, CScene* scene)
+{
+    if (FindAnimationSequence(name))
+        return true;
+
+    if (!CResourceManager::GetInst()->LoadAnimationSequence(loop, name, fileName, pathName, m_Scene))
+        return false;
+
+    m_mapSequence.insert(std::make_pair(name, CResourceManager::GetInst()->FindAnimationSequence(name)));
+
+    return true;
+}
+
+bool CSceneResource::LoadAnimationSequenceFullPath(bool loop, const std::string& name, const TCHAR* fullPath, CScene* scene)
+{
+    if (FindAnimationSequence(name))
+        return true;
+
+    if (!CResourceManager::GetInst()->LoadAnimationSequenceFullPath(loop, name, fullPath, m_Scene))
+        return false;
+
+    m_mapSequence.insert(std::make_pair(name, CResourceManager::GetInst()->FindAnimationSequence(name)));
+
+    return true;
+}
+
+bool CSceneResource::LoadAnimationSequenceMultibyte(bool loop, const std::string& name, const char* fileName, const std::string& pathName, CScene* scene)
+{
+    if (FindAnimationSequence(name))
+        return true;
+
+    if (!CResourceManager::GetInst()->LoadAnimationSequenceMultibyte(loop, name, fileName, pathName, m_Scene))
+        return false;
+
+    m_mapSequence.insert(std::make_pair(name, CResourceManager::GetInst()->FindAnimationSequence(name)));
+
+    return true;
+}
+
+bool CSceneResource::LoadAnimationSequenceFullPathMultibyte(bool loop, const std::string& name, const char* fullPath, CScene* scene)
+{
+    if (FindAnimationSequence(name))
+        return true;
+
+    if (!CResourceManager::GetInst()->LoadAnimationSequenceFullPathMultibyte(loop, name, fullPath, m_Scene))
+        return false;
+
+    m_mapSequence.insert(std::make_pair(name, CResourceManager::GetInst()->FindAnimationSequence(name)));
+    
+    return true;
+}
+
+CAnimationSequence* CSceneResource::FindAnimationSequence(const std::string& name)
+{
+    auto iter = m_mapSequence.find(name);
+
+    if (iter == m_mapSequence.end())
+    {
+        CAnimationSequence* sequence = CResourceManager::GetInst()->FindAnimationSequence(name);
+
+        if (!sequence)
+            return nullptr;
+
+        m_mapSequence.insert(std::make_pair(name, sequence));
+
+        return sequence;
+    }
+
+    return iter->second;
+}
+
+bool CSceneResource::LoadSkeleton(const std::string& name, const TCHAR* fileName, const std::string& pathName)
+{
+    if (FindSkeleton(name))
+        return true;
+
+    if (!CResourceManager::GetInst()->LoadSkeleton(name, fileName, pathName, m_Scene))
+        return false;
+
+    m_mapSkeleton.insert(std::make_pair(name, CResourceManager::GetInst()->FindSkeleton(name)));
+
+    return true;
+}
+
+bool CSceneResource::LoadSkeletonFullPath(const std::string& name, const TCHAR* fullPath)
+{
+    if (FindSkeleton(name))
+        return true;
+
+    if (!CResourceManager::GetInst()->LoadSkeletonFullPath(name, fullPath, m_Scene))
+        return false;
+
+    m_mapSkeleton.insert(std::make_pair(name, CResourceManager::GetInst()->FindSkeleton(name)));
+
+    return true;
+}
+
+bool CSceneResource::LoadSkeletonMultibyte(const std::string& name, const char* fileName, const std::string& pathName)
+{
+    if (FindSkeleton(name))
+        return true;
+
+    if (!CResourceManager::GetInst()->LoadSkeletonMulitybyte(name, fileName, pathName, m_Scene))
+        return false;
+
+    m_mapSkeleton.insert(std::make_pair(name, CResourceManager::GetInst()->FindSkeleton(name)));
+
+    return true;
+}
+
+bool CSceneResource::LoadSkeletonFullPathMultibyte(const std::string& name, const char* fullPath)
+{
+    if (FindSkeleton(name))
+        return true;
+
+    if (!CResourceManager::GetInst()->LoadSkeletonFullPathMultibyte(name, fullPath, m_Scene))
+        return false;
+
+    m_mapSkeleton.insert(std::make_pair(name, CResourceManager::GetInst()->FindSkeleton(name)));
+
+    return true;
+}
+
+CSkeleton* CSceneResource::FindSkeleton(const std::string& name)
+{
+    auto iter = m_mapSkeleton.find(name);
+
+    if (iter == m_mapSkeleton.end())
+    {
+        CSkeleton* skeleton = CResourceManager::GetInst()->FindSkeleton(name);
+
+        if (!skeleton)
+            return nullptr;
+
+        m_mapSkeleton.insert(std::make_pair(name, skeleton));
+
+        return skeleton;
     }
 
     return iter->second;

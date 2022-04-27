@@ -12,6 +12,8 @@
 #include "ParticleUpdateShader.h"
 #include "ParticleRenderShader.h"
 #include "TileMapShader.h"
+#include "Standard3DShader.h"
+#include "AnimationUpdateShader.h"
 
 CShaderManager::CShaderManager()
 {
@@ -37,6 +39,9 @@ bool CShaderManager::Init()
 
 	// 충돌체 전용 쉐이더
 	if (!CreateShader<CColliderShader>("ColliderShader"))
+		return false;
+
+	if (!CreateShader<CStandard3DShader>("Standard3DShader"))
 		return false;
 
 	if (!CreateShader<CColliderPixelShader>("ColliderPixelShader"))
@@ -65,7 +70,8 @@ bool CShaderManager::Init()
 	if (!CreateShader<CTileMapShader>("TileMapShader"))
 		return false;
 
-
+	if (!CreateShader<CAnimationUpdateShader>("AnimationUpdateShader"))
+		return false;
 
 
 	// 상수버퍼 생성
@@ -105,6 +111,9 @@ bool CShaderManager::Init()
 		return false;
 
 	if (!CreateConstantBuffer("TileMapCBuffer", sizeof(sTileMapCBuffer), 11, (int)Buffer_Shader_Type::Graphic))
+		return false;
+
+	if (!CreateConstantBuffer("AnimationCBuffer", sizeof(sAnimationCBuffer), 11, (int)Buffer_Shader_Type::Compute))
 		return false;
 
 

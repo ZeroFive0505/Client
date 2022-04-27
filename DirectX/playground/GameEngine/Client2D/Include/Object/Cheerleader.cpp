@@ -3,6 +3,7 @@
 #include "../Widget/RCGEnemyHUD.h"
 #include "CheerleaderIdle.h"
 #include "CheerleaderPursue.h"
+#include "Engine.h"
 
 CCheerleader::CCheerleader() :
     m_State(nullptr),
@@ -240,15 +241,18 @@ void CCheerleader::Update(float deltaTime)
 
     if (CheckState(EEnemyState::DEFEADTED))
     {
+        m_BlinkTime += deltaTime;
+
         if (m_HalfOpacity)
             m_Sprite->SetOpacity(0.5f);
         else
             m_Sprite->SetOpacity(1.0f);
 
-        m_BlinkTime += deltaTime;
-
-        if (m_BlinkTime >= 0.25f)
+        if (m_BlinkTime >= 0.1f)
+        {
             m_HalfOpacity = !m_HalfOpacity;
+            m_BlinkTime = 0.0f;
+        }
     }
 
     if (m_CurrentState != (int)EEnemyState::NORMAL)
@@ -485,7 +489,7 @@ void CCheerleader::HitBoxCheck(const sCollisionResult& result)
 
                 if (player->OnGuard())
                 {
-                    if (m_CurrentTime - player->GetGuardStartTime() <= 1.7f)
+                    if (CEngine::GetInst()->GetCurrentPlayTime() - player->GetGuardStartTime() <= 0.1f)
                     {
                         if (m_OnGround)
                         {

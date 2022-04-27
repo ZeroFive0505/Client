@@ -184,6 +184,8 @@ private:
 		m_HitEnemyFlag &= ~(int)EHitFlag::HIT;
 	}
 
+
+	virtual void GutPunch();
 	void GutPunchEnd();
 
 

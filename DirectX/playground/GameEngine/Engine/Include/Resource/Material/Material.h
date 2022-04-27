@@ -14,7 +14,7 @@ struct sMaterialTextureInfo
 	int shaderType;
 
 	sMaterialTextureInfo() :
-		samplerType(Sampler_Type::Point),
+		samplerType(Sampler_Type::Linear),
 		registerNum(0),
 		shaderType((int)Buffer_Shader_Type::Pixel)
 	{
@@ -37,6 +37,9 @@ class CMaterial :
 	public CRef
 {
 	friend class CMaterialManager;
+	friend class CMesh;
+	friend class CStaticMeshComponent;
+	friend class CAnimationMeshComponent;
 
 protected:
 	CMaterial();
@@ -56,7 +59,14 @@ protected:
 	CSharedPtr<CGraphicShader> m_Shader;
 	std::vector<sMaterialTextureInfo> m_vecTextureInfo;
 	Vector4 m_BaseColor;
+	Vector4 m_AmbientColor;
+	Vector4 m_SpecularColor;
+	Vector4 m_EmissiveColor;
 	float m_Opacity;
+	bool m_Animation3D;
+	bool m_SpecularTex;
+	bool m_EmissiveTex;
+	bool m_Bump;
 	class CMaterialConstantBuffer* m_CBuffer;
 	CSharedPtr<class CRenderState> m_RenderStateArray[(int)RenderState_Type::MAX];
 	std::list<sRenderCallback*> m_RenderCallback;
@@ -67,6 +77,8 @@ private:
 		// 마테리얼마다 Dissolve여부를 정해야하기에 복사.
 		m_CBuffer = buffer->Clone();
 	}
+
+	void CreateConstantBuffer();
 
 public:
 	inline CTexture* GetTexture(int index = 0) const
@@ -94,6 +106,11 @@ public:
 		return !m_vecTextureInfo.empty();
 	}
 
+	void EnableBump();
+	void EnableAnimation3D();
+	void EnableSpecularTex();
+	void EnableEmissiveTex();
+
 public:
 	void SetRenderState(class CRenderState* state);
 	void SetRenderState(const std::string& name);
@@ -104,6 +121,13 @@ public:
 public:
 	void SetBaseColor(const Vector4& color);
 	void SetBaseColor(float r, float g, float b, float a);
+	void SetAmbientColor(const Vector4& color);
+	void SetAmbientColor(float r, float g, float b, float a);
+	void SetSpecularColor(const Vector4& color);
+	void SetSpecularColor(float r, float g, float b, float a);
+	void SetEmissiveColor(const Vector4& color);
+	void SetEmissiveColor(float r, float g, float b, float a);
+	void SetSpecularPower(float power);
 
 public:
 	void AddTexture(int registerNum, int shaderType, const std::string& name, class CTexture* texture);

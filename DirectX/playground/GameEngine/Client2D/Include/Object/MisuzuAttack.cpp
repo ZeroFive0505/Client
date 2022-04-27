@@ -160,14 +160,14 @@ void CMisuzuAttack::Tackle()
 	tackleDir.Normalize();
 	dir.Normalize();
 
-	float followSpeed = m_NPC->GetWalkSpeed();
+	float followSpeed = 300.0f;
 
 	if (m_LerpTime >= 1.0f)
 	{
 		misuzu->SetTackleDirection(dir);
 		m_LerpTime = 0.0f;
 
-		m_NPC->AddWorldPos(dir * followSpeed * 1.25f * 1.0f / 60.0f);
+		m_NPC->AddWorldPos(dir * followSpeed * 1.0f / 60.0f);
 
 		if (m_NPC->IsFacingRight() && dir.x < 0.0f)
 		{

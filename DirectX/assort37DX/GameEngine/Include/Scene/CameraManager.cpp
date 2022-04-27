@@ -25,7 +25,7 @@ void CCameraManager::Init()
 
 	m_CurrentCamera->SetName("DefaultCamera");
 	m_CurrentCamera->m_Scene = m_Scene;
-	m_CurrentCamera->SetCameraType(Camera_Type::Camera2D);
+	m_CurrentCamera->SetCameraType(Camera_Type::Camera3D);
 
 
 	m_UICamera = new CCameraComponent;

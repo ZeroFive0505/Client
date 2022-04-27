@@ -240,11 +240,11 @@ bool CKyoko::Init()
 	m_Sprite->GetAnimationInstance()->SetEndFunction<CKyoko>("Gutpunch", this, &CKyoko::GutPunchEnd);
 
 	m_Sprite->GetAnimationInstance()->SetStartFunction<CKyoko>("Kicktoss", this, &CKyoko::KickTossBegin);
-	m_Sprite->GetAnimationInstance()->AddNotify<CKyoko>("Kicktoss", "Throw", 5, this, &CKyoko::KickToss);
+	m_Sprite->GetAnimationInstance()->AddNotify<CKyoko>("Kicktoss", "Throw", 3, this, &CKyoko::KickToss);
 	m_Sprite->GetAnimationInstance()->SetEndFunction<CKyoko>("Kicktoss", this, &CKyoko::KickTossEnd);
 
 	m_Sprite->GetAnimationInstance()->SetStartFunction<CKyoko>("Franken", this, &CKyoko::FrankenBegin);
-	m_Sprite->GetAnimationInstance()->AddNotify<CKyoko>("Franken", "Throw", 9, this, &CKyoko::Franken);
+	m_Sprite->GetAnimationInstance()->AddNotify<CKyoko>("Franken", "Throw", 7, this, &CKyoko::Franken);
 	m_Sprite->GetAnimationInstance()->AddNotify<CKyoko>("Franken", "ResetOffset", 11, this, &CKyoko::ResetSpriteOffset);
 	m_Sprite->GetAnimationInstance()->SetEndFunction<CKyoko>("Franken", this, &CKyoko::FrankenEnd);
 
@@ -343,8 +343,11 @@ void CKyoko::Update(float deltaTime)
 		else
 			m_Sprite->SetOpacity(1.0f);
 
-		if (m_BlinkTime >= 0.5f)
+		if (m_BlinkTime >= 0.1f)
+		{
 			m_HalfOpacity = !m_HalfOpacity;
+			m_BlinkTime = 0.0f;
+		}
 	}
 
 	if (m_OnGround && !m_IsRunning && !m_Guard && !CheckState(EKyokoState::ATTACK) &&
@@ -511,6 +514,36 @@ void CKyoko::Update(float deltaTime)
 		m_AfterImage->SetPos(m_Sprite->GetWorldPos());
 
 		m_AfterImage->IncreaseIndex();
+	}
+
+	if (!m_OnGround && m_Velocity.y <= 0.0f && !m_Body->GetPrevColliderList().empty())
+	{
+		auto iter = m_Body->GetPrevColliderList().begin();
+		auto iterEnd = m_Body->GetPrevColliderList().end();
+
+		for (; iter != iterEnd; iter++)
+		{
+			if ((*iter)->GetGameObject() == this)
+			{
+				m_OnGround = true;
+				m_Physics = false;
+				m_WallJump = false;
+				m_Jump = false;
+				m_JumpSpeed = 70.0f;
+
+				if (m_Offset.y != 0.0f)
+				{
+					ResetSpriteOffset();
+					m_Offset = Vector3(0.0f, 0.0f, 0.0f);
+				}
+
+				m_Velocity = Vector2(0.0f, 0.0f);
+				m_AbsVel = Vector2(0.0f, 0.0f);
+				m_AfterImageWithInterval = false;
+				m_AfterImage->SetEffect(false);
+				m_AfterImageInterval = 0.0f;
+			}
+		}
 	}
 }
 
@@ -1140,7 +1173,7 @@ void CKyoko::SetMoveSetInfo()
 	info.keyType = (int)EPlayerKeySet::HEAVYATTACK;
 	info.hitFlag = (int)EHitFlag::NONE;
 	info.attackType = EAttackType::KNOCKDOWN;
-	info.forceDir = Vector2(-0.15f, 1.0f);
+	info.forceDir = Vector2(-0.7f, 1.0f);
 	info.forceDir.Normalize();
 	info.forceTime = 0.5f;
 	info.force = 10.0f;
@@ -1374,6 +1407,7 @@ void CKyoko::Action()
 void CKyoko::ThrowEnemy()
 {
 	sPlayerMove info = m_mapMoveSetInfo[m_CurrentMove];
+	m_Invincible = true;
 	((CRCGEnemy*)m_Enemy)->PopStateEnd(EEnemyState::STUNNED);
 	((CRCGEnemy*)m_Enemy)->PopStateEnd(EEnemyState::GRABBED);
 	CResourceManager::GetInst()->SoundPlay(info.soundName);
@@ -1639,7 +1673,7 @@ void CKyoko::Guard(float deltaTime)
 	if (m_CurrentState != (int)EKyokoState::NORMAL)
 		return;
 
-	m_GuardStartTime = m_CurrentTime;
+	m_GuardStartTime = CEngine::GetInst()->GetCurrentPlayTime();
 
 	m_Guard = true;
 
@@ -1864,7 +1898,7 @@ void CKyoko::PogoKick()
 	else
 		m_KnockbackForce = Vector2(-14.0f, 40.0f);
 
-	PushState(EKyokoState::POGOKICK, m_CurrentTime + 0.3f);
+	PushState(EKyokoState::POGOKICK, m_CurrentTime + 0.25f);
 
 	m_Physics = true;
 
@@ -1939,6 +1973,11 @@ void CKyoko::GetHit(EAttackType type, const Vector2& dir, int damage, float forc
 {
 	m_Push = false;
 	m_Upward = false;
+		
+	m_Dab = false;
+	m_AfterImageInterval = false;
+	m_AfterImagePrevFrame = false;
+
 	if (m_Offset.y != 0.0f)
 	{
 		ResetSpriteOffset();
@@ -2053,6 +2092,8 @@ void CKyoko::OnGround(const sCollisionResult& result)
 		else if (CheckState(EKyokoState::GETHIT))
 		{
 			m_Sprite->ChangeAnimation("Knockdown_ground");
+			PopStateEnd(EKyokoState::ATTACK);
+			DeactivateHitBox();
 			m_HitCount = 0;
 			PushState(EKyokoState::DOWN, m_CurrentTime + 3.0f);
 		}
@@ -2167,6 +2208,9 @@ void CKyoko::OnEnemyContact(const sCollisionResult& result)
 	if (m_Invincible)
 		return;
 
+	if (CheckState(EKyokoState::INVINCIBLE))
+		return;
+
 	if (m_OnGround && m_CurrentState == (int)EKyokoState::NORMAL &&
 		!m_ContactEnemies.empty())
 	{
@@ -2256,6 +2300,31 @@ void CKyoko::ResetSpriteOffset()
 {
 	m_Sprite->SetWorldPos(m_Sprite->GetWorldPos() - m_Offset);
 	m_Offset = Vector3(0.0f, 0.0f, 0.0f);
+}
+
+void CKyoko::GutPunch()
+{
+	PushState(EKyokoState::ATTACK);
+	int randomSoundIndex = (rand() % 3) + 1;
+
+	std::string name = "Punch" + std::to_string(randomSoundIndex);
+
+	CResourceManager::GetInst()->SoundPlay(name);
+
+	CRCGEnemy* enemy = (CRCGEnemy*)m_Enemy;
+
+	enemy->GetHit(EAttackType::HIT, Vector2(0.0f, 0.0f), 4, 0.0f, 0.0f, false);
+
+	if (enemy->GetCurrentHP() <= 0)
+	{
+		PopStateEnd(EKyokoState::GRABBING);
+		enemy->SetPlayer(nullptr);
+		enemy->PopStateEnd(EEnemyState::GRABBED);
+		m_CurrentMove = EKyokoMoveSet::GROUND_DEFAULT_STATE;
+		m_Sprite->ChangeAnimation("Idle");
+		m_AbleToAttack = true;
+		m_Enemy = nullptr;
+	}
 }
 
 void CKyoko::GutPunchEnd()

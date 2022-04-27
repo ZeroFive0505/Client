@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{24048d03-1c9c-450b-91a4-12575916db25}</ProjectGuid>
+    <ProjectGuid>{bb3f8585-fab2-4047-beef-9d711c27c75e}</ProjectGuid>
     <RootNamespace>Client2D</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -157,30 +157,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ClientManager.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Object\BubbleParticle.cpp" />
-    <ClCompile Include="Object\Bullet.cpp" />
-    <ClCompile Include="Object\BulletCamera.cpp" />
-    <ClCompile Include="Object\BulletTornaido.cpp" />
-    <ClCompile Include="Object\Monster.cpp" />
-    <ClCompile Include="Object\MonsterAnimation.cpp" />
-    <ClCompile Include="Object\PixelTest.cpp" />
-    <ClCompile Include="Object\Player2D.cpp" />
-    <ClCompile Include="Object\PlayerAnimation2D.cpp" />
-    <ClCompile Include="Object\TileMap.cpp" />
-    <ClCompile Include="Scene\LoadingScene.cpp" />
-    <ClCompile Include="Scene\LoadingThread.cpp" />
-    <ClCompile Include="Scene\MainScene.cpp" />
-    <ClCompile Include="Scene\StartScene.cpp" />
-    <ClCompile Include="Widget\LoadingWidget.cpp" />
-    <ClCompile Include="Widget\MainWidget.cpp" />
-    <ClCompile Include="Widget\MouseAttack.cpp" />
-    <ClCompile Include="Widget\MouseNormal.cpp" />
-    <ClCompile Include="Widget\SimpleHUD.cpp" />
-    <ClCompile Include="Widget\StartWidget.cpp" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="Client.h" />
     <ClInclude Include="ClientManager.h" />
     <ClInclude Include="Object\BubbleParticle.h" />
@@ -210,6 +186,35 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="icon1.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ClientManager.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Object\BubbleParticle.cpp" />
+    <ClCompile Include="Object\Bullet.cpp" />
+    <ClCompile Include="Object\BulletCamera.cpp" />
+    <ClCompile Include="Object\BulletTornaido.cpp" />
+    <ClCompile Include="Object\Monster.cpp" />
+    <ClCompile Include="Object\MonsterAnimation.cpp" />
+    <ClCompile Include="Object\PixelTest.cpp" />
+    <ClCompile Include="Object\Player2D.cpp" />
+    <ClCompile Include="Object\PlayerAnimation2D.cpp" />
+    <ClCompile Include="Object\TileMap.cpp" />
+    <ClCompile Include="Scene\LoadingScene.cpp" />
+    <ClCompile Include="Scene\LoadingThread.cpp" />
+    <ClCompile Include="Scene\MainScene.cpp" />
+    <ClCompile Include="Scene\StartScene.cpp" />
+    <ClCompile Include="Widget\LoadingWidget.cpp" />
+    <ClCompile Include="Widget\MainWidget.cpp" />
+    <ClCompile Include="Widget\MouseAttack.cpp" />
+    <ClCompile Include="Widget\MouseNormal.cpp" />
+    <ClCompile Include="Widget\SimpleHUD.cpp" />
+    <ClCompile Include="Widget\StartWidget.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\GameEngine\Include\GameEngine.vcxproj">
+      <Project>{6aebf8c5-6304-4b0f-b2a4-3208a366bb25}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

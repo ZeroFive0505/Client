@@ -1,5 +1,4 @@
 #include "CheerleaderBlock.h"
-#include "CheerleaderPursue.h"
 
 CCheerleaderBlock::CCheerleaderBlock(CRCGEnemy* npc, CState* nextState) :
 	CState(npc, nextState)

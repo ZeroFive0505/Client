@@ -14,8 +14,13 @@ CStaticMeshComponent::CStaticMeshComponent(const CStaticMeshComponent& com)
 {
 	m_Mesh = com.m_Mesh;
 
-	if (com.m_Material)
-		m_Material = com.m_Material->Clone();
+
+	m_vecMaterialSlot.clear();
+
+	for (size_t i = 0; i < com.m_vecMaterialSlot.size(); i++)
+	{
+		m_vecMaterialSlot.push_back(com.m_vecMaterialSlot[i]->Clone());
+	}
 }
 
 CStaticMeshComponent::~CStaticMeshComponent()
@@ -25,94 +30,164 @@ CStaticMeshComponent::~CStaticMeshComponent()
 void CStaticMeshComponent::SetMesh(const std::string& name)
 {
 	m_Mesh = (CStaticMesh*)m_Scene->GetSceneResource()->FindMesh(name);
+
+	m_vecMaterialSlot.clear();
+
+	const std::vector<CSharedPtr<CMaterial>>* materialSlots = m_Mesh->GetMaterialSlots();
+
+	auto iter = materialSlots->begin();
+	auto iterEnd = materialSlots->end();
+
+	for (; iter != iterEnd; iter++)
+	{
+		m_vecMaterialSlot.push_back((*iter)->Clone());
+
+		m_vecMaterialSlot.back()->SetScene(m_Scene);
+	}
 }
 
 void CStaticMeshComponent::SetMesh(CStaticMesh* mesh)
 {
 	m_Mesh = mesh;
+
+	m_vecMaterialSlot.clear();
+
+	const std::vector<CSharedPtr<CMaterial>>* materialSlots = m_Mesh->GetMaterialSlots();
+
+	auto iter = materialSlots->begin();
+	auto iterEnd = materialSlots->end();
+
+	for (; iter != iterEnd; iter++)
+	{
+		m_vecMaterialSlot.push_back((*iter)->Clone());
+
+		m_vecMaterialSlot.back()->SetScene(m_Scene);
+	}
 }
 
-void CStaticMeshComponent::SetMaterial(CMaterial* material)
+void CStaticMeshComponent::SetMaterial(CMaterial* material, int index)
 {
-	m_Material = material->Clone();
+	m_vecMaterialSlot[index] = material->Clone();
 
-	m_Material->SetScene(m_Scene);
+	m_vecMaterialSlot[index]->SetScene(m_Scene);
 }
 
-void CStaticMeshComponent::SetBaseColor(const Vector4& color)
+void CStaticMeshComponent::AddMaterial(CMaterial* material)
 {
-	m_Material->SetBaseColor(color);
+	m_vecMaterialSlot.push_back(material->Clone());
+
+	m_vecMaterialSlot.back()->SetScene(m_Scene);
 }
 
-void CStaticMeshComponent::SetBaseColor(float r, float g, float b, float a)
+void CStaticMeshComponent::SetBaseColor(const Vector4& color, int index)
 {
-	m_Material->SetBaseColor(r, g, b, a);
+	m_vecMaterialSlot[index]->SetBaseColor(color);
 }
 
-void CStaticMeshComponent::SetRenderState(CRenderState* state)
+void CStaticMeshComponent::SetBaseColor(float r, float g, float b, float a, int index)
 {
-	m_Material->SetRenderState(state);
+	m_vecMaterialSlot[index]->SetBaseColor(r, g, b, a);
 }
 
-void CStaticMeshComponent::SetRenderState(const std::string& name)
+void CStaticMeshComponent::SetAmbientColor(const Vector4& color, int index)
 {
-	m_Material->SetRenderState(name);
+	m_vecMaterialSlot[index]->SetAmbientColor(color);
 }
 
-void CStaticMeshComponent::SetTransparency(bool enable)
+void CStaticMeshComponent::SetAmbientColor(float r, float g, float b, float a, int index)
 {
-	m_Material->SetTransparency(enable);
+	m_vecMaterialSlot[index]->SetAmbientColor(r, g, b, a);
 }
 
-void CStaticMeshComponent::SetOpacity(float opacity)
+void CStaticMeshComponent::SetSpecularColor(const Vector4& color, int index)
 {
-	m_Material->SetOpacity(opacity);
+	m_vecMaterialSlot[index]->SetSpecularColor(color);
 }
 
-void CStaticMeshComponent::AddOpacity(float opacity)
+void CStaticMeshComponent::SetSpecularColor(float r, float g, float b, float a, int index)
 {
-	m_Material->AddOpacity(opacity);
+	m_vecMaterialSlot[index]->SetSpecularColor(r, g, b, a);
 }
 
-void CStaticMeshComponent::AddTexture(int registerNum, int shaderType, const std::string& name, CTexture* texture)
+void CStaticMeshComponent::SetSpecularPower(float power, int index)
 {
-	m_Material->AddTexture(registerNum, shaderType, name, texture);
+	m_vecMaterialSlot[index]->SetSpecularPower(power);
 }
 
-void CStaticMeshComponent::AddTexture(int registerNum, int shaderType, const std::string& name, const TCHAR* fileName, const std::string& pathName)
+void CStaticMeshComponent::SetEmissiveColor(const Vector4& color, int index)
 {
-	m_Material->AddTexture(registerNum, shaderType, name, fileName, pathName);
+	m_vecMaterialSlot[index]->SetEmissiveColor(color);
 }
 
-void CStaticMeshComponent::AddTextureFullPath(int registerNum, int shaderType, const std::string& name, const TCHAR* fullPath)
+void CStaticMeshComponent::SetEmissiveColor(float r, float g, float b, float a, int index)
 {
-	m_Material->AddTextureFullPath(registerNum, shaderType, name, fullPath);
+	m_vecMaterialSlot[index]->SetEmissiveColor(r, g, b, a);
 }
 
-void CStaticMeshComponent::AddTexture(int registerNum, int shaderType, const std::string& name, const std::vector<TCHAR*>& vecFileName, const std::string& pathName)
+void CStaticMeshComponent::SetRenderState(CRenderState* state, int index)
 {
-	m_Material->AddTexture(registerNum, shaderType, name, vecFileName, pathName);
+	m_vecMaterialSlot[index]->SetRenderState(state);
 }
 
-void CStaticMeshComponent::SetTexture(int index, int registerNum, int shaderType, const std::string& name, CTexture* texture)
+void CStaticMeshComponent::SetRenderState(const std::string& name, int index)
 {
-	m_Material->SetTexture(index, registerNum, shaderType, name, texture);
+	m_vecMaterialSlot[index]->SetRenderState(name);
 }
 
-void CStaticMeshComponent::SetTexture(int index, int registerNum, int shaderType, const std::string& name, const TCHAR* fileName, const std::string& pathName)
+void CStaticMeshComponent::SetTransparency(bool enable, int index)
 {
-	m_Material->SetTexture(index, registerNum, shaderType, name, fileName, pathName);
+	m_vecMaterialSlot[index]->SetTransparency(enable);
 }
 
-void CStaticMeshComponent::SetTextureFullPath(int index, int registerNum,
+void CStaticMeshComponent::SetOpacity(float opacity, int index)
+{
+	m_vecMaterialSlot[index]->SetOpacity(opacity);
+}
+
+void CStaticMeshComponent::AddOpacity(float opacity, int index)
+{
+	m_vecMaterialSlot[index]->AddOpacity(opacity);
+}
+
+void CStaticMeshComponent::AddTexture(int materialIndex, int registerNum, int shaderType, const std::string& name, CTexture* texture)
+{
+	m_vecMaterialSlot[materialIndex]->AddTexture(registerNum, shaderType, name, texture);
+}
+
+void CStaticMeshComponent::AddTexture(int materialIndex, int registerNum, int shaderType, const std::string& name, const TCHAR* fileName, const std::string& pathName)
+{
+	m_vecMaterialSlot[materialIndex]->AddTexture(registerNum, shaderType, name, fileName, pathName);
+}
+
+void CStaticMeshComponent::AddTextureFullPath(int materialIndex, int registerNum, int shaderType, const std::string& name, const TCHAR* fullPath)
+{
+	m_vecMaterialSlot[materialIndex]->AddTextureFullPath(registerNum, shaderType, name, fullPath);
+}
+
+void CStaticMeshComponent::AddTexture(int materialIndex, int registerNum, int shaderType, const std::string& name, const std::vector<TCHAR*>& vecFileName, const std::string& pathName)
+{
+	m_vecMaterialSlot[materialIndex]->AddTexture(registerNum, shaderType, name, vecFileName, pathName);
+}
+
+void CStaticMeshComponent::SetTexture(int materialIndex, int index, int registerNum, int shaderType, const std::string& name, CTexture* texture)
+{
+	m_vecMaterialSlot[materialIndex]->SetTexture(index, registerNum, shaderType, name, texture);
+}
+
+void CStaticMeshComponent::SetTexture(int materialIndex, int index, int registerNum, int shaderType, const std::string& name, const TCHAR* fileName, const std::string& pathName)
+{
+	m_vecMaterialSlot[materialIndex]->SetTexture(index, registerNum, shaderType, name, fileName, pathName);
+}
+
+void CStaticMeshComponent::SetTextureFullPath(int materialIndex, int index, int registerNum,
 	int shaderType, const std::string& name, const TCHAR* fullPath)
 {
-	m_Material->SetTextureFullPath(index, registerNum, shaderType, name, fullPath);
+	m_vecMaterialSlot[materialIndex]->SetTextureFullPath(index, registerNum, shaderType, name, fullPath);
 }
 
-void CStaticMeshComponent::SetTexture(int index, int registerNum, int shaderType, const std::string& name, const std::vector<TCHAR*>& vecFileName, const std::string& pathName)
+void CStaticMeshComponent::SetTexture(int materialIndex, int index, int registerNum, int shaderType, const std::string& name, const std::vector<TCHAR*>& vecFileName, const std::string& pathName)
 {
-	m_Material->SetTexture(index, registerNum, shaderType, name, vecFileName, pathName);
+	m_vecMaterialSlot[materialIndex]->SetTexture(index, registerNum, shaderType, name, vecFileName, pathName);
 }
 
 void CStaticMeshComponent::Start()
@@ -122,7 +197,8 @@ void CStaticMeshComponent::Start()
 
 bool CStaticMeshComponent::Init()
 {
-	SetMaterial(m_Scene->GetSceneResource()->FindMaterial("Color"));
+	// SetMaterial(m_Scene->GetSceneResource()->FindMaterial("Color"));
+	AddMaterial(m_Scene->GetSceneResource()->FindMaterial("Color"));
 
 	return true;
 }
@@ -146,14 +222,19 @@ void CStaticMeshComponent::Render()
 {
 	CSceneComponent::Render();
 
-	if (!m_Mesh || !m_Material)
+	if (!m_Mesh)
 		return;
 
-	m_Material->Render();
+	size_t size = m_vecMaterialSlot.size();
 
-	m_Mesh->Render();
+	for (size_t i = 0; i < size; i++)
+	{
+		m_vecMaterialSlot[i]->Render();
 
-	m_Material->Reset();
+		m_Mesh->Render((int)i);
+
+		m_vecMaterialSlot[i]->Reset();
+	}
 }
 
 void CStaticMeshComponent::PostRender()
@@ -177,7 +258,14 @@ void CStaticMeshComponent::Save(FILE* pFile)
 	fwrite(&length, sizeof(int), 1, pFile);
 	fwrite(meshName.c_str(), sizeof(char), length, pFile);
 
-	m_Material->Save(pFile);
+	int materialSlotCount = (int)m_vecMaterialSlot.size();
+
+	fwrite(&materialSlotCount, sizeof(int), 1, pFile);
+
+	for (int i = 0; i < materialSlotCount; i++)
+	{
+		m_vecMaterialSlot[i]->Save(pFile);
+	}
 
 	CSceneComponent::Save(pFile);
 }
@@ -191,9 +279,24 @@ void CStaticMeshComponent::Load(FILE* pFile)
 	fread(&length, sizeof(int), 1, pFile);
 	fread(meshName, sizeof(char), length, pFile);
 
-	m_Mesh = (CStaticMesh*)m_Scene->GetSceneResource()->FindMesh(meshName);
+	SetMesh(meshName);
 
-	m_Material->Load(pFile);
+	m_Name = meshName;
+
+	int materialSlotCount = 0;
+
+	fread(&materialSlotCount, sizeof(int), 1, pFile);
+
+	m_vecMaterialSlot.clear();
+
+	m_vecMaterialSlot.resize(materialSlotCount);
+
+	for (int i = 0; i < materialSlotCount; i++)
+	{
+		m_vecMaterialSlot[i] = new CMaterial;
+
+		m_vecMaterialSlot[i]->Load(pFile);
+	}
 
 	CSceneComponent::Load(pFile);
 }

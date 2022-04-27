@@ -33,6 +33,7 @@ private:
 	std::vector<class CLine*> m_vecLine;
 	std::vector<class CVehicle*> m_vecVehicle;
 	class CFlowField* m_Field;
+	class CPath* m_Path;
 
 	float m_FrictionConst;
 

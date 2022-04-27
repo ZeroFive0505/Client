@@ -218,6 +218,7 @@ public:
 	inline void RubButt()
 	{
 		m_Sprite->ChangeAnimation("Rubbutt");
+		m_MeteorCnt = 0;
 	}
 
 	inline void RubButtEnd()

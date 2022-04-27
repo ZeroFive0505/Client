@@ -6,9 +6,11 @@
 #include "../Resource/Material/Material.h"
 #include "../Resource/Texture/Texture.h"
 #include "../Resource/Animation/AnimationSequence2D.h"
+#include "../Resource/Animation/AnimationSequence.h"
 #include "../Resource/ResourceManager.h"
 #include "../Resource/Sound/Sound.h"
 #include "../Resource/Particle/Particle.h"
+#include "../Resource/Animation/Skeleton.h"
 
 /// <summary>
 /// 씬 리소스를 통해서 리소스매니저의 중계를 받아
@@ -31,10 +33,22 @@ private:
 	std::unordered_map<std::string, CSharedPtr<CMaterial>> m_mapMaterial;
 	std::unordered_map<std::string, CSharedPtr<CTexture>> m_mapTexture;
 	std::unordered_map<std::string, CSharedPtr<CAnimationSequence2D>> m_mapSequence2D;
+	std::unordered_map<std::string, CSharedPtr<CAnimationSequence>> m_mapSequence;
 	std::unordered_map<std::string, CSharedPtr<CSound>> m_mapSound;
 	std::unordered_map<std::string, CSharedPtr<CParticle>> m_mapParticle;
+	std::unordered_map<std::string, CSharedPtr<CSkeleton>> m_mapSkeleton;
 
 public: // =========================== Mesh ===========================
+
+	bool LoadMesh(Mesh_Type type, const std::string& name, const TCHAR* fileName,
+		const std::string& pathName = MESH_PATH);
+	bool LoadMeshFullPath(Mesh_Type type, const std::string& name, const TCHAR* fullPath);
+	bool LoadMeshMultibyte(Mesh_Type type, const std::string& name, const char* fileName,
+		const std::string& pathName = MESH_PATH);
+	bool LoadMeshFullPathMultibyte(Mesh_Type type, const std::string& name, const char* fullPath);
+	bool SetMeshSkeleton(const std::string& name, const std::string& skeletonName);
+	bool SetMeshSkeleton(const std::string& name, class CSkeleton* skeleton);
+
 	CMesh* FindMesh(const std::string& name);
 
 public: // =========================== Shader ===========================
@@ -120,5 +134,28 @@ public: // =========================== Sound ===========================
 public: // =========================== Particle ===========================
 	bool CreateParticle(const std::string& name);
 	CParticle* FindParticle(const std::string& name);
+
+public: // =========================== Animation3D ===========================
+	bool LoadAnimationSequence(const std::string& name, bool loop,
+		struct _tagFbxAnimationClip* clip, class CScene* scene = nullptr);
+	bool LoadAnimationSequence(const std::string& name, bool loop,
+		int startFrame, int endFrame, float playTime,
+		const std::vector<BoneKeyFrame*>& vecFrame, class CScene* scene = nullptr);
+	bool LoadAnimationSequence(bool loop, const std::string& name, const TCHAR* fileName,
+		const std::string& pathName = ANIMATION_PATH, class CScene* scene = nullptr);
+	bool LoadAnimationSequenceFullPath(bool loop, const std::string& name, const TCHAR* fullPath, class CScene* scene = nullptr);
+	bool LoadAnimationSequenceMultibyte(bool loop, const std::string& name, const char* fileName,
+		const std::string& pathName = ANIMATION_PATH, class CScene* scene = nullptr);
+	bool LoadAnimationSequenceFullPathMultibyte(bool loop, const std::string& name, const char* fullPath, class CScene* scene = nullptr);
+	CAnimationSequence* FindAnimationSequence(const std::string& name);
+
+
+	bool LoadSkeleton(const std::string& name, const TCHAR* fileName,
+		const std::string& pathName = ANIMATION_PATH);
+	bool LoadSkeletonFullPath(const std::string& name, const TCHAR* fullPath);
+	bool LoadSkeletonMultibyte(const std::string& name, const char* fileName,
+		const std::string& pathName);
+	bool LoadSkeletonFullPathMultibyte(const std::string& name, const char* fullPath);
+	CSkeleton* FindSkeleton(const std::string& name);
 };
 

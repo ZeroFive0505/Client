@@ -369,7 +369,13 @@ void CMisuzu::Update(float deltaTime)
 			m_Stunned = false;
 		}
 		else
+		{
+			m_Invincible = true;
 			m_Sprite->ChangeAnimation("Getup_roar");
+			PopStateEnd(EEnemyState::DOWN);
+			m_Velocity = Vector2(0.0f, 0.0f);
+			m_AbsVel = Vector2(0.0f, 0.0f);
+		}
 	}
 
 
@@ -883,12 +889,12 @@ void CMisuzu::GetHit(EAttackType type, const Vector2& dir, int damage, float for
 
 	m_Trigger->SetHealthBar(m_HealthPoint / (float)m_MaxHealthPoint);
 
-	if (m_HealthPoint <= 0 && !CEngine::GetInst()->IsSlowMotion())
-	{
-		CResourceManager::GetInst()->SoundPlay("Boss_finalhit");
-		m_Sprite->SetBaseColor(1.0f, 1.0f, 1.0f, 1.0f);
-		CEngine::GetInst()->SetSlowMotion(3.0f, 0.75f);
-	}
+	//if (m_HealthPoint <= 0 && !CEngine::GetInst()->IsSlowMotion())
+	//{
+	//	CResourceManager::GetInst()->SoundPlay("Boss_finalhit");
+	//	m_Sprite->SetBaseColor(1.0f, 1.0f, 1.0f, 1.0f);
+	//	CEngine::GetInst()->SetSlowMotion(3.0f, 0.8f);
+	//}
 
 	PopStateEnd(EEnemyState::ATTACK);
 	PushState(EEnemyState::GETHIT);
@@ -1086,6 +1092,7 @@ void CMisuzu::OnGround(const sCollisionResult& result)
 				m_Sprite->ChangeAnimation("Meteor_landhit");
 				PushState(EEnemyState::ATTACK);
 				m_Invincible = false;
+				m_MeteorCnt = 0;
 				CResourceManager::GetInst()->SoundPlay("Misuzu_meteor_drop_impact");
 			}
 			else if (m_CurrentMove == EMisuzuMoveSet::METEOR && !m_MeteorHit)
@@ -1125,7 +1132,7 @@ void CMisuzu::OnGround(const sCollisionResult& result)
 				if ((int)size != 0)
 				{
 					CRCGPilar* closestPilar = pilars.front();
-					for (size_t i = 0; i < size; i++)
+					for (size_t i = 1; i < size; i++)
 					{
 						if (m_Bottom->GetWorldPos().Distance(pilars[i]->GetPilarBottomCollider()->GetWorldPos()) <
 							m_Bottom->GetWorldPos().Distance(closestPilar->GetPilarBottomCollider()->GetWorldPos()))

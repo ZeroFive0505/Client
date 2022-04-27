@@ -204,7 +204,7 @@ bool CRCGEnemy::Init()
 
 	m_StunAccumulate = 0.0f;
 
-	m_HealthPoint = 350;
+	m_HealthPoint = 250;
 
 	m_MaxFallSpeed = -30.0f;
 
@@ -358,6 +358,39 @@ void CRCGEnemy::Update(float deltaTime)
 			ApplyAbsForce(v * deltaTime);
 	}
 
+
+	if (!m_OnGround && m_Velocity.y <= 0.0f && !m_Body->GetPrevColliderList().empty())
+	{
+		auto iter = m_Body->GetPrevColliderList().begin();
+		auto iterEnd = m_Body->GetPrevColliderList().end();
+
+		for (; iter != iterEnd; iter++)
+		{
+			if ((*iter)->GetGameObject() == this)
+			{
+				m_OnGround = true;
+				m_Jump = false;
+				m_Physics = false;
+				m_Push = false;
+				m_Velocity = Vector2(0.0f, 0.0f);
+				m_AbsVel = Vector2(0.0f, 0.0f);
+
+				if (CheckState(EEnemyState::ATTACK))
+					PopStateEnd(EEnemyState::ATTACK);
+
+				if (CheckState(EEnemyState::GETHIT))
+				{
+					m_Sprite->ChangeAnimation("Knockdown_ground");
+					m_HitCount = 0;
+					PushState(EEnemyState::DOWN, m_CurrentTime + 3.0f);
+				}
+				else
+					m_Sprite->ChangeAnimation("Idle");
+
+				break;
+			}
+		}
+	}
 
 	m_CurrentTime += deltaTime;
 }
@@ -522,7 +555,7 @@ void CRCGEnemy::GetHit(EAttackType type, const Vector2& dir, int damage, float f
 
 			if (m_OnGround && m_KnockbackForce.y > 0.0f)
 			{
-				m_Velocity.y = 0.001f;
+				m_Velocity.y = 0.1f;
 				m_OnGround = false;
 			}
 
@@ -553,7 +586,7 @@ void CRCGEnemy::GetHit(EAttackType type, const Vector2& dir, int damage, float f
 
 			if (m_OnGround && m_KnockbackForce.y > 0.0f)
 			{
-				m_Velocity.y = 0.001f;
+				m_Velocity.y = 0.1f;
 				m_OnGround = false;
 			}
 
@@ -587,7 +620,7 @@ void CRCGEnemy::GetHit(EAttackType type, const Vector2& dir, int damage, float f
 
 			m_Sprite->ChangeAnimation("Knockdown");
 				
-			m_Velocity.y = 0.1f;				
+			m_Velocity.y = 0.001f;				
 			m_OnGround = false;
 
 			m_Jump = false;
@@ -618,7 +651,7 @@ void CRCGEnemy::GetHit(EAttackType type, const Vector2& dir, int damage, float f
 
 			m_Sprite->ChangeAnimation("Blownback");
 
-			m_Velocity.y = 0.1f;
+			m_Velocity.y = 0.001f;
 			m_OnGround = false;
 
 			m_Physics = true;

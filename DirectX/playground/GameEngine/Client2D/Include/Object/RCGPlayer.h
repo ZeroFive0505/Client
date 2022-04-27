@@ -411,7 +411,7 @@ public:
 	}
 
 
-	void GutPunch();
+	virtual void GutPunch();
 
 	virtual void GetHit(EAttackType type, const Vector2& dir, int damage, float force, float forceTime, bool right);
 	void HitStatusEnd();

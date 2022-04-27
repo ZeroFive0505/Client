@@ -114,7 +114,7 @@ void CLockEventTrigger::Update(float deltaTime)
             }
         }
 
-        if (m_Enemies.empty() && m_SpawnCnt == m_EnemiesToSpawn)
+        if (m_SpawnCnt == m_EnemiesToSpawn && CClientManager::GetInst()->GetManager()->GetEnemies().empty())
         {
             m_EventEnd = true;
             m_EventOn = false;
@@ -211,7 +211,7 @@ void CLockEventTrigger::OnPlayerTrigger(const sCollisionResult& result)
 
         player->GetCameraPoint()->StopFollow();
 
-        m_EnemiesToSpawn = rand() % 5 + 1;
+        m_EnemiesToSpawn = rand() % 4 + 2;
 
         m_EventOn = true;
 

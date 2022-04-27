@@ -19,8 +19,7 @@ CEngine::CEngine() :
 	m_Timer(nullptr),
 	m_Start(false),
 	m_Play(true),
-	m_Slow(false),
-	m_Space(Engine_Space::Space2D),
+	m_Space(Engine_Space::Space3D),
 	m_ShowCursorCount(0),
 	m_GlobalCBuffer(nullptr),
 	m_GlobalAccTime(0.0f),
@@ -28,11 +27,12 @@ CEngine::CEngine() :
 	m_NoiseSeed2D(nullptr),
 	m_PerlinNoise1D(nullptr),
 	m_PerlinNoise2D(nullptr),
-	m_SceneChangeStart(false),
-	m_ElapsedTime(0.0f)
+	m_SceneChangeStart(false)
+	//m_Slow(false),
+	//m_ElapsedTime(0.0f)
 {
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-	//_CrtSetBreakAlloc(326);
+	//_CrtSetBreakAlloc(2340);
 
 	//m_ClearColors[0] = 211 / (float)255;
 	//m_ClearColors[1] = 211 / (float)255;
@@ -288,32 +288,31 @@ void CEngine::Logic()
 
 	m_Timer->Update();
 
-	m_SlowTime += m_Timer->GetDeltaTime();
-	m_ElapsedTime += m_Timer->GetDeltaTime();
+	// m_SlowTime += m_Timer->GetDeltaTime();
+	// m_ElapsedTime += m_Timer->GetDeltaTime();
 
-	if (m_Slow && m_SlowTime >= m_SlowDuration)
-	{
-		m_Slow = false;
-		m_SlowTime = 0.0f;
-	}
+	//if (m_Slow && m_SlowTime >= m_SlowDuration)
+	//{
+	//	m_Slow = false;
+	//	m_SlowTime = 0.0f;
+	//}
 
-	if (m_ElapsedTime < (1.0f / 60.0f))
+	/*if (m_ElapsedTime < (1.0f / 60.0f))
 		return;
 
-	m_ElapsedTime = m_ElapsedTime - (1.0f / 60.0f);
+	m_ElapsedTime = m_ElapsedTime - (1.0f / 60.0f);*/
 
-	float deltaTime = 1.0f / 60.0f;
+	float deltaTime = m_Timer->GetDeltaTime();
 
 	if (!m_Play)
 		deltaTime = 0.0f;
 
-	if (m_Slow)
-		deltaTime *= m_SlowScale;
-
 	m_GlobalAccTime += deltaTime;
-
 	m_GlobalCBuffer->SetDeltaTime(deltaTime);
 	m_GlobalCBuffer->SetAccTime(m_GlobalAccTime);
+
+	//if (m_Slow)
+	//	deltaTime *= m_SlowScale;
 
 	m_GlobalCBuffer->UpdateCBuffer();
 

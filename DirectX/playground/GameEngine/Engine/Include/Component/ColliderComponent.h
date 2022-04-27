@@ -162,14 +162,7 @@ public:
 	virtual bool CollisionMouse(const Vector2& mousePos) = 0;
 
 
-	inline void DeleteCollisionCallback(CGameObject* obj)
-	{
-		m_CollisionCallback[(int)Collision_State::Begin].erase(std::remove_if(m_CollisionCallback[(int)Collision_State::Begin].begin(), m_CollisionCallback[(int)Collision_State::Begin].end(),
-			[&](std::pair<std::function<void(const sCollisionResult&)>, CGameObject*>& item) { return item.second == obj; }));
-
-		m_CollisionCallback[(int)Collision_State::End].erase(std::remove_if(m_CollisionCallback[(int)Collision_State::End].begin(), m_CollisionCallback[(int)Collision_State::End].end(),
-			[&](std::pair<std::function<void(const sCollisionResult&)>, CGameObject*>& item) { return item.second == obj; }));
-	}
+	void DeleteCollisionCallback(CGameObject* obj);
 
 	inline void ClearCallback()
 	{

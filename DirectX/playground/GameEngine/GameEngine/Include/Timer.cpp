@@ -6,7 +6,7 @@ CTimer::CTimer() :
     m_Tick(0)
 {
     QueryPerformanceFrequency(&m_Second);
-
+    m_CurrentTime = 0.0f;
     QueryPerformanceCounter(&m_Time);
 }
 
@@ -33,6 +33,8 @@ float CTimer::Update()
         m_FPSTime = 0.0f;
         m_Tick = 0;
     }
+
+    m_CurrentTime += m_DeltaTime;
 
     return m_DeltaTime;
 }

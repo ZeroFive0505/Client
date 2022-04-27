@@ -62,6 +62,7 @@
 #define ANIMATION_PATH "Animation"
 #define SCENE_PATH "Scene"
 #define SOUND_PATH "Sound"
+#define MESH_PATH "Mesh"
 
 #define SAFE_DELETE(p) if(p) { delete p; p = nullptr; }
 #define SAFE_DELETE_ARRAY(p) if(p) { delete[] p; p = nullptr; }
@@ -120,16 +121,19 @@ struct sVertexBuffer
 	int Size;
 	// 총 몇개가 있는지
 	int Count;
+	void* Data;
 
 	sVertexBuffer() :
 		Buffer(nullptr),
 		Size(0),
-		Count(0)
+		Count(0),
+		Data(nullptr)
 	{}
 
 	~sVertexBuffer()
 	{
 		SAFE_RELEASE(Buffer);
+		SAFE_DELETE_ARRAY(Data);
 	}
 };
 
@@ -145,12 +149,14 @@ struct sIndexBuffer
 	int Count;
 	// 포맷
 	DXGI_FORMAT Fmt;
+	void* Data;
 
 	sIndexBuffer() :
 		Buffer(nullptr),
 		Size(0),
 		Count(0),
-		Fmt(DXGI_FORMAT_UNKNOWN)
+		Fmt(DXGI_FORMAT_UNKNOWN),
+		Data(nullptr)
 	{
 
 	}
@@ -158,6 +164,7 @@ struct sIndexBuffer
 	~sIndexBuffer()
 	{
 		SAFE_RELEASE(Buffer);
+		SAFE_DELETE_ARRAY(Data);
 	}
 };
 
@@ -171,6 +178,18 @@ struct sMeshContainer
 	std::vector<sIndexBuffer> vecIB;
 	// 도형을 그릴때 방법을 정의
 	D3D11_PRIMITIVE_TOPOLOGY Primitive;
+};
+
+struct sMeshSlot
+{
+	sVertexBuffer* VB;
+	sIndexBuffer* IB;
+	D3D11_PRIMITIVE_TOPOLOGY primitive;
+
+	sMeshSlot() :
+		VB(nullptr),
+		IB(nullptr)
+	{}
 };
 
 // 상수버퍼를 이용하여 쉐이더로 보내기위해서 만들어진 구조체
@@ -218,14 +237,28 @@ struct sVertexUV
 struct sMaterialCBuffer
 {
 	Vector4 baseColor;
+	Vector4 ambientColor;
+	Vector4 specularColor;
+	Vector4 emissiveColor;
 	float opacity;
 	int paperBurnEnable;
+	int bumpEnable;
+	int animation3DEnable;
+	int specularTex;
+	int emissiveTex;
 	Vector2 empty;
 
 	sMaterialCBuffer() : 
 		baseColor(1.0f, 1.0f, 1.0f, 1.0f),
+		ambientColor(0.2f, 0.2f, 0.2f, 1.0f),
+		specularColor(1.0f, 1.0f, 1.0f, 1.0f),
+		emissiveColor(1.0f, 1.0f, 1.0f, 1.0f),
 		opacity(1.0f), 
 		paperBurnEnable(0),
+		bumpEnable(0),
+		animation3DEnable(0),
+		specularTex(0),
+		emissiveTex(0),
 		empty(1.0f, 1.0f)
 	{}
 };
@@ -459,4 +492,29 @@ struct sNavResultData
 {
 	std::function<void(const std::list<Vector3>&)> callBack;
 	std::list<Vector3> path;
+};
+
+struct sVertex3D
+{
+	Vector3 pos;
+	Vector3 normal;
+	Vector2 uv;
+	Vector3 tangent;
+	Vector3 binormal;
+	Vector4 blendWeight;
+	Vector4 blendIdx;
+};
+
+struct sAnimationCBuffer
+{
+	int boneCount;
+	int currentFrame;
+	int nextFrame;
+	float ratio;
+	int frameCount;
+	int rowIndex;
+	int changeAnimation;
+	float changeRatio;
+	int changeFrameCount;
+	Vector3 empty;
 };

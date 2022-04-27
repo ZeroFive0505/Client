@@ -17,7 +17,9 @@ CTransform::CTransform() :
     m_InheritParentRotationPosZ(false),
     m_UpdateScale(true),
     m_UpdateRot(true),
-    m_UpdatePos(true)
+    m_UpdatePos(true),
+    m_WorldScale(1.0f, 1.0f, 1.0f),
+    m_RelativeScale(1.0f, 1.0f, 1.0f)
 {
     // 축을 초기화한다.
     for (int i = 0; i < AXIS_MAX; i++)

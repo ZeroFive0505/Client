@@ -3,6 +3,9 @@
   <ProjectOutputs />
   <ContentFiles>
     <ContentFile>
+      <FullPath>D:\Visual Studio\repos\OneYearClient\DirectX\playground\GameEngine\GameEngine\Bin\AnimationUpdate.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
       <FullPath>D:\Visual Studio\repos\OneYearClient\DirectX\playground\GameEngine\GameEngine\Bin\Collider.cso</FullPath>
     </ContentFile>
     <ContentFile>
@@ -13,6 +16,9 @@
     </ContentFile>
     <ContentFile>
       <FullPath>D:\Visual Studio\repos\OneYearClient\DirectX\playground\GameEngine\GameEngine\Bin\Particle.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>D:\Visual Studio\repos\OneYearClient\DirectX\playground\GameEngine\GameEngine\Bin\Standard3D.cso</FullPath>
     </ContentFile>
     <ContentFile>
       <FullPath>D:\Visual Studio\repos\OneYearClient\DirectX\playground\GameEngine\GameEngine\Bin\TileMap.cso</FullPath>

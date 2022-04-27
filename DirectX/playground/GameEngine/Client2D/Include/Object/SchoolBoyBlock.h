@@ -1,6 +1,7 @@
 #pragma once
 
 #include "State.h"
+#include "SchoolBoyPursue.h"
 
 class CSchoolBoyBlock :
 	public CState
@@ -12,6 +13,13 @@ public:
 public:
 	virtual void Enter()
 	{
+		if (m_NPC->IsInvincible())
+		{
+			SAFE_DELETE(m_NextState);
+			m_NextState = (CState*)(new CSchoolBoyPursue(m_NPC, m_NextState));
+			m_Stage = EVENT::EXIT;
+			return;
+		}
 		m_NPC->GetSpriteComponent()->ChangeAnimation("Block");
 		m_NPC->GuardOn();
 		CState::Enter();
@@ -21,7 +29,8 @@ public:
 
 	virtual void Exit()
 	{
-		m_NPC->GetSpriteComponent()->ChangeAnimation("Block_end");
+		if(!m_NPC->IsInvincible())
+			m_NPC->GetSpriteComponent()->ChangeAnimation("Block_end");
 		CState::Exit();
 	}
 

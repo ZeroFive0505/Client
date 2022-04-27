@@ -75,7 +75,7 @@ bool CRCGStage04::Init()
 
 	CClientManager::GetInst()->GetManager()->AddEnemy(cheerLeader);
 
-	/*cheerLeader = m_Scene->CreateGameObject<CCheerleader>("Enemy 2");
+	cheerLeader = m_Scene->CreateGameObject<CCheerleader>("Enemy 2");
 
 	cheerLeader->SetIdleState();
 
@@ -89,7 +89,7 @@ bool CRCGStage04::Init()
 
 	cheerLeader->SetWorldPos(800.0f, (float)m_TileMap->GetTileMap()->GetBackMaterial()->GetTextureHeight() * 2.5f - 550.0f, 0.0f);
 
-	CClientManager::GetInst()->GetManager()->AddEnemy(cheerLeader);*/
+	CClientManager::GetInst()->GetManager()->AddEnemy(cheerLeader);
 
 	m_RCGMainWidget->SetSceneChangeCallback<CRCGStage04>(this, &CRCGStage04::SceneChange);
 
