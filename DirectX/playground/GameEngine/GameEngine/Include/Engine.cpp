@@ -327,6 +327,8 @@ void CEngine::Logic()
 		return;
 
 	Render(deltaTime);
+
+	CInput::GetInst()->ClearWheelDirection();
 }
 
 bool CEngine::Update(float deltaTime)
@@ -495,6 +497,12 @@ LRESULT CEngine::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		HDC hdc = BeginPaint(hWnd, &ps);
 
 		EndPaint(hWnd, &ps);
+	}
+	break;
+	case WM_MOUSEWHEEL:
+	{
+		short s = HIWORD(wParam);
+		CInput::GetInst()->SetWheelDirection(s / -120);
 	}
 	break;
 	case WM_DESTROY:

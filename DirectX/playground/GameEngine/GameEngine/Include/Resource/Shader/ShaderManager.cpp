@@ -15,6 +15,7 @@
 #include "Standard3DShader.h"
 #include "AnimationUpdateShader.h"
 
+
 CShaderManager::CShaderManager()
 {
 }
@@ -114,6 +115,9 @@ bool CShaderManager::Init()
 		return false;
 
 	if (!CreateConstantBuffer("AnimationCBuffer", sizeof(sAnimationCBuffer), 11, (int)Buffer_Shader_Type::Compute))
+		return false;
+
+	if (!CreateConstantBuffer("LightCBuffer", sizeof(sLightBuffer), 5, (int)Buffer_Shader_Type::Pixel))
 		return false;
 
 

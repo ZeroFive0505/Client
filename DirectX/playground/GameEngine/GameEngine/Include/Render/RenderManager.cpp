@@ -8,6 +8,7 @@
 #include "../Scene/Scene.h"
 #include "../Scene/Viewport.h"
 #include "../Engine.h"
+#include "../Device.h"
 
 DEFINITION_SINGLE(CRenderManager)
 
@@ -136,6 +137,18 @@ bool CRenderManager::Init()
 	m_DepthDisable = m_RenderStateManager->FindRenderState("DepthDisable");
 	m_AlphaBlend = m_RenderStateManager->FindRenderState("AlphaBlend");
 
+	// 디퍼드 렌더링용 타겟 설정
+	sResolution rs = CDevice::GetInst()->GetResolution();
+
+	if (!CResourceManager::GetInst()->CreateTarget("Diffuse", rs.width, rs.height, DXGI_FORMAT_R32G32B32A32_FLOAT))
+		return false;
+
+	if (!CResourceManager::GetInst()->CreateTarget("Normal", rs.width, rs.height, DXGI_FORMAT_R32G32B32A32_FLOAT))
+		return false;
+
+	if (!CResourceManager::GetInst()->CreateTarget("Depth", rs.width, rs.height, DXGI_FORMAT_R32G32B32A32_FLOAT))
+		return false;
+
 	return true;
 }
 
@@ -163,6 +176,9 @@ void CRenderManager::Render()
 			(*iter)->PrevRender();
 		}
 	}
+
+	// 조명 정보를 Shader로 넘겨준다.
+	CSceneManager::GetInst()->GetScene()->GetLightManager()->SetShader();
 
 	{
 		auto iter = m_RenderLayerList.begin();

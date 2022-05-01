@@ -4,6 +4,7 @@
 CPlayerAnimation::CPlayerAnimation()
 {
 	SetTypeID<CPlayerAnimation>();
+	m_Idle = true;
 }
 
 CPlayerAnimation::CPlayerAnimation(const CPlayerAnimation& Anim) :
@@ -21,6 +22,10 @@ bool CPlayerAnimation::Init()
 		return false;
 
 	AddAnimation("PlayerIdle", "Idle");
+	AddAnimation("PlayerAttack", "Attack", false);
+	AddAnimation("PlayerWalk", "Walk");
+
+	SetEndFunction<CPlayerAnimation>("Attack", this, &CPlayerAnimation::AttackEnd);
 
 	return true;
 }
@@ -28,4 +33,10 @@ bool CPlayerAnimation::Init()
 CPlayerAnimation* CPlayerAnimation::Clone()
 {
 	return new CPlayerAnimation(*this);
+}
+
+void CPlayerAnimation::AttackEnd()
+{
+	ChangeAnimation("Idle");
+	m_Idle = true;
 }

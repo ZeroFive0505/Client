@@ -1,5 +1,5 @@
 #include "TextureManager.h"
-#include "Texture.h"
+#include "RenderTarget.h"
 #include "../../Device.h"
 
 CTextureManager::CTextureManager()
@@ -156,6 +156,26 @@ void CTextureManager::ReleaseTexture(const std::string& name)
 		if (iter->second->GetRefCount() == 1)
 			m_mapTexture.erase(iter);
 	}
+}
+
+bool CTextureManager::CreateTarget(const std::string& name, unsigned int width, unsigned int height, DXGI_FORMAT pixelFormat)
+{
+	CRenderTarget* texture = (CRenderTarget*)FindTexture(name);
+
+	if (texture)
+		return true;
+
+	texture = new CRenderTarget;
+
+	if (!texture->CreateTarget(name, width, height, pixelFormat))
+	{
+		SAFE_RELEASE(texture);
+		return false;
+	}
+
+	m_mapTexture.insert(std::make_pair(name, texture));
+	
+	return true;
 }
 
 bool CTextureManager::CreateSampler(const std::string name, D3D11_FILTER Filter, D3D11_TEXTURE_ADDRESS_MODE AddressU, D3D11_TEXTURE_ADDRESS_MODE AddressV, D3D11_TEXTURE_ADDRESS_MODE AddressW, float BorderColor[4])

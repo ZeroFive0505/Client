@@ -38,8 +38,8 @@ bool CClientManager3D::Init(HINSTANCE hInst)
 	CSceneManager::GetInst()->SetCreateObjectFunction<CClientManager3D>(this, &CClientManager3D::CreateObject);
 	CSceneManager::GetInst()->SetCreateComponentFunction<CClientManager3D>(this, &CClientManager3D::CreateComponent);
 
-	CInput::GetInst()->CreateKey("MoveUp", 'W');
-	CInput::GetInst()->CreateKey("MoveDown", 'S');
+	CInput::GetInst()->CreateKey("MoveFront", 'W');
+	CInput::GetInst()->CreateKey("MoveBack", 'S');
 	CInput::GetInst()->CreateKey("RotationZInv", 'A');
 	CInput::GetInst()->CreateKey("RotationZ", 'D');
 	CInput::GetInst()->CreateKey("Attack", VK_SPACE);

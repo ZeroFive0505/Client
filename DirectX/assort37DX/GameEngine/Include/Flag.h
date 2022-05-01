@@ -229,3 +229,11 @@ enum class Mesh_Type
 	Static,
 	Animation
 };
+
+enum class Light_Type
+{
+	Dir,
+	Point,
+	Spot,
+	End
+};

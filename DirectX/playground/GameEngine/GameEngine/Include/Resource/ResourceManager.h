@@ -95,6 +95,9 @@ public: // =========================== Texture ===========================
 
 	void ReleaseTexture(const std::string& name);
 
+public:
+	bool CreateTarget(const std::string& name, unsigned int width, unsigned int height, DXGI_FORMAT pixelFormat);
+
 public: // =========================== Animation Sequence2D ===========================
 	bool CreateAnimationSequence2D(const std::string& name, const std::string& textureName,
 		const TCHAR* fileName, const std::string& pathName = TEXTURE_PATH);

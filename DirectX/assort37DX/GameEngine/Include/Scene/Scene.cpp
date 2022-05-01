@@ -12,6 +12,7 @@ CScene::CScene()
 	m_CameraManager = new CCameraManager;
 	m_Viewport = new CViewport;
 	m_NavManager = new CNavigationManager;
+	m_LightManager = new CLightManager;
 
 	m_Mode->m_Scene = this;
 	m_Resource->m_Scene = this;
@@ -19,6 +20,7 @@ CScene::CScene()
 	m_CameraManager->m_Scene = this;
 	m_Viewport->m_Scene = this;
 	m_NavManager->m_Scene = this;
+	m_LightManager->m_Scene = this;
 
 	m_Start = false;
 
@@ -26,17 +28,21 @@ CScene::CScene()
 	m_CameraManager->Init();
 	m_Viewport->Init();
 	m_NavManager->Init();
+	m_LightManager->Init();
 
 	m_Change = true;
 }
 
 CScene::~CScene()
 {
+	m_ObjList.clear();
 	SAFE_DELETE(m_NavManager);
 	SAFE_DELETE(m_Viewport);
 	SAFE_DELETE(m_CameraManager);
 	SAFE_DELETE(m_Collision);
 	SAFE_DELETE(m_Resource);
+	m_LightManager->Destroy();
+	SAFE_DELETE(m_LightManager);
 }
 
 void CScene::Start()
@@ -56,6 +62,7 @@ void CScene::Start()
 	m_CameraManager->Start();
 	m_Collision->Start();
 	m_Viewport->Start();
+	m_LightManager->Start();
 
 	if (m_Mode->GetPlayerObject())
 	{
@@ -101,6 +108,8 @@ void CScene::Update(float DeltaTime)
 	m_Viewport->Update(DeltaTime);
 
 	m_NavManager->Update(DeltaTime);
+
+	m_LightManager->Update(DeltaTime);
 }
 
 void CScene::PostUpdate(float DeltaTime)

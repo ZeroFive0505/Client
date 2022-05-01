@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "PlayerAnimation.h"
+#include "Input.h"
 
 CPlayer::CPlayer()
 {
@@ -36,13 +37,19 @@ bool CPlayer::Init()
 	m_Mesh->SetMesh("PlayerMesh");
 	m_Mesh->CreateAnimationInstance<CPlayerAnimation>();
 
+	m_Animation = (CPlayerAnimation*)m_Mesh->GetAnimationInstance();
+
 	m_Mesh->SetRelativeScale(0.05f, 0.05f, 0.05f);
 
 	m_Camera->SetRelativePos(0.0f, 0.0f, -5.0f);
 
 	m_Arm->SetOffset(0.0f, 1.0f, 0.0f);
 	m_Arm->SetRelativeRotation(15.0f, 0.0f, 0.0f);
-	m_Arm->SetTargetDistance(10.0f);
+	m_Arm->SetTargetDistance(5.0f);
+
+	CInput::GetInst()->SetCallback<CPlayer>("Attack1", KeyState_Down, this, &CPlayer::Attack);
+	CInput::GetInst()->SetCallback<CPlayer>("MoveForward", KeyState_Push, this, &CPlayer::MoveForward);
+
 
 	return true;
 }
@@ -51,12 +58,31 @@ void CPlayer::Update(float deltaTime)
 {
 	CGameObject::Update(deltaTime);
 
-	m_Arm->AddRelativeRotationY(90.0f * deltaTime);
+	// m_Arm->AddRelativeRotationY(90.0f * deltaTime);
+
+	if (CInput::GetInst()->GetWheelDirection())
+	{
+		float dist = m_Arm->GetTargetDistance() - CInput::GetInst()->GetWheelDirection() * 0.1f;
+
+		m_Arm->SetTargetDistance(dist);
+	}
+
+	if (m_Velocity.Length() > 0.0f)
+	{
+		m_Animation->ChangeAnimation("Walk");
+		m_Animation->SetIdleEnable(true);
+	}
+	else if (m_Animation->GetIdleEnable())
+	{
+		m_Animation->ChangeAnimation("Idle");
+	}
 }
 
 void CPlayer::PostUpdate(float deltaTime)
 {
 	CGameObject::PostUpdate(deltaTime);
+
+	m_Velocity = Vector3::Zero;
 }
 
 CPlayer* CPlayer::Clone()
@@ -66,6 +92,9 @@ CPlayer* CPlayer::Clone()
 
 void CPlayer::MoveForward(float deltaTime)
 {
+	m_Velocity += GetWorldAxis(AXIS_Z) * 1.0f * deltaTime;
+
+	AddWorldPos(m_Velocity);
 }
 
 void CPlayer::MoveBackward(float deltaTime)
@@ -82,4 +111,6 @@ void CPlayer::InvYRotation(float deltaTime)
 
 void CPlayer::Attack(float deltaTime)
 {
+	m_Animation->ChangeAnimation("Attack");
+	m_Animation->SetIdleEnable(false);
 }

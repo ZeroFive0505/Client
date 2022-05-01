@@ -244,6 +244,15 @@
     <Filter Include="02. Resource\02. Shader\02. ShaderClass\08. AnimationUpdate">
       <UniqueIdentifier>{9d5fdf40-c89d-42d6-b1f1-5821fa94c06d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="05. Component\01. SceneComponent\08. Light">
+      <UniqueIdentifier>{dd840506-9c85-429e-8e6f-556f702e8916}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Resource\02. Shader\03. ConstantBuffer\12. Light">
+      <UniqueIdentifier>{c760f1c0-af14-4529-8500-1afbf721058e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Scene\07. Light">
+      <UniqueIdentifier>{2c4cd0b8-ef64-46c2-b09a-86fa46eb7eef}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -708,6 +717,18 @@
     <ClInclude Include="Resource\Animation\AnimationManager.h">
       <Filter>02. Resource\05. Animation\01. 2D</Filter>
     </ClInclude>
+    <ClInclude Include="Component\LightComponent.h">
+      <Filter>05. Component\01. SceneComponent\08. Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\Shader\LightConstantBuffer.h">
+      <Filter>02. Resource\02. Shader\03. ConstantBuffer\12. Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\LightManager.h">
+      <Filter>03. Scene\07. Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\Texture\RenderTarget.h">
+      <Filter>02. Resource\04. Texture</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -1120,6 +1141,18 @@
     </ClCompile>
     <ClCompile Include="Resource\Animation\AnimationManager.cpp">
       <Filter>02. Resource\05. Animation\01. 2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\LightComponent.cpp">
+      <Filter>05. Component\01. SceneComponent\08. Light</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource\Shader\LightConstantBuffer.cpp">
+      <Filter>02. Resource\02. Shader\03. ConstantBuffer\12. Light</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\LightManager.cpp">
+      <Filter>03. Scene\07. Light</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource\Texture\RenderTarget.cpp">
+      <Filter>02. Resource\04. Texture</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

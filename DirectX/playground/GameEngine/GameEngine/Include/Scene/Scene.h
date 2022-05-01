@@ -7,6 +7,7 @@
 #include "../GameObject/GameObject.h"
 #include "Viewport.h"
 #include "NavigationManager.h"
+#include "LightManager.h"
 
 /// <summary>
 /// ¾À Å¬·¡½º
@@ -29,6 +30,7 @@ private:
 	CCameraManager* m_CameraManager;
 	CViewport* m_Viewport;
 	CNavigationManager* m_NavManager;
+	CLightManager* m_LightManager;
 
 	std::list<CSharedPtr<CGameObject>> m_ObjList;
 	std::vector<CColliderComponent*> m_vecTileColliders;
@@ -60,6 +62,11 @@ public:
 	inline CNavigationManager* GetNavigationManager() const
 	{
 		return m_NavManager;
+	}
+
+	inline CLightManager* GetLightManager() const
+	{
+		return m_LightManager;
 	}
 
 	inline CViewport* GetViewport() const

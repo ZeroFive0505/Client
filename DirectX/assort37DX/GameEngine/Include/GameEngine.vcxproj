@@ -33,6 +33,7 @@
     <ClCompile Include="Component\ColliderComponent.cpp" />
     <ClCompile Include="Component\ColliderPixel.cpp" />
     <ClCompile Include="Component\Component.cpp" />
+    <ClCompile Include="Component\LightComponent.cpp" />
     <ClCompile Include="Component\NavAgent.cpp" />
     <ClCompile Include="Component\ObjectComponent.cpp" />
     <ClCompile Include="Component\PaperBurnComponent.cpp" />
@@ -104,6 +105,7 @@
     <ClCompile Include="Resource\Shader\ConstantBufferBase.cpp" />
     <ClCompile Include="Resource\Shader\GlobalConstantBuffer.cpp" />
     <ClCompile Include="Resource\Shader\GraphicShader.cpp" />
+    <ClCompile Include="Resource\Shader\LightConstantBuffer.cpp" />
     <ClCompile Include="Resource\Shader\MaterialConstantBuffer.cpp" />
     <ClCompile Include="Resource\Shader\Mesh2DShader.cpp" />
     <ClCompile Include="Resource\Shader\NumberShader.cpp" />
@@ -126,10 +128,12 @@
     <ClCompile Include="Resource\Shader\WidgetShader.cpp" />
     <ClCompile Include="Resource\Sound\Sound.cpp" />
     <ClCompile Include="Resource\Sound\SoundManager.cpp" />
+    <ClCompile Include="Resource\Texture\RenderTarget.cpp" />
     <ClCompile Include="Resource\Texture\Texture.cpp" />
     <ClCompile Include="Resource\Texture\TextureManager.cpp" />
     <ClCompile Include="Scene\CameraManager.cpp" />
     <ClCompile Include="Scene\CollisionSection.cpp" />
+    <ClCompile Include="Scene\LightManager.cpp" />
     <ClCompile Include="Scene\Navigation.cpp" />
     <ClCompile Include="Scene\NavigationManager.cpp" />
     <ClCompile Include="Scene\NavigationThread.cpp" />
@@ -167,6 +171,7 @@
     <ClInclude Include="Component\ColliderComponent.h" />
     <ClInclude Include="Component\ColliderPixel.h" />
     <ClInclude Include="Component\Component.h" />
+    <ClInclude Include="Component\LightComponent.h" />
     <ClInclude Include="Component\NavAgent.h" />
     <ClInclude Include="Component\ObjectComponent.h" />
     <ClInclude Include="Component\PaperBurnComponent.h" />
@@ -243,6 +248,7 @@
     <ClInclude Include="Resource\Shader\ConstantBufferBase.h" />
     <ClInclude Include="Resource\Shader\GlobalConstantBuffer.h" />
     <ClInclude Include="Resource\Shader\GraphicShader.h" />
+    <ClInclude Include="Resource\Shader\LightConstantBuffer.h" />
     <ClInclude Include="Resource\Shader\MaterialConstantBuffer.h" />
     <ClInclude Include="Resource\Shader\Mesh2DShader.h" />
     <ClInclude Include="Resource\Shader\NumberShader.h" />
@@ -266,10 +272,12 @@
     <ClInclude Include="Resource\Sound\Sound.h" />
     <ClInclude Include="Resource\Sound\SoundManager.h" />
     <ClInclude Include="Resource\Texture\DirectXTex.h" />
+    <ClInclude Include="Resource\Texture\RenderTarget.h" />
     <ClInclude Include="Resource\Texture\Texture.h" />
     <ClInclude Include="Resource\Texture\TextureManager.h" />
     <ClInclude Include="Scene\CameraManager.h" />
     <ClInclude Include="Scene\CollisionSection.h" />
+    <ClInclude Include="Scene\LightManager.h" />
     <ClInclude Include="Scene\Navigation.h" />
     <ClInclude Include="Scene\NavigationManager.h" />
     <ClInclude Include="Scene\NavigationThread.h" />

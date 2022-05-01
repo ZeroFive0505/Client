@@ -19,6 +19,8 @@ private:
     CSharedPtr<CAnimationMeshComponent>    m_Mesh;
     CSharedPtr<CArm>                    m_Arm;
     CSharedPtr<CCameraComponent>        m_Camera;
+    Vector3     m_Velocity;
+    class CPlayerAnimation* m_Animation;
 
 public:
     virtual bool Init();

@@ -47,6 +47,12 @@ void CMainSceneMode::LoadMesh()
 
 	m_Scene->GetResource()->LoadAnimationSequence(true, "PlayerIdle",
 		TEXT("Player_Default.sqc"), MESH_PATH);
+
+	m_Scene->GetResource()->LoadAnimationSequence(false, "PlayerAttack",
+		TEXT("PlayerAttack.sqc"), MESH_PATH);
+
+	m_Scene->GetResource()->LoadAnimationSequence(true, "PlayerWalk",
+		TEXT("PlayerWalk.sqc"), MESH_PATH);
 }
 
 void CMainSceneMode::CreateMaterial()

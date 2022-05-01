@@ -49,6 +49,7 @@ private:
 	Input_Type	m_InputType;
 	bool		m_LButtonClick;
 	bool		m_RButtonClick;
+	short		m_WheelDir;
 
 private:
 	std::unordered_map<std::string, KeyInfo*>	m_mapKeyInfo;
@@ -86,6 +87,22 @@ public:
 	Vector2 GetMouseMove()	const
 	{
 		return m_MouseMove;
+	}
+
+	short GetWheelDir()	const
+	{
+		return m_WheelDir;
+	}
+
+public:
+	void SetWheelDir(short Dir)
+	{
+		m_WheelDir = Dir;
+	}
+
+	void Clear()
+	{
+		m_WheelDir = 0;
 	}
 
 public:

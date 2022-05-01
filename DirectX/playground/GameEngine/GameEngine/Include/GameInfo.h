@@ -518,3 +518,18 @@ struct sAnimationCBuffer
 	int changeFrameCount;
 	Vector3 empty;
 };
+
+struct sLightBuffer
+{
+	Vector4 lightColor;
+	int lightType;
+	Vector3 pos;
+	Vector3 dir;
+	float distance;
+	float innterAngle;
+	float outterAngle;
+	float attConst1;
+	float attConst2;
+	float attConst3;
+	Vector3 empty;
+};

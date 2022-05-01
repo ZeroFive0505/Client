@@ -332,9 +332,10 @@ void CAnimationSequenceInstance::Update(float DeltaTime)
 	{
 		m_SequenceProgress = m_GlobalTime / m_CurrentAnimation->m_PlayTime;
 
-		while (m_GlobalTime >= m_CurrentAnimation->m_PlayTime)
+		if (m_GlobalTime >= m_CurrentAnimation->m_PlayTime)
 		{
-			m_GlobalTime -= m_CurrentAnimation->m_PlayTime;
+			//m_GlobalTime -= m_CurrentAnimation->m_PlayTime;
+			m_GlobalTime = m_CurrentAnimation->m_PlayTime;
 
 			AnimEnd = true;
 		}
@@ -350,6 +351,9 @@ void CAnimationSequenceInstance::Update(float DeltaTime)
 
 		int	FrameIndex = (int)(AnimationTime / m_CurrentAnimation->m_Sequence->m_FrameTime);
 		int	NextFrameIndex = FrameIndex + 1;
+
+		if (FrameIndex >= m_CurrentAnimation->m_Sequence->m_FrameLength)
+			FrameIndex = m_CurrentAnimation->m_Sequence->m_FrameLength - 1;
 
 		if (NextFrameIndex >= EndFrame)
 			NextFrameIndex = StartFrame;
@@ -381,6 +385,7 @@ void CAnimationSequenceInstance::Update(float DeltaTime)
 
 			if (m_CurrentAnimation->m_Loop)
 			{
+				m_GlobalTime = 0.f;
 				size_t	Size = m_CurrentAnimation->m_vecNotify.size();
 
 				for (size_t i = 0; i < Size; ++i)

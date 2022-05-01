@@ -190,6 +190,11 @@ bool CResourceManager::LoadTextureFullPath(const std::string& Name, const std::v
 	return m_TextureManager->LoadTextureFullPath(Name, vecFullPath);
 }
 
+bool CResourceManager::CreateTarget(const std::string& Name, unsigned int Width, unsigned int Height, DXGI_FORMAT PixelFormat)
+{
+	return m_TextureManager->CreateTarget(Name, Width, Height, PixelFormat);
+}
+
 CTexture* CResourceManager::FindTexture(const std::string& Name)
 {
 	return m_TextureManager->FindTexture(Name);

@@ -196,6 +196,11 @@ void CResourceManager::ReleaseTexture(const std::string& name)
 	m_TextureManger->ReleaseTexture(name);
 }
 
+bool CResourceManager::CreateTarget(const std::string& name, unsigned int width, unsigned int height, DXGI_FORMAT pixelFormat)
+{
+	return m_TextureManger->CreateTarget(name, width, height, pixelFormat);
+}
+
 bool CResourceManager::CreateAnimationSequence2D(const std::string& name, const std::string& textureName, const TCHAR* fileName, const std::string& pathName)
 {
 	return m_AnimationManager->CreateAnimationSequence2D(name, textureName, fileName, pathName);

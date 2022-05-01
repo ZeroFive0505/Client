@@ -6,6 +6,7 @@
 #include "CameraManager.h"
 #include "Viewport.h"
 #include "NavigationManager.h"
+#include "LightManager.h"
 #include "../GameObject/GameObject.h"
 
 class CScene
@@ -23,6 +24,7 @@ private:
 	CCameraManager* m_CameraManager;
 	CViewport* m_Viewport;
 	CNavigationManager* m_NavManager;
+	CLightManager* m_LightManager;
 	
 	std::list<CSharedPtr<CGameObject>>	m_ObjList;
 	bool		m_Start;
@@ -58,6 +60,11 @@ public:
 	CNavigationManager* GetNavigationManager()	const
 	{
 		return m_NavManager;
+	}
+
+	CLightManager* GetLightManager()	const
+	{
+		return m_LightManager;
 	}
 
 	CGameObject* GetPlayerObject()	const

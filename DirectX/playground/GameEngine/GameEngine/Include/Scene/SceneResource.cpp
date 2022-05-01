@@ -284,6 +284,19 @@ CTexture* CSceneResource::FindTexture(const std::string& name)
     return iter->second;
 }
 
+bool CSceneResource::CreateTarget(const std::string& name, unsigned int width, unsigned int height, DXGI_FORMAT pixelFormat)
+{
+    if (FindTexture(name))
+        return true;
+
+    if (!CResourceManager::GetInst()->CreateTarget(name, width, height, pixelFormat))
+        return false;
+
+    m_mapTexture.insert(std::make_pair(name, CResourceManager::GetInst()->FindTexture(name)));
+
+    return true;
+}
+
 bool CSceneResource::CreateAnimationSequence2D(const std::string& name, const std::string& textureName, const TCHAR* fileName, const std::string& pathName)
 {
     if (FindAnimationSequence2D(name))

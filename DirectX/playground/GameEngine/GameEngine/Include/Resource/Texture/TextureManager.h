@@ -26,6 +26,9 @@ public:
 	void ReleaseTexture(const std::string& name);
 
 public:
+	bool CreateTarget(const std::string& name, unsigned int width, unsigned int height, DXGI_FORMAT pixelFormat);
+
+public:
 	bool CreateSampler(const std::string name, D3D11_FILTER Filter,
 		D3D11_TEXTURE_ADDRESS_MODE AddressU,
 		D3D11_TEXTURE_ADDRESS_MODE AddressV,

@@ -235,8 +235,7 @@ bool CAnimationSequence::LoadFullPathMultibyte(const char* pFullPath)
 
     SetName(strName);
 
-    bool bLoop = true;
-    fread(&bLoop, sizeof(bool), 1, pFile);
+    fread(&m_Loop, sizeof(bool), 1, pFile);
     fread(&m_StartTime, sizeof(float), 1, pFile);
     fread(&m_EndTime, sizeof(float), 1, pFile);
     fread(&m_TimeLength, sizeof(float), 1, pFile);

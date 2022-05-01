@@ -23,6 +23,8 @@ public:
 	bool LoadTexture(const std::string& Name, const std::vector<TCHAR*>& vecFileName,
 		const std::string& PathName = TEXTURE_PATH);
 	bool LoadTextureFullPath(const std::string& Name, const std::vector<TCHAR*>& vecFullPath);
+	bool CreateTarget(const std::string& Name, unsigned int Width,
+		unsigned int Height, DXGI_FORMAT PixelFormat);
 	class CTexture* FindTexture(const std::string& Name);
 	void ReleaseTexture(const std::string& Name);
 

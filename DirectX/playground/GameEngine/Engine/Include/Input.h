@@ -47,6 +47,7 @@ private:
 	Input_Type m_InputType;
 	bool m_LButtonClick;
 	bool m_RButtonClick;
+	short m_WheelDir;
 
 private:
 	std::unordered_map<std::string, sKeyInfo*> m_mapKeyInfo;
@@ -93,6 +94,22 @@ public:
 	}
 
 	class CWidget* GetDragWidget() const;
+
+	inline short GetWheelDirection() const
+	{
+		return m_WheelDir;
+	}
+
+public:
+	inline void SetWheelDirection(short dir)
+	{
+		m_WheelDir = dir;
+	}
+
+	inline void ClearWheelDirection()
+	{
+		m_WheelDir = 0;
+	}
 
 public:
 	bool CreateKey(const std::string& name, unsigned char key);

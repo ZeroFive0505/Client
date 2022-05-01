@@ -1,6 +1,6 @@
 
 #include "TextureManager.h"
-#include "Texture.h"
+#include "RenderTarget.h"
 #include "../../Device.h"
 
 CTextureManager::CTextureManager()
@@ -129,6 +129,28 @@ bool CTextureManager::LoadTextureFullPath(const std::string& Name,
 	Texture = new CTexture;
 
 	if (!Texture->LoadTextureFullPath(Name, vecFullPath))
+	{
+		SAFE_RELEASE(Texture);
+		return false;
+	}
+
+	m_mapTexture.insert(std::make_pair(Name, Texture));
+
+	return true;
+}
+
+bool CTextureManager::CreateTarget(const std::string& Name, 
+	unsigned int Width, unsigned int Height, 
+	DXGI_FORMAT PixelFormat)
+{
+	CRenderTarget* Texture = (CRenderTarget*)FindTexture(Name);
+
+	if (Texture)
+		return true;
+
+	Texture = new CRenderTarget;
+
+	if (!Texture->CreateTarget(Name, Width, Height, PixelFormat))
 	{
 		SAFE_RELEASE(Texture);
 		return false;

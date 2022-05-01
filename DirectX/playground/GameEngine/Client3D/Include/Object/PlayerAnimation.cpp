@@ -20,6 +20,10 @@ bool CPlayerAnimation::Init()
 		return false;
 
 	AddAnimation("PlayerIdle", "Idle");
+	AddAnimation("PlayerAttack", "Attack", false);
+	AddAnimation("PlayerWalk", "Walk");
+
+	SetEndFunction<CPlayerAnimation>("Attack", this, &CPlayerAnimation::AttackEnd);
 
 	return true;
 }

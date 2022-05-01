@@ -483,4 +483,20 @@ struct AnimationCBuffer
 };
 
 
+struct LightCBuffer
+{
+	Vector4	Color;
+	int	LightType;
+	Vector3	Pos;
+	Vector3	Dir;	
+	float	Distance;
+	float	AngleIn;
+	float	AngleOut;
+	float	Att1;
+	float	Att2;
+	float	Att3;
+	Vector3	Empty;
+};
+
+
 

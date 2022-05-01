@@ -281,6 +281,21 @@ bool CSceneResource::LoadTextureFullPath(const std::string& Name,
 	return true;
 }
 
+bool CSceneResource::CreateTarget(const std::string& Name, 
+	unsigned int Width, unsigned int Height, 
+	DXGI_FORMAT PixelFormat)
+{
+	if (FindTexture(Name))
+		return true;
+
+	if (!CResourceManager::GetInst()->CreateTarget(Name, Width, Height, PixelFormat))
+		return false;
+
+	m_mapTexture.insert(std::make_pair(Name, CResourceManager::GetInst()->FindTexture(Name)));
+
+	return true;
+}
+
 CTexture* CSceneResource::FindTexture(const std::string& Name)
 {
 	auto	iter = m_mapTexture.find(Name);

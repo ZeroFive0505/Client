@@ -240,6 +240,7 @@ bool CAnimationSequence::LoadFullPathMultibyte(const char* pFullPath)
 
 	bool	bLoop = true;
 	fread(&bLoop, sizeof(bool), 1, pFile);
+	m_Loop = bLoop;
 	fread(&m_StartTime, sizeof(float), 1, pFile);
 	fread(&m_EndTime, sizeof(float), 1, pFile);
 	fread(&m_TimeLength, sizeof(float), 1, pFile);
@@ -578,7 +579,7 @@ bool CAnimationSequence::CreateSequenceMultibyte(const char* pFullPath)
 
 	if (strcmp(strExt, ".FBX") == 0)
 	{
-		return LoadFbxAnimation(pFullPath);
+		return LoadFbxAnimation(pFullPath, m_Loop);
 	}
 
 	return LoadFullPathMultibyte(pFullPath);
