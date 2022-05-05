@@ -60,5 +60,7 @@ public:
 	void ResetTarget();
 	void SetTargetShader();
 	void ResetTargetShader();
+	void SetTargetShader(int Register);
+	void ResetTargetShader(int Register);
 };
 

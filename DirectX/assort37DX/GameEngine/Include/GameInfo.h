@@ -180,6 +180,7 @@ struct TransformCBuffer
 	Matrix	matWorld;
 	Matrix	matView;
 	Matrix	matProj;
+	Matrix	matInvProj;
 	Matrix	matWV;
 	Matrix	matWVP;
 	Matrix	matVP;

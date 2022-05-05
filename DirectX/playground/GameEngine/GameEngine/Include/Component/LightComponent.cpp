@@ -20,7 +20,8 @@ CLightComponent::CLightComponent(const CLightComponent& com) :
 
 CLightComponent::~CLightComponent()
 {
-    m_Scene->GetLightManager()->DeleteLight(this);
+    if(m_Scene->GetLightManager())
+        m_Scene->GetLightManager()->DeleteLight(this);
     SAFE_DELETE(m_CBuffer);
 }
 

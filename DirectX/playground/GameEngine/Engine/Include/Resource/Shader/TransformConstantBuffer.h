@@ -32,6 +32,8 @@ public:
 	inline void SetProjMatrix(const Matrix& matProj)
 	{
 		m_BufferData.matProj = matProj;
+		m_BufferData.matInvProj = matProj;
+		m_BufferData.matInvProj.Inverse();
 	}
 
 	inline void SetPivot(const Vector3& pivot)

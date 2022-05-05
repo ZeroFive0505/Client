@@ -1,6 +1,7 @@
 #include "LightManager.h"
 #include "Scene.h"
 #include "../GameObject/GameObject.h"
+#include "../Device.h"
 
 CLightManager::CLightManager()
 {
@@ -50,18 +51,18 @@ void CLightManager::Init()
 
 	m_GlobalLightComponent = m_GlobalLight->CreateComponent<CLightComponent>("Light");
 
-	//m_GlobalLightComponent->SetRelativeRotation(45.0f, 90.0f, 0.0f);
+	m_GlobalLightComponent->SetRelativeRotation(45.0f, 90.0f, 0.0f);
 
-	//m_GlobalLightComponent->SetLightType(Light_Type::Directional);
+	m_GlobalLightComponent->SetLightType(Light_Type::Directional);
 
-	m_GlobalLightComponent->SetRelativePos(0.0f, 10.0f, 0.f);
+	//m_GlobalLightComponent->SetRelativePos(0.0f, 10.0f, 0.f);
 
-	m_GlobalLightComponent->SetWorldRotationX(90.0f);
+	//m_GlobalLightComponent->SetWorldRotationX(90.0f);
 
-	m_GlobalLightComponent->SetLightType(Light_Type::Spot);
+	//m_GlobalLightComponent->SetLightType(Light_Type::Spot);
 
-	m_GlobalLightComponent->SetDistance(20.0f);
-	m_GlobalLightComponent->SetAttConst3(0.1f);
+	//m_GlobalLightComponent->SetDistance(20.0f);
+	//m_GlobalLightComponent->SetAttConst3(0.1f);
 }
 
 void CLightManager::Update(float deltaTime)
@@ -69,7 +70,7 @@ void CLightManager::Update(float deltaTime)
 	auto iter = m_LightList.begin();
 	auto iterEnd = m_LightList.end();
 
-	m_GlobalLightComponent->SetWorldPos(Vector3(cosf(CEngine::GetInst()->GetCurrentPlayTime()) * 5.0f, 10.0f, 0.0f));
+	// m_GlobalLightComponent->SetWorldPos(Vector3(cosf(CEngine::GetInst()->GetCurrentPlayTime()) * 5.0f, 10.0f, 0.0f));
 
 	for (; iter != iterEnd;)
 	{
@@ -108,4 +109,37 @@ void CLightManager::Destroy()
 	m_LightList.clear();
 	m_GlobalLightComponent = nullptr;
 	m_GlobalLight = nullptr;
+}
+
+void CLightManager::Render()
+{
+	CShader* shader = m_Scene->GetSceneResource()->FindShader("LightAccShader");
+
+	shader->SetShader();
+
+	auto iter = m_LightList.begin();
+	auto iterEnd = m_LightList.end();
+
+	bool sendTransform = false;
+
+	for (; iter != iterEnd; iter++)
+	{
+		if (!(*iter)->IsEnable())
+			continue;
+
+		if (!sendTransform)
+		{
+			(*iter)->GetTransform()->SetTransform();
+			sendTransform = true;
+		}
+
+		(*iter)->SetShader();
+
+		UINT Offset = 0;
+		CDevice::GetInst()->GetContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
+		CDevice::GetInst()->GetContext()->IASetVertexBuffers(0, 0, nullptr, nullptr, &Offset);
+		CDevice::GetInst()->GetContext()->IASetIndexBuffer(nullptr, DXGI_FORMAT_UNKNOWN, 0);
+
+		CDevice::GetInst()->GetContext()->Draw(4, 0);
+	}
 }

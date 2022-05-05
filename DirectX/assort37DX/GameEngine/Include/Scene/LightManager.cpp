@@ -2,6 +2,10 @@
 #include "LightManager.h"
 #include "Scene.h"
 #include "../GameObject/GameObject.h"
+#include "SceneResource.h"
+#include "../Resource/Shader/Shader.h"
+#include "../Device.h"
+#include "../Component/Transform.h"
 
 CLightManager::CLightManager()
 {
@@ -107,7 +111,42 @@ void CLightManager::SetShader()
 
 void CLightManager::Destroy()
 {
+	std::list<CSharedPtr<CLightComponent>>	List = m_LightList;
 	m_LightList.clear();
+	List.clear();
 	m_GlobalLightComponent = nullptr;
 	m_GlobalLight = nullptr;
+}
+
+void CLightManager::Render()
+{
+	CShader* Shader = m_Scene->GetResource()->FindShader("LightAccShader");
+
+	Shader->SetShader();
+
+	auto	iter = m_LightList.begin();
+	auto	iterEnd = m_LightList.end();
+
+	bool	SendTransform = false;
+
+	for (; iter != iterEnd; ++iter)
+	{
+		if (!(*iter)->IsEnable())
+			continue;
+
+		if (!SendTransform)
+		{
+			(*iter)->GetTransform()->SetTransform();
+			SendTransform = true;
+		}
+
+		(*iter)->SetShader();
+
+		UINT Offset = 0;
+		CDevice::GetInst()->GetContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
+		CDevice::GetInst()->GetContext()->IASetVertexBuffers(0, 0, nullptr, nullptr, &Offset);
+		CDevice::GetInst()->GetContext()->IASetIndexBuffer(nullptr, DXGI_FORMAT_UNKNOWN, 0);
+
+		CDevice::GetInst()->GetContext()->Draw(4, 0);
+	}
 }

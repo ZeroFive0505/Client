@@ -18,6 +18,9 @@ bool CRenderStateManager::Init()
 
 	CreateDepthStencilState("DepthDisable", false, D3D11_DEPTH_WRITE_MASK_ZERO);
 
+	AddBlendInfo("LightAcc", true, D3D11_BLEND_ONE, D3D11_BLEND_ONE);
+	CreateBlendState("LightAcc", true, false);
+
 	return true;
 }
 

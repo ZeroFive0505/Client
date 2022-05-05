@@ -13,9 +13,11 @@ private:
 private:
 	std::unordered_map<std::string, CSharedPtr<class CTexture>>	m_mapTexture;
 	std::unordered_map<std::string, ID3D11SamplerState*>	m_mapSampler;
+	class CWidgetConstantBuffer* m_CBuffer;
 
 public:
 	bool Init();
+	void RenderTarget(class CMesh* Mesh, class CShader* Shader);
 
 	bool LoadTexture(const std::string& Name, const TCHAR* FileName,
 		const std::string& PathName = TEXTURE_PATH);

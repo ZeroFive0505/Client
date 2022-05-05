@@ -201,6 +201,14 @@ bool CResourceManager::CreateTarget(const std::string& name, unsigned int width,
 	return m_TextureManger->CreateTarget(name, width, height, pixelFormat);
 }
 
+void CResourceManager::RenderTarget()
+{
+	CMesh* mesh = m_MeshManager->FindMesh("WidgetMesh");
+	CShader* shader = m_ShaderManager->FindShader("RenderTargetShader");
+
+	m_TextureManger->RenderTarget(mesh, shader);
+}
+
 bool CResourceManager::CreateAnimationSequence2D(const std::string& name, const std::string& textureName, const TCHAR* fileName, const std::string& pathName)
 {
 	return m_AnimationManager->CreateAnimationSequence2D(name, textureName, fileName, pathName);

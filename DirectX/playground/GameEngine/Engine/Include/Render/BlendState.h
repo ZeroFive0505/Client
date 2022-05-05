@@ -2,9 +2,6 @@
 
 #include "RenderState.h"
 
-/// <summary>
-/// 블렌드 스테이트를 정의 하는 클래스이다.
-/// </summary>
 class CBlendState :
     public CRenderState
 {

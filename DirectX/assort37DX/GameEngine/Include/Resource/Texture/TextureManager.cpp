@@ -2,6 +2,13 @@
 #include "TextureManager.h"
 #include "RenderTarget.h"
 #include "../../Device.h"
+#include "../Mesh/Mesh.h"
+#include "../Shader/Shader.h"
+#include "../../Scene/CameraManager.h"
+#include "../../Scene/Scene.h"
+#include "../../Scene/SceneManager.h"
+#include "../../Component/CameraComponent.h"
+#include "../Shader/WidgetConstantBuffer.h"
 
 CTextureManager::CTextureManager()
 {
@@ -9,6 +16,8 @@ CTextureManager::CTextureManager()
 
 CTextureManager::~CTextureManager()
 {
+	SAFE_DELETE(m_CBuffer);
+
 	auto	iter = m_mapSampler.begin();
 	auto	iterEnd = m_mapSampler.end();
 
@@ -53,7 +62,58 @@ bool CTextureManager::Init()
 	// Base Sampler
 	SetSampler("Linear", 3);
 
+	m_CBuffer = new CWidgetConstantBuffer;
+
+	m_CBuffer->Init();
+
+	m_CBuffer->SetAnimEnable(false);
+	m_CBuffer->SetOpacity(1.f);
+	m_CBuffer->SetTint(Vector4(1.f, 1.f, 1.f, 1.f));
+	m_CBuffer->SetUseTexture(true);
+
 	return true;
+}
+
+void CTextureManager::RenderTarget(CMesh* Mesh, CShader* Shader)
+{
+	auto	iter = m_mapTexture.begin();
+	auto	iterEnd = m_mapTexture.end();
+
+	for (; iter != iterEnd; ++iter)
+	{
+		if (iter->second->GetImageType() != Image_Type::RenderTarget)
+			continue;
+
+		CRenderTarget* Target = (CRenderTarget*)iter->second.Get();
+
+		if (Target->m_DebugRender)
+		{
+			Vector3	Pos = Target->m_Pos;
+			Vector3	Scale = Target->m_Scale;
+
+			Matrix	matScale, matPos;
+			matScale.Scaling(Scale);
+			matPos.Translation(Pos);
+
+			CCameraComponent* Camera = CSceneManager::GetInst()->GetScene()->GetCameraManager()->GetUICamera();
+
+			Matrix	matWVP = matScale * matPos * Camera->GetProjMatrix();
+			matWVP.Transpose();
+
+			Target->SetTargetShader();
+
+			m_CBuffer->SetWP(matWVP);
+
+			m_CBuffer->UpdateCBuffer();
+
+			Shader->SetShader();
+
+			Mesh->Render();
+
+
+			Target->ResetTargetShader();
+		}
+	}
 }
 
 bool CTextureManager::LoadTexture(const std::string& Name, const TCHAR* FileName,

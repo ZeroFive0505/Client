@@ -33,6 +33,7 @@ void CTransformConstantBuffer::UpdateCBuffer()
 	m_BufferData.matWorld.Transpose();
 	m_BufferData.matView.Transpose();
 	m_BufferData.matProj.Transpose();
+	m_BufferData.matInvProj.Transpose();
 	m_BufferData.matWV.Transpose();
 	m_BufferData.matWVP.Transpose();
 	m_BufferData.matVP.Transpose();

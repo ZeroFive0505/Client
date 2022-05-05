@@ -33,7 +33,6 @@ CScene::CScene()
 
 CScene::~CScene()
 {
-	m_ObjList.clear();
 	SAFE_DELETE(m_NavManager);
 	SAFE_DELETE(m_Viewport);
 	SAFE_DELETE(m_CameraManager);

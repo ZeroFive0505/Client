@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../GameInfo.h"
+#include "../Resource/Texture/RenderTarget.h"
 
 struct sRenderLayer
 {
@@ -28,6 +29,12 @@ private:
 	class CStandard2DConstantBuffer* m_Standard2DCBuffer;
 	class CRenderState* m_DepthDisable;
 	class CRenderState* m_AlphaBlend;
+	class CRenderState* m_LightAccBlend;
+	CSharedPtr<class CShader> m_LightBlendShader;
+	CSharedPtr<class CShader> m_LightBlendRenderShader;
+
+	std::vector<CSharedPtr<CRenderTarget>> m_vecGBuffer;
+	std::vector<CSharedPtr<CRenderTarget>> m_vecLightBuffer;
 
 public:
 	inline class CStandard2DConstantBuffer* GetStandard2DCBuffer() const
@@ -48,6 +55,12 @@ public:
 public:
 	bool Init();
 	void Render();
+
+private:
+	void RenderGBuffer();
+	void RenderLightAcc();
+	void RenderLightBlend();
+	void RenderFinalScreen();
 
 public:
 	void SetBlendFactor(const std::string& name, float r, float g, float b, float a);

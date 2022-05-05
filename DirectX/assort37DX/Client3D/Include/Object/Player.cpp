@@ -8,7 +8,8 @@ CPlayer::CPlayer()
 	SetTypeID<CPlayer>();
 }
 
-CPlayer::CPlayer(const CPlayer& obj)
+CPlayer::CPlayer(const CPlayer& obj)	:
+	CGameObject(obj)
 {
 	m_Mesh = (CAnimationMeshComponent*)FindComponent("Mesh");
 	m_Arm = (CArm*)FindComponent("Arm");
@@ -32,8 +33,6 @@ bool CPlayer::Init()
 	m_Camera->SetInheritRotX(true);
 	m_Camera->SetInheritRotY(true);
 	m_Camera->SetInheritRotZ(true);
-
-	SetRootComponent(m_Mesh);
 
 	m_Mesh->SetMesh("PlayerMesh");
 	m_Mesh->CreateAnimationInstance<CPlayerAnimation>();

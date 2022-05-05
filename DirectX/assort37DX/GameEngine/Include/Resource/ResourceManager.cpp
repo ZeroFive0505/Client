@@ -84,6 +84,14 @@ void CResourceManager::Update()
 	m_SoundManager->Update();
 }
 
+void CResourceManager::RenderTarget()
+{
+	CMesh* Mesh = m_MeshManager->FindMesh("WidgetMesh");
+	CShader* Shader = m_ShaderManager->FindShader("RenderTargetShader");
+
+	m_TextureManager->RenderTarget(Mesh, Shader);
+}
+
 bool CResourceManager::LoadMesh(Mesh_Type Type, const std::string& Name,
 	const TCHAR* FileName, const std::string& PathName, class CScene* Scene)
 {

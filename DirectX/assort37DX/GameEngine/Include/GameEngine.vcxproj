@@ -48,6 +48,7 @@
     <ClCompile Include="Device.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="GameObject\GameObject.cpp" />
+    <ClCompile Include="GameObject\LightObj.cpp" />
     <ClCompile Include="imgui.cpp" />
     <ClCompile Include="IMGUIButton.cpp" />
     <ClCompile Include="IMGUIComboBox.cpp" />
@@ -73,6 +74,7 @@
     <ClCompile Include="Ref.cpp" />
     <ClCompile Include="Render\BlendState.cpp" />
     <ClCompile Include="Render\DepthStencilState.cpp" />
+    <ClCompile Include="Render\RasterizerState.cpp" />
     <ClCompile Include="Render\RenderManager.cpp" />
     <ClCompile Include="Render\RenderState.cpp" />
     <ClCompile Include="Render\RenderStateManager.cpp" />
@@ -105,6 +107,9 @@
     <ClCompile Include="Resource\Shader\ConstantBufferBase.cpp" />
     <ClCompile Include="Resource\Shader\GlobalConstantBuffer.cpp" />
     <ClCompile Include="Resource\Shader\GraphicShader.cpp" />
+    <ClCompile Include="Resource\Shader\LightAccShader.cpp" />
+    <ClCompile Include="Resource\Shader\LightBlendRenderShader.cpp" />
+    <ClCompile Include="Resource\Shader\LightBlendShader.cpp" />
     <ClCompile Include="Resource\Shader\LightConstantBuffer.cpp" />
     <ClCompile Include="Resource\Shader\MaterialConstantBuffer.cpp" />
     <ClCompile Include="Resource\Shader\Mesh2DShader.cpp" />
@@ -116,6 +121,7 @@
     <ClCompile Include="Resource\Shader\PosMeshShader.cpp" />
     <ClCompile Include="Resource\Shader\ProgressBarConstantBuffer.cpp" />
     <ClCompile Include="Resource\Shader\ProgressBarShader.cpp" />
+    <ClCompile Include="Resource\Shader\RenderTargetShader.cpp" />
     <ClCompile Include="Resource\Shader\Shader.cpp" />
     <ClCompile Include="Resource\Shader\ShaderManager.cpp" />
     <ClCompile Include="Resource\Shader\Standard2DConstantBuffer.cpp" />
@@ -189,6 +195,7 @@
     <ClInclude Include="Flag.h" />
     <ClInclude Include="GameInfo.h" />
     <ClInclude Include="GameObject\GameObject.h" />
+    <ClInclude Include="GameObject\LightObj.h" />
     <ClInclude Include="imconfig.h" />
     <ClInclude Include="imgui.h" />
     <ClInclude Include="IMGUIButton.h" />
@@ -215,6 +222,7 @@
     <ClInclude Include="Ref.h" />
     <ClInclude Include="Render\BlendState.h" />
     <ClInclude Include="Render\DepthStencilState.h" />
+    <ClInclude Include="Render\RasterizerState.h" />
     <ClInclude Include="Render\RenderManager.h" />
     <ClInclude Include="Render\RenderState.h" />
     <ClInclude Include="Render\RenderStateManager.h" />
@@ -248,6 +256,9 @@
     <ClInclude Include="Resource\Shader\ConstantBufferBase.h" />
     <ClInclude Include="Resource\Shader\GlobalConstantBuffer.h" />
     <ClInclude Include="Resource\Shader\GraphicShader.h" />
+    <ClInclude Include="Resource\Shader\LightAccShader.h" />
+    <ClInclude Include="Resource\Shader\LightBlendRenderShader.h" />
+    <ClInclude Include="Resource\Shader\LightBlendShader.h" />
     <ClInclude Include="Resource\Shader\LightConstantBuffer.h" />
     <ClInclude Include="Resource\Shader\MaterialConstantBuffer.h" />
     <ClInclude Include="Resource\Shader\Mesh2DShader.h" />
@@ -259,6 +270,7 @@
     <ClInclude Include="Resource\Shader\PosMeshShader.h" />
     <ClInclude Include="Resource\Shader\ProgressBarConstantBuffer.h" />
     <ClInclude Include="Resource\Shader\ProgressBarShader.h" />
+    <ClInclude Include="Resource\Shader\RenderTargetShader.h" />
     <ClInclude Include="Resource\Shader\Shader.h" />
     <ClInclude Include="Resource\Shader\ShaderManager.h" />
     <ClInclude Include="Resource\Shader\Standard2DConstantBuffer.h" />
@@ -345,6 +357,20 @@
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">ColorMeshVS</EntryPointName>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="..\Bin\Shader\Light.fx">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">LightAccVS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">LightAccVS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">LightAccVS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">LightAccVS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
     <FxCompile Include="..\Bin\Shader\Mesh2D.fx">
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Mesh2DVS</EntryPointName>

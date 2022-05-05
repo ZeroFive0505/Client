@@ -36,6 +36,11 @@ public:
 		return &m_vecMaterialSlot;
 	}
 
+	CMaterial* GetMaterial(int SlotIndex)
+	{
+		return m_vecMaterialSlot[SlotIndex];
+	}
+
 	void AddMaterialSlot(CMaterial* Material)
 	{
 		m_vecMaterialSlot.push_back(Material);

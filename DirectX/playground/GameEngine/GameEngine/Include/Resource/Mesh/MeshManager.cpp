@@ -120,6 +120,41 @@ bool CMeshManager::Init()
 	return true;
 }
 
+bool CMeshManager::CreateMesh(Mesh_Type type, const std::string& name, void* vtxData, int size, int count,
+	D3D11_USAGE usage, D3D11_PRIMITIVE_TOPOLOGY primitive, void* idxData, int idxSize, int idxCount, D3D11_USAGE idxUsage, DXGI_FORMAT fmt, CScene* scene)
+{
+	CMesh* mesh = FindMesh(name);
+
+	if (mesh)
+		return true;
+
+	switch (type)
+	{
+	case Mesh_Type::Sprite:
+		mesh = new CSpriteMesh;
+		break;
+	case Mesh_Type::Static:
+		mesh = new CStaticMesh;
+		break;
+	case Mesh_Type::Animation:
+		mesh = new CAnimationMesh;
+		break;
+	}
+
+	mesh->SetName(name);
+	mesh->SetScene(scene);
+
+	if (!mesh->CreateMesh(vtxData, size, count, usage, primitive, idxData, idxSize, idxCount, idxUsage, fmt))
+	{
+		SAFE_RELEASE(mesh);
+		return false;
+	}
+
+	m_mapMesh.insert(std::make_pair(name, mesh));
+
+	return true;
+}
+
 CMesh* CMeshManager::FindMesh(const std::string& name)
 {
 	auto iter = m_mapMesh.find(name);
@@ -234,4 +269,182 @@ void CMeshManager::ReleaseMesh(const std::string& name)
 		if (iter->second->GetRefCount() == 1)
 			m_mapMesh.erase(iter);
 	}
+}
+
+bool CMeshManager::CreateSphere(std::vector<sVertex3D>& vecVertex, std::vector<int>& vecIndex, float radius, unsigned int subDivision)
+{
+	// Put a cap on the number of subdivisions.
+	subDivision = min(subDivision, 5);
+
+	// Approximate a sphere by tessellating an icosahedron.
+	const float X = 0.525731f;
+	const float Z = 0.850651f;
+
+	// 정 12면체를 만든다.
+	Vector3 pos[12] =
+	{
+		Vector3(-X, 0.0f, Z),  Vector3(X, 0.0f, Z),
+		Vector3(-X, 0.0f, -Z), Vector3(X, 0.0f, -Z),
+		Vector3(0.0f, Z, X),   Vector3(0.0f, Z, -X),
+		Vector3(0.0f, -Z, X),  Vector3(0.0f, -Z, -X),
+		Vector3(Z, X, 0.0f),   Vector3(-Z, X, 0.0f),
+		Vector3(Z, -X, 0.0f),  Vector3(-Z, -X, 0.0f)
+	};
+
+	DWORD k[60] =
+	{
+		1,4,0,  4,9,0,  4,5,9,  8,5,4,  1,8,4,
+		1,10,8, 10,3,8, 8,3,5,  3,2,5,  3,7,2,
+		3,10,7, 10,6,7, 6,11,7, 6,0,11, 6,1,0,
+		10,1,6, 11,0,9, 2,11,9, 5,2,9,  11,2,7
+	};
+
+
+	vecVertex.resize(12);
+	vecIndex.resize(60);
+
+	for (UINT i = 0; i < 12; ++i)
+		vecVertex[i].pos = pos[i];
+
+	for (UINT i = 0; i < 60; ++i)
+		vecIndex[i] = k[i];
+
+	for (UINT i = 0; i < subDivision; ++i)
+		Subdivide(vecVertex, vecIndex);
+
+	// Project vertices onto sphere and scale.
+	size_t size = vecVertex.size();
+	for (UINT i = 0; i < size; i++)
+	{
+		// Project onto unit sphere.
+		Vector3 vN = vecVertex[i].pos;
+		vN.Normalize();
+
+		// Project onto sphere
+		Vector3 p = vN * radius;
+
+		vecVertex[i].pos = p;
+
+		// Normal이 있을 경우 따로 저장한다.
+
+		// Derive texture coordinates from spherical coordinates.
+		float theta = AngleFromXY(vecVertex[i].pos.x, vecVertex[i].pos.z);
+
+		float phi = acosf(vecVertex[i].pos.y / radius);
+
+		vecVertex[i].uv.x = theta / XM_2PI;
+		vecVertex[i].uv.y = phi / XM_PI;
+
+		// Partial derivative of P with respect to theta
+		vecVertex[i].tangent.x = -radius * sinf(phi) * sinf(theta);
+		vecVertex[i].tangent.y = 0.0f;
+		vecVertex[i].tangent.z = radius * sinf(phi) * cosf(theta);
+
+		vecVertex[i].binormal = vecVertex[i].normal.Cross(vecVertex[i].tangent);
+		vecVertex[i].binormal.Normalize();
+	}
+
+	return true;
+}
+
+void CMeshManager::Subdivide(std::vector<sVertex3D> vecVertices, std::vector<int>& vecIndices)
+{
+	// Save a copy of the input geometry.
+	std::vector<sVertex3D> vecCopyVertex = vecVertices;
+	std::vector<int> vecCopyIndex = vecIndices;
+
+	vecVertices.resize(0);
+	vecIndices.resize(0);
+
+	//       v1
+	//       *
+	//      / \
+	//     /   \
+	//  m0*-----*m1
+	//   / \   / \
+	//  /   \ /   \
+	// *-----*-----*
+	// v0    m2     v2
+
+	UINT numTris = vecCopyIndex.size() / 3;
+
+	for (UINT i = 0; i < numTris; i++)
+	{
+		sVertex3D v0 = vecCopyVertex[vecCopyIndex[i * 3 + 0]];
+		sVertex3D v1 = vecCopyVertex[vecCopyIndex[i * 3 + 1]];
+		sVertex3D v2 = vecCopyVertex[vecCopyIndex[i * 3 + 2]];
+
+		//
+		// Generate the midpoints.
+		//
+
+		sVertex3D m0, m1, m2;
+
+		// For subdivision, we just care about the position component.  We derive the other
+		// vertex components in CreateGeosphere.
+
+		m0.pos = Vector3(
+			0.5f * (v0.pos.x + v1.pos.x),
+			0.5f * (v0.pos.y + v1.pos.y),
+			0.5f * (v0.pos.z + v1.pos.z));
+
+		m1.pos = Vector3(
+			0.5f * (v1.pos.x + v2.pos.x),
+			0.5f * (v1.pos.y + v2.pos.y),
+			0.5f * (v1.pos.z + v2.pos.z));
+
+		m2.pos = Vector3(
+			0.5f * (v0.pos.x + v2.pos.x),
+			0.5f * (v0.pos.y + v2.pos.y),
+			0.5f * (v0.pos.z + v2.pos.z));
+
+		//
+		// Add new geometry.
+		//
+
+		vecVertices.push_back(v0); // 0
+		vecVertices.push_back(v1); // 1
+		vecVertices.push_back(v2); // 2
+		vecVertices.push_back(m0); // 3;
+		vecVertices.push_back(m1); // 4
+		vecVertices.push_back(m2); // 5
+
+		vecIndices.push_back(i * 6 + 0);
+		vecIndices.push_back(i * 6 + 3);
+		vecIndices.push_back(i * 6 + 5);
+
+		vecIndices.push_back(i * 6 + 3);
+		vecIndices.push_back(i * 6 + 4);
+		vecIndices.push_back(i * 6 + 5);
+
+		vecIndices.push_back(i * 6 + 5);
+		vecIndices.push_back(i * 6 + 4);
+		vecIndices.push_back(i * 6 + 2);
+
+		vecIndices.push_back(i * 6 + 3);
+		vecIndices.push_back(i * 6 + 1);
+		vecIndices.push_back(i * 6 + 4);
+	}
+}
+
+float CMeshManager::AngleFromXY(float x, float y)
+{
+	float theta = 0.0f;
+
+	// Quadrant I or IV
+	if (x >= 0.0f)
+	{
+		// If x = 0, then atanf(y/x) = +pi/2 if y > 0
+		//                atanf(y/x) = -pi/2 if y < 0
+		theta = atanf(y / x); // in [-pi/2, +pi/2]
+
+		if (theta < 0.0f)
+			theta += 2.0f * PI; // in [0, 2 * pi).
+	}
+
+	// Quadrant II or III
+	else
+		theta = atanf(y / x) + PI; // in [0, 2*pi).
+
+	return theta;
 }

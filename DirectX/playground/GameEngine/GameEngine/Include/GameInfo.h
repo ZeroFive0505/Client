@@ -203,6 +203,8 @@ struct sTransformCBuffer
 
 	Matrix matProj;
 
+	Matrix matInvProj;
+
 	Matrix matWV;
 
 	Matrix matWVP;

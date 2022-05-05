@@ -63,7 +63,8 @@ enum class Image_Type
 {
 	Atlas,
 	Frame,
-	Array
+	Array,
+	RenderTarget
 };
 
 enum class Sampler_Type

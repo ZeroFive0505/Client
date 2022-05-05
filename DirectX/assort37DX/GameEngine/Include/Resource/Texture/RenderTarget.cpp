@@ -11,6 +11,7 @@ CRenderTarget::CRenderTarget()	:
 	m_ClearColor{},
 	m_DebugRender(false)
 {
+	m_ImageType = Image_Type::RenderTarget;
 }
 
 CRenderTarget::~CRenderTarget()
@@ -34,7 +35,7 @@ bool CRenderTarget::CreateTarget(const std::string& Name,
 	Desc.Height = Height;
 	Desc.ArraySize = 1;
 	Desc.MipLevels = 1;
-	Desc.SampleDesc.Count = 1;
+	Desc.SampleDesc.Count = 4;
 	Desc.SampleDesc.Quality = 0;
 	Desc.BindFlags = D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE;
 	Desc.Format = PixelFormat;
@@ -58,6 +59,11 @@ bool CRenderTarget::CreateTarget(const std::string& Name,
 	if (FAILED(CDevice::GetInst()->GetDevice()->CreateRenderTargetView(m_TargetTex,
 		nullptr, &m_TargetView)))
 		return false;
+
+	//m_ClearColor[0] = 1.f;
+	//m_ClearColor[1] = 1.f;
+	//m_ClearColor[2] = 1.f;
+	//m_ClearColor[3] = 1.f;
 
 	return true;
 }
@@ -88,8 +94,22 @@ void CRenderTarget::ResetTarget()
 
 void CRenderTarget::SetTargetShader()
 {
+	CDevice::GetInst()->GetContext()->PSSetShaderResources(10, 1, &m_vecTextureInfo[0]->SRV);
 }
 
 void CRenderTarget::ResetTargetShader()
 {
+	ID3D11ShaderResourceView* SRV = nullptr;
+	CDevice::GetInst()->GetContext()->PSSetShaderResources(10, 1, &SRV);
+}
+
+void CRenderTarget::SetTargetShader(int Register)
+{
+	CDevice::GetInst()->GetContext()->PSSetShaderResources(Register, 1, &m_vecTextureInfo[0]->SRV);
+}
+
+void CRenderTarget::ResetTargetShader(int Register)
+{
+	ID3D11ShaderResourceView* SRV = nullptr;
+	CDevice::GetInst()->GetContext()->PSSetShaderResources(Register, 1, &SRV);
 }

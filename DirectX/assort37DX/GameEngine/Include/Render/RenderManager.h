@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../GameInfo.h"
+#include "../Resource/Texture/RenderTarget.h"
 
 struct RenderLayer
 {
@@ -28,9 +29,16 @@ private:
 	class CStandard2DConstantBuffer* m_Standard2DCBuffer;
 	class CRenderState* m_DepthDisable;
 	class CRenderState* m_AlphaBlend;
+	class CRenderState* m_LightAccBlend;
+	CSharedPtr<class CShader> m_LightBlendShader;
+	CSharedPtr<class CShader> m_LightBlendRenderShader;
 
 	// 인스턴싱용 구조화 버퍼를 만들어준다.
 	std::vector<class CStructuredBuffer*>	m_vecInstancingBuffer;
+
+	// GBuffer
+	std::vector<CSharedPtr<CRenderTarget>>	m_vecGBuffer;
+	std::vector<CSharedPtr<CRenderTarget>>	m_vecLightBuffer;
 
 public:
 	class CStandard2DConstantBuffer* GetStandard2DCBuffer()	const
@@ -53,7 +61,11 @@ public:
 	void Render();
 
 
-
+private:
+	void RenderGBuffer();
+	void RenderLightAcc();
+	void RenderLightBlend();
+	void RenderFinalScreen();
 
 
 	// Render State

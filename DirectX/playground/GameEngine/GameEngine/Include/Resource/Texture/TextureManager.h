@@ -13,6 +13,7 @@ private:
 private:
 	std::unordered_map<std::string, CSharedPtr<class CTexture>> m_mapTexture;
 	std::unordered_map<std::string, ID3D11SamplerState*> m_mapSampler;
+	class CWidgetConstantBuffer* m_CBuffer;
 
 public:
 	bool Init();
@@ -26,6 +27,7 @@ public:
 	void ReleaseTexture(const std::string& name);
 
 public:
+	void RenderTarget(class CMesh* mesh, class CShader* shader);
 	bool CreateTarget(const std::string& name, unsigned int width, unsigned int height, DXGI_FORMAT pixelFormat);
 
 public:

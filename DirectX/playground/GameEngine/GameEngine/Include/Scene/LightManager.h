@@ -30,12 +30,18 @@ public:
 	void DeleteLight(const std::string& name);
 
 public:
+	inline bool IsEmpty() const
+	{
+		return m_LightList.empty();
+	}
+
+public:
 	void Start();
 	void Init();
 	void Update(float deltaTime);
 	void PostUpdate(float deltaTime);
 	void SetShader();
 	void Destroy();
-	
+	void Render();
 };
 

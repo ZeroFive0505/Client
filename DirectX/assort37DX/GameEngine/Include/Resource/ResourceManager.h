@@ -26,6 +26,7 @@ private:
 public:
 	bool Init();
 	void Update();
+	void RenderTarget();
 
 public:	// =================== Mesh =====================
 	bool LoadMesh(Mesh_Type Type, const std::string& Name, const TCHAR* FileName,

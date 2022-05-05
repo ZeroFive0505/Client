@@ -65,7 +65,8 @@ enum class Image_Type
 {
 	Atlas,
 	Frame,
-	Array
+	Array,
+	RenderTarget
 };
 
 

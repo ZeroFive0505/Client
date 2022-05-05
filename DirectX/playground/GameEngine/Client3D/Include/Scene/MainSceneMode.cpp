@@ -3,6 +3,9 @@
 #include "Scene/SceneResource.h"
 #include "Scene/Viewport.h"
 #include "../Object/Player.h"
+#include "GameObject/LightObject.h"
+#include "Component/LightComponent.h"
+#include "Resource/Material/Material.h"
 
 CMainSceneMode::CMainSceneMode()
 {
@@ -32,6 +35,23 @@ bool CMainSceneMode::Init()
 
 	if (m_LoadingFunction)
 		m_LoadingFunction(true, 1.0f);
+
+
+	//CLightObject* Light = m_Scene->CreateGameObject<CLightObject>("Light1");
+
+	//((CLightComponent*)Light->GetRootComponent())->SetRelativePos(-3.f, 5.f, 0.f);
+	//((CLightComponent*)Light->GetRootComponent())->SetLightType(Light_Type::Point);
+	//((CLightComponent*)Light->GetRootComponent())->SetDistance(10.f);
+	//((CLightComponent*)Light->GetRootComponent())->SetAttConst3(0.02f);
+	//((CLightComponent*)Light->GetRootComponent())->SetColor(Vector4(1.f, 0.f, 0.f, 1.f));
+
+	//CLightObject* Light2 = m_Scene->CreateGameObject<CLightObject>("Light2");
+
+	//((CLightComponent*)Light2->GetRootComponent())->SetRelativePos(3.f, 5.f, 0.f);
+	//((CLightComponent*)Light2->GetRootComponent())->SetLightType(Light_Type::Point);
+	//((CLightComponent*)Light2->GetRootComponent())->SetDistance(10.f);
+	//((CLightComponent*)Light2->GetRootComponent())->SetAttConst3(0.02f);
+	//((CLightComponent*)Light2->GetRootComponent())->SetColor(Vector4(0.f, 1.f, 0.f, 1.f));
 
 	return true;
 }

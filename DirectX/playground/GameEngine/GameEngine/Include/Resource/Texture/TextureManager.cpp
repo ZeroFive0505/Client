@@ -1,6 +1,11 @@
 #include "TextureManager.h"
 #include "RenderTarget.h"
 #include "../../Device.h"
+#include "../Shader/Shader.h"
+#include "../../Scene/Scene.h"
+#include "../../Scene/SceneManager.h"
+#include "../../Component/CameraComponent.h"
+#include "../Shader/WidgetConstantBuffer.h"
 
 CTextureManager::CTextureManager()
 {
@@ -8,6 +13,8 @@ CTextureManager::CTextureManager()
 
 CTextureManager::~CTextureManager()
 {
+	SAFE_DELETE(m_CBuffer);
+
 	auto iter = m_mapSampler.begin();
 	auto iterEnd = m_mapSampler.end();
 
@@ -21,6 +28,7 @@ bool CTextureManager::Init()
 {
 	// 엔진에서 Texture지정이 안되었을 경우 기본으로 사용되는 Texture를 로딩한다.
 	LoadTexture("DefaultTexture", TEXT("awesomeface.png"));
+	LoadTexture("DefaultBurnTexture", TEXT("DefaultPaperBurn.png"));
 
 	float borderColor[4] = {};
 
@@ -51,7 +59,16 @@ bool CTextureManager::Init()
 	SetSampler("Anisotropic", 2);
 
 	// Base Sampler
-	SetSampler("Point", 3);
+	SetSampler("Linear", 3);
+
+	m_CBuffer = new CWidgetConstantBuffer;
+
+	m_CBuffer->Init();
+
+	m_CBuffer->SetAnimEnable(false);
+	m_CBuffer->SetOpacity(1.0f);
+	m_CBuffer->SetTint(Vector4::White);
+	m_CBuffer->SetUseTexture(true);
 
 	return true;
 }
@@ -155,6 +172,47 @@ void CTextureManager::ReleaseTexture(const std::string& name)
 	{
 		if (iter->second->GetRefCount() == 1)
 			m_mapTexture.erase(iter);
+	}
+}
+
+void CTextureManager::RenderTarget(CMesh* mesh, CShader* shader)
+{
+	auto iter = m_mapTexture.begin();
+	auto iterEnd = m_mapTexture.end();
+
+	for (; iter != iterEnd; iter++)
+	{
+		if (iter->second->GetImageType() != Image_Type::RenderTarget)
+			continue;
+
+		CRenderTarget* target = (CRenderTarget*)*(iter->second);
+
+		if (target->m_DebugRender)
+		{
+			Vector3 pos = target->m_Pos;
+			Vector3 scale = target->m_Scale;
+
+			Matrix matScale, matPos;
+			matScale.Scaling(scale);
+			matPos.Translation(pos);
+
+			CCameraComponent* camera = CSceneManager::GetInst()->GetScene()->GetCameraManager()->GetUICamera();
+
+			Matrix matWVP = matScale * matPos * camera->GetProjMatrix();
+			matWVP.Transpose();
+
+			target->SetTargetShader();
+
+			m_CBuffer->SetWP(matWVP);
+
+			m_CBuffer->UpdateCBuffer();
+
+			shader->SetShader();
+
+			mesh->Render();
+
+			target->ResetTargetShader();
+		}
 	}
 }
 

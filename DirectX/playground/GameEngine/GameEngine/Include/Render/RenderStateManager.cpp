@@ -18,6 +18,9 @@ bool CRenderStateManager::Init()
 
 	CreateDepthStencilState("DepthDisable", false, D3D11_DEPTH_WRITE_MASK_ZERO);
 
+	AddBlendInfo("LightAcc", true, D3D11_BLEND_ONE, D3D11_BLEND_ONE);
+	CreateBlendState("LightAcc", true, false);
+
 	return true;
 }
 
@@ -76,27 +79,30 @@ bool CRenderStateManager::CreateBlendState(const std::string& Name, bool AlphaTo
 	return true;
 }
 
-bool CRenderStateManager::CreateDepthStencilState(const std::string& Name, bool DepthEnable, D3D11_DEPTH_WRITE_MASK DepthWriteMask, D3D11_COMPARISON_FUNC DepthFunc, bool StencilEnable, UINT8 StencilReadMask, UINT8 StencilWriteMask, D3D11_DEPTH_STENCILOP_DESC FrontFace, D3D11_DEPTH_STENCILOP_DESC BackFace)
+bool CRenderStateManager::CreateDepthStencilState(const std::string& Name,
+	bool DepthEnable, D3D11_DEPTH_WRITE_MASK DepthWriteMask,
+	D3D11_COMPARISON_FUNC DepthFunc, bool StencilEnable, UINT8 StencilReadMask,
+	UINT8 StencilWriteMask, D3D11_DEPTH_STENCILOP_DESC FrontFace,
+	D3D11_DEPTH_STENCILOP_DESC BackFace)
 {
-	CDepthStencilState* state = (CDepthStencilState*)FindRenderState(Name);
+	CDepthStencilState* State = (CDepthStencilState*)FindRenderState(Name);
 
-	if (state)
+	if (State)
 		return false;
 
-	state = new CDepthStencilState;
+	State = new CDepthStencilState;
 
-	if (!state->CreateState(DepthEnable, DepthWriteMask,
+	if (!State->CreateState(DepthEnable, DepthWriteMask,
 		DepthFunc, StencilEnable, StencilReadMask, StencilWriteMask,
 		FrontFace, BackFace))
 	{
-		SAFE_RELEASE(state);
-
+		SAFE_RELEASE(State);
 		return false;
 	}
 
-	state->SetName(Name);
+	State->SetName(Name);
 
-	m_mapRenderState.insert(std::make_pair(Name, state));
+	m_mapRenderState.insert(std::make_pair(Name, State));
 
 	return true;
 }

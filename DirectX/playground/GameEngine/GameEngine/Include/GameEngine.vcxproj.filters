@@ -253,6 +253,12 @@
     <Filter Include="03. Scene\07. Light">
       <UniqueIdentifier>{2c4cd0b8-ef64-46c2-b09a-86fa46eb7eef}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Resource\02. Shader\02. ShaderClass\09. RenderTarget">
+      <UniqueIdentifier>{8cf04b50-bd97-4567-ba93-4cd999dc4349}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Resource\02. Shader\02. ShaderClass\10. Light">
+      <UniqueIdentifier>{1e6aa641-566f-4a88-afdf-f2e97020b3f0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -729,6 +735,24 @@
     <ClInclude Include="Resource\Texture\RenderTarget.h">
       <Filter>02. Resource\04. Texture</Filter>
     </ClInclude>
+    <ClInclude Include="Resource\Shader\RenderTargetShader.h">
+      <Filter>02. Resource\02. Shader\02. ShaderClass\09. RenderTarget</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\Shader\LightAccShader.h">
+      <Filter>02. Resource\02. Shader\02. ShaderClass\10. Light</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\LightObject.h">
+      <Filter>04. GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\Shader\LightBlendShader.h">
+      <Filter>02. Resource\02. Shader\02. ShaderClass\10. Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\Shader\LightBlendRenderShader.h">
+      <Filter>02. Resource\02. Shader\02. ShaderClass\10. Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\RasterizerState.h">
+      <Filter>06. Render\01. RenderState</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -1154,6 +1178,24 @@
     <ClCompile Include="Resource\Texture\RenderTarget.cpp">
       <Filter>02. Resource\04. Texture</Filter>
     </ClCompile>
+    <ClCompile Include="Resource\Shader\RenderTargetShader.cpp">
+      <Filter>02. Resource\02. Shader\02. ShaderClass\09. RenderTarget</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource\Shader\LightAccShader.cpp">
+      <Filter>02. Resource\02. Shader\02. ShaderClass\10. Light</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\LightObject.cpp">
+      <Filter>04. GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource\Shader\LightBlendRenderShader.cpp">
+      <Filter>02. Resource\02. Shader\02. ShaderClass\10. Light</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource\Shader\LightBlendShader.cpp">
+      <Filter>02. Resource\02. Shader\02. ShaderClass\10. Light</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\RasterizerState.cpp">
+      <Filter>06. Render\01. RenderState</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="..\Bin\Shader\ShaderInfo.fx">
@@ -1181,6 +1223,9 @@
       <Filter>02. Resource\02. Shader\01. HLSL</Filter>
     </FxCompile>
     <FxCompile Include="..\Bin\Shader\AnimationUpdate.fx">
+      <Filter>02. Resource\02. Shader\01. HLSL</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Bin\Shader\Light.fx">
       <Filter>02. Resource\02. Shader\01. HLSL</Filter>
     </FxCompile>
   </ItemGroup>
