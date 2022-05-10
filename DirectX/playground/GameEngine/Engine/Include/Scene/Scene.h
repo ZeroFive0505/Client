@@ -33,6 +33,9 @@ private:
 	CLightManager* m_LightManager;
 
 	std::list<CSharedPtr<CGameObject>> m_ObjList;
+	CSharedPtr<CGameObject> m_SkyObject;
+
+
 	std::vector<CColliderComponent*> m_vecTileColliders;
 	bool m_Start;
 	bool m_Change;
@@ -47,6 +50,11 @@ public:
 	inline CSceneResource* GetSceneResource() const
 	{
 		return m_Resource;
+	}
+
+	inline CGameObject* GetSkyObject() const
+	{
+		return m_SkyObject;
 	}
 
 	inline CSceneCollision* GetCollision() const

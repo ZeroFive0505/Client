@@ -245,6 +245,12 @@ void CRenderManager::Render()
 		}	
 	}
 
+	// 환경맵 출력
+	CSharedPtr<CGameObject>	SkyObj = CSceneManager::GetInst()->GetScene()->GetSkyObject();
+
+	SkyObj->Render();
+
+
 	// GBuffer를 만들어낸다.
 	RenderGBuffer();
 

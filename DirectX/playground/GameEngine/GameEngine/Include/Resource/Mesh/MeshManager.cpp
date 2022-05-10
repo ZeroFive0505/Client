@@ -117,6 +117,26 @@ bool CMeshManager::Init()
 
 	m_mapMesh.insert(std::make_pair("ParticlePointMesh", particlePointMesh));
 
+	std::vector<sVertex3D> vecSphere;
+	std::vector<Vector3> vecSpherePos;
+	std::vector<int> vecSphereIndex;
+
+	CreateSphere(vecSphere, vecSphereIndex, 1.0f, 5);
+
+	size_t sphereSize = vecSphere.size();
+	vecSpherePos.resize(sphereSize);
+
+	for (size_t i = 0; i < sphereSize; i++)
+	{
+		vecSpherePos[i] = vecSphere[i].pos;
+	}
+
+	CreateMesh(Mesh_Type::Static, "SpherePos",
+		&vecSpherePos[0], sizeof(Vector3), sphereSize,
+		D3D11_USAGE_DEFAULT, D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST,
+		&vecSphereIndex[0], sizeof(int), (int)vecSphereIndex.size(),
+		D3D11_USAGE_DEFAULT, DXGI_FORMAT_R32_UINT);
+
 	return true;
 }
 
@@ -271,7 +291,8 @@ void CMeshManager::ReleaseMesh(const std::string& name)
 	}
 }
 
-bool CMeshManager::CreateSphere(std::vector<sVertex3D>& vecVertex, std::vector<int>& vecIndex, float radius, unsigned int subDivision)
+bool CMeshManager::CreateSphere(std::vector<sVertex3D>& vecVertex, 
+	std::vector<int>& vecIndex, float radius, unsigned int subDivision)
 {
 	// Put a cap on the number of subdivisions.
 	subDivision = min(subDivision, 5);
@@ -280,7 +301,6 @@ bool CMeshManager::CreateSphere(std::vector<sVertex3D>& vecVertex, std::vector<i
 	const float X = 0.525731f;
 	const float Z = 0.850651f;
 
-	// 정 12면체를 만든다.
 	Vector3 pos[12] =
 	{
 		Vector3(-X, 0.0f, Z),  Vector3(X, 0.0f, Z),
@@ -299,7 +319,6 @@ bool CMeshManager::CreateSphere(std::vector<sVertex3D>& vecVertex, std::vector<i
 		10,1,6, 11,0,9, 2,11,9, 5,2,9,  11,2,7
 	};
 
-
 	vecVertex.resize(12);
 	vecIndex.resize(60);
 
@@ -313,22 +332,22 @@ bool CMeshManager::CreateSphere(std::vector<sVertex3D>& vecVertex, std::vector<i
 		Subdivide(vecVertex, vecIndex);
 
 	// Project vertices onto sphere and scale.
-	size_t size = vecVertex.size();
-	for (UINT i = 0; i < size; i++)
+	for (UINT i = 0; i < vecVertex.size(); ++i)
 	{
 		// Project onto unit sphere.
-		Vector3 vN = vecVertex[i].pos;
+		Vector3	vN = vecVertex[i].pos;
 		vN.Normalize();
 
-		// Project onto sphere
+		// Project onto sphere.
 		Vector3 p = vN * radius;
 
 		vecVertex[i].pos = p;
-
 		// Normal이 있을 경우 따로 저장한다.
 
 		// Derive texture coordinates from spherical coordinates.
-		float theta = AngleFromXY(vecVertex[i].pos.x, vecVertex[i].pos.z);
+		float theta = AngleFromXY(
+			vecVertex[i].pos.x,
+			vecVertex[i].pos.z);
 
 		float phi = acosf(vecVertex[i].pos.y / radius);
 
@@ -347,11 +366,12 @@ bool CMeshManager::CreateSphere(std::vector<sVertex3D>& vecVertex, std::vector<i
 	return true;
 }
 
-void CMeshManager::Subdivide(std::vector<sVertex3D> vecVertices, std::vector<int>& vecIndices)
+void CMeshManager::Subdivide(std::vector<sVertex3D>& vecVertices, std::vector<int>& vecIndices)
 {
 	// Save a copy of the input geometry.
-	std::vector<sVertex3D> vecCopyVertex = vecVertices;
-	std::vector<int> vecCopyIndex = vecIndices;
+	std::vector<sVertex3D>	vecCopyVertex = vecVertices;
+	std::vector<int>	vecCopyIndex = vecIndices;
+
 
 	vecVertices.resize(0);
 	vecIndices.resize(0);
@@ -367,8 +387,7 @@ void CMeshManager::Subdivide(std::vector<sVertex3D> vecVertices, std::vector<int
 	// v0    m2     v2
 
 	UINT numTris = vecCopyIndex.size() / 3;
-
-	for (UINT i = 0; i < numTris; i++)
+	for (UINT i = 0; i < numTris; ++i)
 	{
 		sVertex3D v0 = vecCopyVertex[vecCopyIndex[i * 3 + 0]];
 		sVertex3D v1 = vecCopyVertex[vecCopyIndex[i * 3 + 1]];
@@ -405,7 +424,7 @@ void CMeshManager::Subdivide(std::vector<sVertex3D> vecVertices, std::vector<int
 		vecVertices.push_back(v0); // 0
 		vecVertices.push_back(v1); // 1
 		vecVertices.push_back(v2); // 2
-		vecVertices.push_back(m0); // 3;
+		vecVertices.push_back(m0); // 3
 		vecVertices.push_back(m1); // 4
 		vecVertices.push_back(m2); // 5
 
@@ -439,7 +458,7 @@ float CMeshManager::AngleFromXY(float x, float y)
 		theta = atanf(y / x); // in [-pi/2, +pi/2]
 
 		if (theta < 0.0f)
-			theta += 2.0f * PI; // in [0, 2 * pi).
+			theta += 2.0f * PI; // in [0, 2*pi).
 	}
 
 	// Quadrant II or III

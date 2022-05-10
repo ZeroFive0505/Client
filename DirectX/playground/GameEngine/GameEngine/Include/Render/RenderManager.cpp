@@ -254,6 +254,11 @@ void CRenderManager::Render()
 		}
 	}
 
+	// 스카이 박스 출력
+	CGameObject* skyObj = CSceneManager::GetInst()->GetScene()->GetSkyObject();
+
+	skyObj->Render();
+
 	// GBuffer를 만들어낸다.
 	RenderGBuffer();
 	

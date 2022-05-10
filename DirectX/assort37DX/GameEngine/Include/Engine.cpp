@@ -118,10 +118,10 @@ bool CEngine::Init(HINSTANCE hInst, HWND hWnd,
 	if (!CIMGUIManager::GetInst()->Init(m_hWnd))
 		return false;
 
-
 	// 렌더링 관리자 초기화
 	if (!CRenderManager::GetInst()->Init())
 		return false;
+
 
 	m_GlobalCBuffer = new CGlobalConstantBuffer;
 

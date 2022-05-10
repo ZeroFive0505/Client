@@ -64,6 +64,13 @@ bool CMesh::CreateMesh(void* VtxData, int Size, int Count, D3D11_USAGE Usage, D3
 	Container->VB.Data = new char[Size * Count];
 	memcpy(Container->VB.Data, VtxData, Size * Count);
 
+	MeshSlot* Slot = new MeshSlot;
+
+	m_vecMeshSlot.push_back(Slot);
+
+	Slot->VB = &Container->VB;
+	Slot->Primitive = Container->Primitive;
+
 	if (IdxData != nullptr)
 	{
 		Container->vecIB.resize(1);
@@ -78,9 +85,12 @@ bool CMesh::CreateMesh(void* VtxData, int Size, int Count, D3D11_USAGE Usage, D3
 
 		Container->vecIB[0].Data = new char[IdxSize * IdxCount];
 		memcpy(Container->vecIB[0].Data, IdxData, IdxSize * IdxCount);
+
+		Slot->IB = &Container->vecIB[0];
 	}
 
 	m_vecContainer.push_back(Container);
+
 
 	return true;
 }

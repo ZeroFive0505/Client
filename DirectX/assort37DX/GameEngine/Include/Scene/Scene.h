@@ -27,10 +27,16 @@ private:
 	CLightManager* m_LightManager;
 	
 	std::list<CSharedPtr<CGameObject>>	m_ObjList;
+	CSharedPtr<CGameObject>		m_SkyObject;
 	bool		m_Start;
 	bool		m_Change;
 
 public:
+	CGameObject* GetSkyObject()	const
+	{
+		return m_SkyObject;
+	}
+
 	void SetAutoChange(bool Change)
 	{
 		m_Change = Change;

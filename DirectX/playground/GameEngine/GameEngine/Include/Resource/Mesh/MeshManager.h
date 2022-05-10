@@ -34,7 +34,7 @@ public:
 private:
 	bool CreateSphere(std::vector<sVertex3D>& vecVertex, std::vector<int>& vecIndex, float radius,
 		unsigned int subDivision);
-	void Subdivide(std::vector<sVertex3D> vecVertices, std::vector<int>& vecIndices);
+	void Subdivide(std::vector<sVertex3D>& vecVertices, std::vector<int>& vecIndices);
 	float AngleFromXY(float x, float y);
 };
 

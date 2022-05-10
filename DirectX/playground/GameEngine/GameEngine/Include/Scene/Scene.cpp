@@ -1,6 +1,7 @@
 #include "Scene.h"
 #include "../PathManager.h"
 #include "SceneManager.h"
+#include "../GameObject/SkyObject.h"
 
 CScene::CScene()
 {
@@ -29,6 +30,13 @@ CScene::CScene()
 	m_LightManager->Init();
 
 	m_Change = true;
+
+	m_SkyObject = new CSkyObject;
+
+	m_SkyObject->SetName("Sky");
+	m_SkyObject->SetScene(this);
+
+	m_SkyObject->Init();
 }
 
 CScene::~CScene()
@@ -57,6 +65,8 @@ void CScene::Start()
 
 	m_Start = true;
 
+	m_SkyObject->Start();
+
 	m_CameraManager->Start();
 	m_Collision->Start();
 	m_Viewport->Start();
@@ -77,6 +87,8 @@ void CScene::Start()
 void CScene::Update(float deltaTime)
 {
 	m_Mode->Update(deltaTime);
+
+	m_SkyObject->Update(deltaTime);
 
 	auto iter = m_ObjList.begin();
 	auto iterEnd = m_ObjList.end();
@@ -112,7 +124,9 @@ void CScene::PostUpdate(float deltaTime)
 {
 	m_Mode->PostUpdate(deltaTime);
 
-	m_ObjList.sort(CScene::YSort);
+	m_SkyObject->PostUpdate(deltaTime);
+
+	// m_ObjList.sort(CScene::YSort);
 
 	auto iter = m_ObjList.begin();
 	auto iterEnd = m_ObjList.end();

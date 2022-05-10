@@ -90,12 +90,13 @@ void CMaterial::EnableEmissiveTex()
 
 void CMaterial::SetRenderState(CRenderState* state)
 {
-	m_RenderStateArray[(int)RenderState_Type::Blend] = state;
+	m_RenderStateArray[(int)state->GetType()] = state;
 }
 
 void CMaterial::SetRenderState(const std::string& name)
 {
-	m_RenderStateArray[(int)RenderState_Type::Blend] = CRenderManager::GetInst()->FindRenderState(name);
+	CRenderState* state = CRenderManager::GetInst()->FindRenderState(name);
+	m_RenderStateArray[(int)state->GetType()] = state;
 }
 
 void CMaterial::SetTransparency(bool enable)

@@ -35,6 +35,15 @@ bool CMaterialManager::Init()
 
 	Mtrl->AddTexture(0, (int)Buffer_Shader_Type::Pixel, "EngineTexture", Texture);
 
+	CreateMaterial<CMaterial>("SkyMaterial");
+
+	Mtrl = FindMaterial("SkyMaterial");
+
+	Mtrl->SetShader("SkyShader");
+
+	Mtrl->AddTexture(20, (int)Buffer_Shader_Type::Pixel,
+		"DefaultSky", TEXT("Sky/Sky.dds"));
+
 	return true;
 }
 

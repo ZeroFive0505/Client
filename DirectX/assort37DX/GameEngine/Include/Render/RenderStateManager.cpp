@@ -2,6 +2,7 @@
 #include "RenderStateManager.h"
 #include "BlendState.h"
 #include "DepthStencilState.h"
+#include "RasterizerState.h"
 
 CRenderStateManager::CRenderStateManager()
 {
@@ -20,6 +21,12 @@ bool CRenderStateManager::Init()
 
 	AddBlendInfo("LightAcc", true, D3D11_BLEND_ONE, D3D11_BLEND_ONE);
 	CreateBlendState("LightAcc", true, false);
+
+	CreateRasterizerState("FrontFaceCull", D3D11_FILL_SOLID,
+		D3D11_CULL_FRONT);
+
+	CreateDepthStencilState("SkyDepth", true, 
+		D3D11_DEPTH_WRITE_MASK_ZERO, D3D11_COMPARISON_LESS_EQUAL);
 
 	return true;
 }
@@ -95,6 +102,38 @@ bool CRenderStateManager::CreateDepthStencilState(const std::string& Name,
 	if (!State->CreateState(DepthEnable, DepthWriteMask,
 		DepthFunc, StencilEnable, StencilReadMask, StencilWriteMask,
 		FrontFace, BackFace))
+	{
+		SAFE_RELEASE(State);
+		return false;
+	}
+
+	State->SetName(Name);
+
+	m_mapRenderState.insert(std::make_pair(Name, State));
+
+	return true;
+}
+
+bool CRenderStateManager::CreateRasterizerState(
+	const std::string& Name, D3D11_FILL_MODE FillMode,
+	D3D11_CULL_MODE CullMode, BOOL FrontCounterClockwise, 
+	INT DepthBias, FLOAT DepthBiasClamp,
+	FLOAT SlopeScaledDepthBias, BOOL DepthClipEnable, 
+	BOOL ScissorEnable, BOOL MultisampleEnable, 
+	BOOL AntialiasedLineEnable)
+{
+	CRasterizerState* State = (CRasterizerState*)FindRenderState(Name);
+
+	if (State)
+		return false;
+
+	State = new CRasterizerState;
+
+	if (!State->CreateState(FillMode, CullMode,
+		FrontCounterClockwise, DepthBias, DepthBiasClamp, 
+		SlopeScaledDepthBias,
+		DepthClipEnable, ScissorEnable, MultisampleEnable,
+		AntialiasedLineEnable))
 	{
 		SAFE_RELEASE(State);
 		return false;

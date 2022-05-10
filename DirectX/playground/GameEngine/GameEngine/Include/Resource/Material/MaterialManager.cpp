@@ -35,6 +35,15 @@ bool CMaterialManager::Init()
 
 	mat->AddTexture(0, (int)Buffer_Shader_Type::Pixel, "DefaultTexture", texture);
 
+	CreateMaterial<CMaterial>("SkyMaterial");
+
+	mat = FindMaterial("SkyMaterial");
+
+	mat->SetShader("SkyShader");
+
+	// 20번에 연결
+	mat->AddTexture(20, (int)Buffer_Shader_Type::Pixel, "DefaultSly", TEXT("Sky/Sky.dds"));
+
 	return true;
 }
 
