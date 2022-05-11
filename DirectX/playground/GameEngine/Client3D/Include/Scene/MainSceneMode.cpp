@@ -3,6 +3,7 @@
 #include "Scene/SceneResource.h"
 #include "Scene/Viewport.h"
 #include "../Object/Player.h"
+#include "../Object/LandScapeObj.h"
 #include "GameObject/LightObject.h"
 #include "Component/LightComponent.h"
 #include "Resource/Material/Material.h"
@@ -36,8 +37,9 @@ bool CMainSceneMode::Init()
 	if (m_LoadingFunction)
 		m_LoadingFunction(true, 1.0f);
 
+	CLandScapeObj* landScape = m_Scene->CreateGameObject<CLandScapeObj>("LandScape");
 
-	//CLightObject* Light = m_Scene->CreateGameObject<CLightObject>("Light1");
+	CLightObject* Light = m_Scene->CreateGameObject<CLightObject>("Light1");
 
 	//((CLightComponent*)Light->GetRootComponent())->SetRelativePos(-3.f, 5.f, 0.f);
 	//((CLightComponent*)Light->GetRootComponent())->SetLightType(Light_Type::Point);
@@ -73,6 +75,22 @@ void CMainSceneMode::LoadMesh()
 
 void CMainSceneMode::CreateMaterial()
 {
+	m_Scene->GetSceneResource()->CreateMaterial<CMaterial>("LandScape");
+
+	CMaterial* material = m_Scene->GetSceneResource()->FindMaterial("LandScape");
+
+
+	material->AddTexture(0, (int)Buffer_Shader_Type::Pixel,
+		"LandScapeSplat1Dif", TEXT("LandScape/BD_Terrain_Cave_01.dds"));
+	material->AddTexture(1, (int)Buffer_Shader_Type::Pixel,
+		"LandScapeSplat1Nrm", TEXT("LandScape/BD_Terrain_Cave_01_NRM.bmp"));
+	material->AddTexture(2, (int)Buffer_Shader_Type::Pixel,
+		"LandScapeSplat1Spc", TEXT("LandScape/BD_Terrain_Cave_01_SPEC.bmp"));
+	material->SetShader("LandScapeShader");
+
+	material->EnableBump();
+	material->EnableSpecularTex();
+	material->SetSpecularPower(2.0f);
 }
 
 void CMainSceneMode::CreateAnimationSequence()

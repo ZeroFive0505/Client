@@ -15,7 +15,7 @@ private:
 
 public:
 	bool Init();
-	virtual bool CreateMesh(Mesh_Type Type, const std::string& Name,
+	bool CreateMesh(Mesh_Type Type, const std::string& Name,
 		void* VtxData, int Size, int Count, D3D11_USAGE Usage,
 		D3D11_PRIMITIVE_TOPOLOGY Primitive, void* IdxData = nullptr, int IdxSize = 0, int IdxCount = 0,
 		D3D11_USAGE IdxUsage = D3D11_USAGE_DEFAULT, DXGI_FORMAT Fmt = DXGI_FORMAT_UNKNOWN,

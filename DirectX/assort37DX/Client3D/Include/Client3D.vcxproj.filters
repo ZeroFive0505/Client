@@ -39,6 +39,9 @@
     <ClInclude Include="Object\PlayerAnimation.h">
       <Filter>02. Object</Filter>
     </ClInclude>
+    <ClInclude Include="Object\LandScapeObj.h">
+      <Filter>02. Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client3D.rc">
@@ -64,6 +67,9 @@
       <Filter>02. Object</Filter>
     </ClCompile>
     <ClCompile Include="Object\PlayerAnimation.cpp">
+      <Filter>02. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\LandScapeObj.cpp">
       <Filter>02. Object</Filter>
     </ClCompile>
   </ItemGroup>

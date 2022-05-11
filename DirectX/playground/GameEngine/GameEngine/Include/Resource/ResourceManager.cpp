@@ -92,6 +92,12 @@ CMesh* CResourceManager::FindMesh(const std::string& name)
 	return m_MeshManager->FindMesh(name);
 }
 
+bool CResourceManager::CreateMesh(Mesh_Type type, const std::string& name, void* vtxData, int size, int count, D3D11_USAGE usage, D3D11_PRIMITIVE_TOPOLOGY primitive, void* idxData, int idxSize, int idxCount, D3D11_USAGE idxUsage, DXGI_FORMAT fmt, CScene* scene)
+{
+	return m_MeshManager->CreateMesh(type, name, vtxData, size, count, usage, primitive, idxData, idxSize, idxCount, idxUsage,
+		fmt, scene);
+}
+
 bool CResourceManager::LoadMesh(Mesh_Type type, const std::string& name, const TCHAR* fileName, const std::string& pathName,
 	class CScene* scene)
 {

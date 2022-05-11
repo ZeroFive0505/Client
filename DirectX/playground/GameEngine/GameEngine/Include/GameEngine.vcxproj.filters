@@ -262,6 +262,12 @@
     <Filter Include="02. Resource\02. Shader\02. ShaderClass\11. Sky">
       <UniqueIdentifier>{4c0a3cf7-5b0a-4c1a-afec-2b520b82a815}</UniqueIdentifier>
     </Filter>
+    <Filter Include="05. Component\01. SceneComponent\09. LandScape">
+      <UniqueIdentifier>{1a5c8ca1-5c12-4fb2-b911-3cd0e921631b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Resource\02. Shader\02. ShaderClass\12. LandScape">
+      <UniqueIdentifier>{49530ecb-3ad3-4d93-8d32-8834ae5f30a6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -762,6 +768,12 @@
     <ClInclude Include="GameObject\SkyObject.h">
       <Filter>04. GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="Component\LandScape.h">
+      <Filter>05. Component\01. SceneComponent\09. LandScape</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\Shader\LandScapeShader.h">
+      <Filter>02. Resource\02. Shader\02. ShaderClass\12. LandScape</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -1211,6 +1223,12 @@
     <ClCompile Include="GameObject\SkyObject.cpp">
       <Filter>04. GameObject</Filter>
     </ClCompile>
+    <ClCompile Include="Component\LandScape.cpp">
+      <Filter>05. Component\01. SceneComponent\09. LandScape</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource\Shader\LandScapeShader.cpp">
+      <Filter>02. Resource\02. Shader\02. ShaderClass\12. LandScape</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="..\Bin\Shader\ShaderInfo.fx">
@@ -1244,6 +1262,9 @@
       <Filter>02. Resource\02. Shader\01. HLSL</Filter>
     </FxCompile>
     <FxCompile Include="..\Bin\Shader\Sky.fx">
+      <Filter>02. Resource\02. Shader\01. HLSL</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Bin\Shader\LandScape.fx">
       <Filter>02. Resource\02. Shader\01. HLSL</Filter>
     </FxCompile>
   </ItemGroup>

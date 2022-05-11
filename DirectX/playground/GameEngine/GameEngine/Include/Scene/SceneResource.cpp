@@ -92,6 +92,20 @@ CSceneResource::~CSceneResource()
     }
 }
 
+bool CSceneResource::CreateMesh(Mesh_Type type, const std::string& name, void* vtxData, int size, int count, D3D11_USAGE usage, D3D11_PRIMITIVE_TOPOLOGY primitive, void* idxData, int idxSize, int idxCount, D3D11_USAGE idxUsage, DXGI_FORMAT fmt)
+{
+    if (FindMesh(name))
+        return true;
+
+    if (!CResourceManager::GetInst()->CreateMesh(type, name, vtxData, size, count,
+        usage, primitive, idxData, idxSize, idxCount, idxUsage, fmt, m_Scene))
+        return false;
+
+    m_mapMesh.insert(std::make_pair(name, CResourceManager::GetInst()->FindMesh(name)));
+
+    return true;
+}
+
 bool CSceneResource::LoadMesh(Mesh_Type type, const std::string& name, const TCHAR* fileName, const std::string& pathName)
 {
     if (FindMesh(name))

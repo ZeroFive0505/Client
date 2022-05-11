@@ -19,6 +19,7 @@
 #include "LightBlendShader.h"
 #include "LightBlendRenderShader.h"
 #include "SkyShader.h"
+#include "LandScapeShader.h"
 
 CShaderManager::CShaderManager()
 {
@@ -99,6 +100,10 @@ bool CShaderManager::Init()
 
 
 	if (!CreateShader<CSkyShader>("SkyShader"))
+		return false;
+
+
+	if (!CreateShader<CLandScapeShader>("LandScapeShader"))
 		return false;
 
 

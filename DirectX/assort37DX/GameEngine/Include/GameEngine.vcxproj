@@ -109,6 +109,7 @@
     <ClCompile Include="Resource\Shader\ConstantBufferBase.cpp" />
     <ClCompile Include="Resource\Shader\GlobalConstantBuffer.cpp" />
     <ClCompile Include="Resource\Shader\GraphicShader.cpp" />
+    <ClCompile Include="Resource\Shader\LandScapeShader.cpp" />
     <ClCompile Include="Resource\Shader\LightAccShader.cpp" />
     <ClCompile Include="Resource\Shader\LightBlendRenderShader.cpp" />
     <ClCompile Include="Resource\Shader\LightBlendShader.cpp" />
@@ -261,6 +262,7 @@
     <ClInclude Include="Resource\Shader\ConstantBufferBase.h" />
     <ClInclude Include="Resource\Shader\GlobalConstantBuffer.h" />
     <ClInclude Include="Resource\Shader\GraphicShader.h" />
+    <ClInclude Include="Resource\Shader\LandScapeShader.h" />
     <ClInclude Include="Resource\Shader\LightAccShader.h" />
     <ClInclude Include="Resource\Shader\LightBlendRenderShader.h" />
     <ClInclude Include="Resource\Shader\LightBlendShader.h" />
@@ -363,6 +365,20 @@
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">ColorMeshVS</EntryPointName>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="..\Bin\Shader\LandScape.fx">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">LandScapeVS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">LandScapeVS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">LandScapeVS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">LandScapeVS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
     <FxCompile Include="..\Bin\Shader\Light.fx">
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">LightAccVS</EntryPointName>

@@ -29,6 +29,11 @@ public:
 	void RenderTarget();
 
 public:	// =================== Mesh =====================
+	bool CreateMesh(Mesh_Type Type, const std::string& Name,
+		void* VtxData, int Size, int Count, D3D11_USAGE Usage,
+		D3D11_PRIMITIVE_TOPOLOGY Primitive, void* IdxData = nullptr, int IdxSize = 0, int IdxCount = 0,
+		D3D11_USAGE IdxUsage = D3D11_USAGE_DEFAULT, DXGI_FORMAT Fmt = DXGI_FORMAT_UNKNOWN,
+		class CScene* Scene = nullptr);
 	bool LoadMesh(Mesh_Type Type, const std::string& Name, const TCHAR* FileName,
 		const std::string& PathName = MESH_PATH, class CScene* Scene = nullptr);
 	bool LoadMeshFullPath(Mesh_Type Type, const std::string& Name,

@@ -92,6 +92,18 @@ void CResourceManager::RenderTarget()
 	m_TextureManager->RenderTarget(Mesh, Shader);
 }
 
+bool CResourceManager::CreateMesh(Mesh_Type Type, 
+	const std::string& Name, void* VtxData, int Size, 
+	int Count, D3D11_USAGE Usage,
+	D3D11_PRIMITIVE_TOPOLOGY Primitive, void* IdxData,
+	int IdxSize, int IdxCount, D3D11_USAGE IdxUsage,
+	DXGI_FORMAT Fmt, CScene* Scene)
+{
+	return m_MeshManager->CreateMesh(Type, Name, VtxData, Size, Count,
+		Usage, Primitive, IdxData, IdxSize, IdxCount, IdxUsage,
+		Fmt, Scene);
+}
+
 bool CResourceManager::LoadMesh(Mesh_Type Type, const std::string& Name,
 	const TCHAR* FileName, const std::string& PathName, class CScene* Scene)
 {

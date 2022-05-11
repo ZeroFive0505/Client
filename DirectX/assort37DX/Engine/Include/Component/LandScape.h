@@ -12,6 +12,31 @@ protected:
 	virtual ~CLandScape();
 
 protected:
+	CSharedPtr<class CStaticMesh>	m_Mesh;
+	int		m_CountX;
+	int		m_CountZ;
+	std::vector<Vertex3D>		m_vecVtx;
+	std::vector<Vector3>		m_vecPos;
+	std::vector<unsigned int>	m_vecIndex;
+	std::vector<Vector3>		m_vecFaceNormal;
+	std::vector<CSharedPtr<class CMaterial>> m_vecMaterialSlot;
+
+public:
+	CMaterial* GetMaterial(int Index = 0)    const
+	{
+		return m_vecMaterialSlot[Index];
+	}
+
+public:
+	void CreateLandScape(const std::string& Name,
+		int CountX, int CountZ,
+		const TCHAR* HeightMap = nullptr,
+		const std::string& PathName = TEXTURE_PATH);
+	void SetMaterial(class CMaterial* Material, int Index = 0);
+	void SetMaterial(const std::string& Name, int Index = 0);
+	void AddMaterial(class CMaterial* Material);
+	void AddMaterial(const std::string& Name);
+
 
 public:
 
@@ -26,5 +51,10 @@ public:
 	virtual CLandScape* Clone();
 	virtual void Save(FILE* File);
 	virtual void Load(FILE* File);
+
+
+private:
+	void ComputeNormal();
+	void ComputeTangent();
 };
 

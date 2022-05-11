@@ -39,7 +39,9 @@ private:
 	std::unordered_map<std::string, CSharedPtr<CSkeleton>> m_mapSkeleton;
 
 public: // =========================== Mesh ===========================
-
+	bool CreateMesh(Mesh_Type type, const std::string& name, void* vtxData, int size, int count,
+		D3D11_USAGE usage, D3D11_PRIMITIVE_TOPOLOGY primitive, void* idxData = nullptr, int idxSize = 0, int idxCount = 0,
+		D3D11_USAGE idxUsage = D3D11_USAGE_DEFAULT, DXGI_FORMAT fmt = DXGI_FORMAT_UNKNOWN);
 	bool LoadMesh(Mesh_Type type, const std::string& name, const TCHAR* fileName,
 		const std::string& pathName = MESH_PATH);
 	bool LoadMeshFullPath(Mesh_Type type, const std::string& name, const TCHAR* fullPath);
