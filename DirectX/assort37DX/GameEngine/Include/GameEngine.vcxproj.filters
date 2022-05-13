@@ -265,6 +265,15 @@
     <Filter Include="02. Resource\02. Shader\02. ShaderClass\12. LandScape">
       <UniqueIdentifier>{ca854901-5f06-4e19-ab1e-4a147bcea228}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Resource\02. Shader\03. ConstantBuffer\13. LandScape">
+      <UniqueIdentifier>{4368a80e-d488-4723-8663-12f3147e70fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Scene\06. Navigation\01. 2D">
+      <UniqueIdentifier>{1f5317a5-9129-4a6e-9850-7d79626321ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Scene\06. Navigation\02. 3D">
+      <UniqueIdentifier>{0b335364-dcba-4d9a-b6bb-a96bffd6d1c1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Device.cpp">
@@ -504,15 +513,6 @@
     <ClCompile Include="Scene\SceneCollision.cpp">
       <Filter>03. Scene\03. Collision</Filter>
     </ClCompile>
-    <ClCompile Include="Scene\NavigationManager.cpp">
-      <Filter>03. Scene\06. Navigation</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene\NavigationThread.cpp">
-      <Filter>03. Scene\06. Navigation</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene\Navigation.cpp">
-      <Filter>03. Scene\06. Navigation</Filter>
-    </ClCompile>
     <ClCompile Include="Scene\Scene.cpp">
       <Filter>03. Scene</Filter>
     </ClCompile>
@@ -704,6 +704,24 @@
     </ClCompile>
     <ClCompile Include="Resource\Shader\LandScapeShader.cpp">
       <Filter>02. Resource\02. Shader\02. ShaderClass\12. LandScape</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource\Shader\LandScapeConstantBuffer.cpp">
+      <Filter>02. Resource\02. Shader\03. ConstantBuffer\13. LandScape</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Navigation.cpp">
+      <Filter>03. Scene\06. Navigation\01. 2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\NavigationManager.cpp">
+      <Filter>03. Scene\06. Navigation\01. 2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\NavigationThread.cpp">
+      <Filter>03. Scene\06. Navigation\01. 2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Navigation3DManager.cpp">
+      <Filter>03. Scene\06. Navigation\02. 3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Navigation3D.cpp">
+      <Filter>03. Scene\06. Navigation\02. 3D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -968,15 +986,6 @@
     <ClInclude Include="Scene\SceneCollision.h">
       <Filter>03. Scene\03. Collision</Filter>
     </ClInclude>
-    <ClInclude Include="Scene\Navigation.h">
-      <Filter>03. Scene\06. Navigation</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\NavigationManager.h">
-      <Filter>03. Scene\06. Navigation</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\NavigationThread.h">
-      <Filter>03. Scene\06. Navigation</Filter>
-    </ClInclude>
     <ClInclude Include="Scene\Scene.h">
       <Filter>03. Scene</Filter>
     </ClInclude>
@@ -1171,6 +1180,24 @@
     </ClInclude>
     <ClInclude Include="Resource\Shader\LandScapeShader.h">
       <Filter>02. Resource\02. Shader\02. ShaderClass\12. LandScape</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\Shader\LandScapeConstantBuffer.h">
+      <Filter>02. Resource\02. Shader\03. ConstantBuffer\13. LandScape</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Navigation.h">
+      <Filter>03. Scene\06. Navigation\01. 2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\NavigationManager.h">
+      <Filter>03. Scene\06. Navigation\01. 2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\NavigationThread.h">
+      <Filter>03. Scene\06. Navigation\01. 2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Navigation3DManager.h">
+      <Filter>03. Scene\06. Navigation\02. 3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Navigation3D.h">
+      <Filter>03. Scene\06. Navigation\02. 3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

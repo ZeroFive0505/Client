@@ -192,6 +192,16 @@ bool CResourceManager::LoadTextureFullPath(const std::string& name, const std::v
 	return m_TextureManger->LoadTextureFullPath(name, vecFullPath);
 }
 
+bool CResourceManager::LoadTextureArray(const std::string& name, const std::vector<TCHAR*>& vecFileName, const std::string& pathName)
+{
+	return m_TextureManger->LoadTextureArray(name, vecFileName, pathName);
+}
+
+bool CResourceManager::LoadTextureArrayFullPath(const std::string& name, const std::vector<TCHAR*>& vecFullPath)
+{
+	return m_TextureManger->LoadTextureArrayFullPath(name, vecFullPath);
+}
+
 CTexture* CResourceManager::FindTexture(const std::string& name)
 {
 	return m_TextureManger->FindTexture(name);

@@ -103,6 +103,9 @@ public:	// =================== Texture =====================
 	bool LoadTextureFullPath(const std::string& Name, const std::vector<TCHAR*>& vecFullPath);
 	bool CreateTarget(const std::string& Name, unsigned int Width,
 		unsigned int Height, DXGI_FORMAT PixelFormat);
+	bool LoadTextureArray(const std::string& Name, const std::vector<TCHAR*>& vecFileName,
+		const std::string& PathName = TEXTURE_PATH);
+	bool LoadTextureArrayFullPath(const std::string& Name, const std::vector<TCHAR*>& vecFullPath);
 	class CTexture* FindTexture(const std::string& Name);
 
 public:	// =================== Sequence2D =====================

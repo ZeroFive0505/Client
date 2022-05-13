@@ -535,3 +535,10 @@ struct sLightBuffer
 	float attConst3;
 	Vector3 empty;
 };
+
+struct sLandScapeCBuffer
+{
+	Vector2 uvScale;
+	int splatCount;
+	float empty;
+};

@@ -63,6 +63,12 @@
 #define	SAFE_DELETE_ARRAY(p)	if(p)	{ delete[] p; p = nullptr; }
 #define	SAFE_RELEASE(p)	if(p)	{ p->Release(); p = nullptr; }
 
+#define	SAFE_DELETE_ARRAY_VECLIST(p)	\
+for(auto iter = p.begin(); iter != p.end(); ++iter)\
+{\
+	SAFE_DELETE_ARRAY(*iter);\
+}
+
 #define	DECLARE_SINGLE(Type)	\
 private:\
 	static Type*	m_Inst;\
@@ -497,6 +503,13 @@ struct LightCBuffer
 	float	Att2;
 	float	Att3;
 	Vector3	Empty;
+};
+
+struct LandScapeCBuffer
+{
+	float	DetailLevel;
+	int		SplatCount;
+	Vector2	Empty;
 };
 
 

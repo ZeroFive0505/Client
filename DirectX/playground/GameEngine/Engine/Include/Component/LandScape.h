@@ -22,11 +22,20 @@ protected:
 	std::vector<unsigned int> m_vecIndex;
 	std::vector<Vector3> m_vecFaceNormal;
 	std::vector<CSharedPtr<class CMaterial>> m_vecMaterialSlot;
+	class CLandScapeConstantBuffer* m_CBuffer;
+
+	Vector3 m_Point;
+	Vector3 m_Intersection;
 
 public:
 	CMaterial* GetMaterial(int index = 0) const
 	{
 		return m_vecMaterialSlot[index];
+	}
+
+	inline Vector3 GetIntersection() const
+	{
+		return m_Intersection;
 	}
 
 public:
@@ -35,6 +44,15 @@ public:
 	void SetMaterial(const std::string& name, int index = 0);
 	void AddMaterial(class CMaterial* material);
 	void AddMaterial(const std::string& name);
+	void SetUVScale(float x, float y);
+	void SetUVScale(const Vector2& scale);
+	void SetSplatCount(int count);
+
+public:
+	bool RayVsPlane();
+	float GetHeight(const Vector3& pos);
+	Vector3 Bresenham(int x2, int z2);
+
 public:
 	virtual void Start();
 	virtual bool Init();

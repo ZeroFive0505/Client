@@ -3,12 +3,15 @@
 #include "../PathManager.h"
 #include "../Resource/Mesh/StaticMesh.h"
 #include "../Scene/Scene.h"
+#include "../Scene/Navigation3DManager.h"
 #include "../Scene/SceneResource.h"
 #include "../Resource/Material/Material.h"
+#include "../Resource/Shader/LandScapeConstantBuffer.h"
 
 CLandScape::CLandScape()	:
 	m_CountX(0),
-	m_CountZ(0)
+	m_CountZ(0),
+	m_CBuffer(nullptr)
 {
 	SetTypeID<CLandScape>();
 	m_Render = true;
@@ -23,10 +26,13 @@ CLandScape::CLandScape(const CLandScape& com)	:
 	m_vecVtx = com.m_vecVtx;
 	m_vecPos = com.m_vecPos;
 	m_vecIndex = com.m_vecIndex;
+
+	m_CBuffer = com.m_CBuffer->Clone();
 }
 
 CLandScape::~CLandScape()
 {
+	SAFE_DELETE(m_CBuffer);
 }
 
 void CLandScape::CreateLandScape(const std::string& Name,
@@ -101,7 +107,7 @@ void CLandScape::CreateLandScape(const std::string& Name,
 			{
 				int	PixelIndex = (int)i * (int)PixelInfo->width * 4 + (int)j * 4;
 
-				float	Y = PixelInfo->pixels[PixelIndex] / 60.f;
+				float	Y = PixelInfo->pixels[PixelIndex] / 30.f;
 
 				vecY.push_back(Y);
 			}
@@ -121,6 +127,8 @@ void CLandScape::CreateLandScape(const std::string& Name,
 				(float)m_CountZ - i - 1);
 			Vtx.UV = Vector2(j / (float)(m_CountX - 1),
 				i / (float)m_CountZ - 1);
+
+			m_vecPos.push_back(Vtx.Pos);
 
 			m_vecVtx.push_back(Vtx);
 		}
@@ -195,6 +203,9 @@ void CLandScape::CreateLandScape(const std::string& Name,
 		D3D11_USAGE_DEFAULT, DXGI_FORMAT_R32_UINT);
 
 	m_Mesh = (CStaticMesh*)m_Scene->GetResource()->FindMesh(Name);
+
+
+	m_Scene->GetNavigation3DManager()->SetNavData(this);
 }
 
 void CLandScape::SetMaterial(CMaterial* Material, int Index)
@@ -229,6 +240,49 @@ void CLandScape::AddMaterial(const std::string& Name)
 	m_vecMaterialSlot[m_vecMaterialSlot.size() - 1]->SetScene(m_Scene);
 }
 
+void CLandScape::SetDetailLevel(float Level)
+{
+	m_CBuffer->SetDetailLevel(Level);
+}
+
+void CLandScape::SetSplatCount(int Count)
+{
+	m_CBuffer->SetSplatCount(Count);
+}
+
+float CLandScape::GetHeight(const Vector3& Pos)
+{
+	Vector3	Convert = (Pos - GetWorldPos()) / GetWorldScale();
+
+	// z 좌표 역으로 계산
+	Convert.z = m_CountZ - 1 - Convert.z;
+
+	int	IndexX = (int)Convert.x;
+	int	IndexZ = (int)Convert.z;
+
+	if (IndexX < 0 || IndexX >= m_CountX || IndexZ < 0 || IndexZ >= m_CountZ - 1)
+		return Pos.y;
+
+	int	Index = IndexZ * m_CountX + IndexX;
+
+	float	RatioX = Convert.x - IndexX;
+	float	RatioZ = Convert.z - IndexZ;
+
+	float	Y[4] =
+	{
+		m_vecPos[Index].y,
+		m_vecPos[Index + 1].y,
+		m_vecPos[Index + m_CountX].y,
+		m_vecPos[Index + m_CountX + 1].y
+	};
+
+	// 우상단 삼각형
+	if (RatioX > RatioZ)
+		return Y[0] + (Y[1] - Y[0]) * RatioX + (Y[3] - Y[1]) * RatioZ;
+
+	return Y[0] + (Y[3] - Y[2]) * RatioX + (Y[2] - Y[0]) * RatioZ;
+}
+
 void CLandScape::Start()
 {
 	CSceneComponent::Start();
@@ -236,6 +290,10 @@ void CLandScape::Start()
 
 bool CLandScape::Init()
 {
+	m_CBuffer = new CLandScapeConstantBuffer;
+
+	m_CBuffer->Init();
+
 	return true;
 }
 
@@ -260,6 +318,8 @@ void CLandScape::Render()
 
 	if (!m_Mesh)
 		return;
+
+	m_CBuffer->UpdateCBuffer();
 
 	size_t	Size = m_vecMaterialSlot.size();
 
@@ -291,6 +351,10 @@ void CLandScape::Save(FILE* File)
 void CLandScape::Load(FILE* File)
 {
 	CSceneComponent::Load(File);
+
+
+
+	m_Scene->GetNavigation3DManager()->SetNavData(this);
 }
 
 void CLandScape::ComputeNormal()

@@ -50,6 +50,7 @@ protected:
 	class CScene* m_Scene;
 	std::vector<sTextureResourceInfo*> m_vecTextureInfo;
 	Image_Type m_ImageType;
+	ID3D11ShaderResourceView* m_ArraySRV;
 
 public:
 	inline ID3D11ShaderResourceView* GetResource(int index = 0) const
@@ -79,14 +80,19 @@ public:
 
 public:
 	bool LoadTexture(const std::string& name, const TCHAR* fileName, const std::string& pathName = TEXTURE_PATH);
-
 	bool LoadTextureFullPath(const std::string& name, const TCHAR* fullPath);
 
 	bool LoadTexture(const std::string& name, const std::vector<TCHAR*>& vecFileName, const std::string& pathName = TEXTURE_PATH);
 	bool LoadTextureFullPath(const std::string& name, const std::vector<TCHAR*>& vecFullPath);
 
+public:
+	bool LoadTextureArray(const std::string& name, const std::vector<TCHAR*>& vecFileName,
+		const std::string& pathName = TEXTURE_PATH);
+	bool LoadTextureArrayFullPath(const std::string& name, const std::vector<TCHAR*>& vecFullPath);
+
 private:
 	bool CreateResource(int index);
+	bool CreateResourceArray();
 
 public:
 	void SetShader(int registerNum, int shaderType, int index);

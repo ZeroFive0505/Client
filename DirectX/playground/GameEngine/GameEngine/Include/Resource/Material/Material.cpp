@@ -274,6 +274,60 @@ void CMaterial::AddTexture(int registerNum, int shaderType, const std::string& n
 	m_vecTextureInfo[index].shaderType = shaderType;
 }
 
+void CMaterial::AddTextureArrayFullPath(int registerNum, int shaderType, const std::string& name, const std::vector<TCHAR*>& vecFullPath)
+{
+	CTexture* texture = nullptr;
+
+	if (!m_Scene)
+	{
+		if (!CResourceManager::GetInst()->LoadTextureArrayFullPath(name, vecFullPath))
+			return;
+
+		texture = CResourceManager::GetInst()->FindTexture(name);
+	}
+	else
+	{
+		if (!m_Scene->GetSceneResource()->LoadTextureArrayFullPath(name, vecFullPath))
+			return;
+
+		texture = m_Scene->GetSceneResource()->FindTexture(name);
+	}
+
+	m_vecTextureInfo.push_back(sMaterialTextureInfo());
+
+	m_vecTextureInfo.back().registerNum = registerNum;
+	m_vecTextureInfo.back().name = name;
+	m_vecTextureInfo.back().texture = texture;
+	m_vecTextureInfo.back().shaderType = shaderType;
+}
+
+void CMaterial::AddTextureArray(int registerNum, int shaderType, const std::string& name, const std::vector<TCHAR*>& vecFileName, const std::string& pathName)
+{
+	CTexture* texture = nullptr;
+
+	if (!m_Scene)
+	{
+		if (!CResourceManager::GetInst()->LoadTextureArray(name, vecFileName, pathName))
+			return;
+
+		texture = CResourceManager::GetInst()->FindTexture(name);
+	}
+	else
+	{
+		if (!m_Scene->GetSceneResource()->LoadTextureArray(name, vecFileName, pathName))
+			return;
+
+		texture = m_Scene->GetSceneResource()->FindTexture(name);
+	}
+
+	m_vecTextureInfo.push_back(sMaterialTextureInfo());
+
+	m_vecTextureInfo.back().registerNum = registerNum;
+	m_vecTextureInfo.back().name = name;
+	m_vecTextureInfo.back().texture = texture;
+	m_vecTextureInfo.back().shaderType = shaderType;
+}
+
 void CMaterial::SetTexture(int index, int registerNum, int shaderType, const std::string& name, CTexture* texture)
 {
 	m_vecTextureInfo[index].registerNum = registerNum;
@@ -327,6 +381,57 @@ void CMaterial::SetTexture(int index, int registerNum, int shaderType, const std
 	m_vecTextureInfo[index].name = name;
 	m_vecTextureInfo[index].texture = CResourceManager::GetInst()->FindTexture(name);
 	m_vecTextureInfo[index].shaderType = shaderType;*/
+}
+
+void CMaterial::SetTextureArrayFullPath(int index, int registerNum, int shaderType, const std::string& name, const std::vector<TCHAR*>& vecFullPath)
+{
+	CTexture* texture = nullptr;
+
+	if (!m_Scene)
+	{
+		if (!CResourceManager::GetInst()->LoadTextureArrayFullPath(name, vecFullPath))
+			return;
+
+		texture = CResourceManager::GetInst()->FindTexture(name);
+	}
+	else
+	{
+		if (!m_Scene->GetSceneResource()->LoadTextureArrayFullPath(name, vecFullPath))
+			return;
+
+		texture = m_Scene->GetSceneResource()->FindTexture(name);
+	}
+
+	m_vecTextureInfo.back().registerNum = registerNum;
+	m_vecTextureInfo.back().name = name;
+	m_vecTextureInfo.back().texture = CResourceManager::GetInst()->FindTexture(name);
+	m_vecTextureInfo.back().shaderType = shaderType;
+}
+
+void CMaterial::SetTextureArray(int index, int registerNum, int shaderType, 
+	const std::string& name, const std::vector<TCHAR*>& vecFileName, const std::string& pathName)
+{
+	CTexture* texture = nullptr;
+
+	if (!m_Scene)
+	{
+		if (!CResourceManager::GetInst()->LoadTextureArray(name, vecFileName, pathName))
+			return;
+
+		texture = CResourceManager::GetInst()->FindTexture(name);
+	}
+	else
+	{
+		if (!m_Scene->GetSceneResource()->LoadTextureArray(name, vecFileName, pathName))
+			return;
+
+		texture = m_Scene->GetSceneResource()->FindTexture(name);
+	}
+
+	m_vecTextureInfo.back().registerNum = registerNum;
+	m_vecTextureInfo.back().name = name;
+	m_vecTextureInfo.back().texture = CResourceManager::GetInst()->FindTexture(name);
+	m_vecTextureInfo.back().shaderType = shaderType;
 }
 
 void CMaterial::SetPaperBurn(bool enable)

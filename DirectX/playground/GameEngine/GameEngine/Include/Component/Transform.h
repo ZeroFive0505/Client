@@ -25,6 +25,8 @@ private:
 	// 어떤 씬 컴포넌트에 소속되어있는지
 	class CSceneComponent* m_Owner;
 
+	Transform_State m_State;
+
 private:
 	// 트랜스폼은 계층 구조로 이뤄져있다.
 	// 따라서 부모 노드가 존재
@@ -81,6 +83,11 @@ public:
 	inline void SetInheritParentRotationPosZ(bool inherit)
 	{
 		m_InheritParentRotationPosZ = inherit;
+	}
+
+	inline void SetTransformState(Transform_State state)
+	{
+		m_State = state;
 	}
 
 	void InheritScale(bool currnet);

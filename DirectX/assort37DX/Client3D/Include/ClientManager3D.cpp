@@ -40,8 +40,8 @@ bool CClientManager3D::Init(HINSTANCE hInst)
 
 	CInput::GetInst()->CreateKey("MoveFront", 'W');
 	CInput::GetInst()->CreateKey("MoveBack", 'S');
-	CInput::GetInst()->CreateKey("RotationZInv", 'A');
-	CInput::GetInst()->CreateKey("RotationZ", 'D');
+	CInput::GetInst()->CreateKey("RotationYInv", 'A');
+	CInput::GetInst()->CreateKey("RotationY", 'D');
 	CInput::GetInst()->CreateKey("Attack", VK_SPACE);
 	CInput::GetInst()->CreateKey("Attack1", VK_LBUTTON);
 	CInput::GetInst()->CreateKey("Skill1", '1');

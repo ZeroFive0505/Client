@@ -144,6 +144,8 @@ bool CShaderManager::Init()
 	if (!CreateConstantBuffer("LightCBuffer", sizeof(sLightBuffer), 5, (int)Buffer_Shader_Type::Pixel))
 		return false;
 
+	if (!CreateConstantBuffer("LandScapeCBuffer", sizeof(sLandScapeCBuffer), 11, (int)Buffer_Shader_Type::Pixel))
+		return false;
 
 	return true;
 }

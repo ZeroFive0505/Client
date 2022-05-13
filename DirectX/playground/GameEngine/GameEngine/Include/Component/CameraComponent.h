@@ -25,11 +25,14 @@ protected:
 	float m_ViewAngle;
 	// Far
 	float m_Distance;
+	float m_Near;
 	sResolution m_RS;
 	bool m_Shake;
 	float m_Trauma;
 	float m_RecoverySpeed;
 	float m_TraumaAmount;
+
+	Vector3 m_Ray;
 
 public:
 	inline sResolution GetResolution() const
@@ -63,6 +66,21 @@ public:
 		return LB;
 	}
 
+	inline Vector3 GetRay() const
+	{
+		return m_Ray;
+	}
+
+	inline float GetNear() const
+	{
+		return m_Near;
+	}
+
+	inline float GetFar() const
+	{
+		return m_Distance;
+	}
+
 public:
 	inline void SetViewAngle(float angle)
 	{
@@ -85,6 +103,11 @@ public:
 		m_CameraType = type;
 
 		CreateProjectionMatrix();
+	}
+
+	inline void SetRay(const Vector3& ray)
+	{
+		m_Ray = ray;
 	}
 
 public:

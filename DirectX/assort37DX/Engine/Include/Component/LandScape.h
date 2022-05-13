@@ -20,6 +20,7 @@ protected:
 	std::vector<unsigned int>	m_vecIndex;
 	std::vector<Vector3>		m_vecFaceNormal;
 	std::vector<CSharedPtr<class CMaterial>> m_vecMaterialSlot;
+	class CLandScapeConstantBuffer* m_CBuffer;
 
 public:
 	CMaterial* GetMaterial(int Index = 0)    const
@@ -36,9 +37,11 @@ public:
 	void SetMaterial(const std::string& Name, int Index = 0);
 	void AddMaterial(class CMaterial* Material);
 	void AddMaterial(const std::string& Name);
-
+	void SetDetailLevel(float Level);
+	void SetSplatCount(int Count);
 
 public:
+	float GetHeight(const Vector3& Pos);
 
 public:
 	virtual void Start();

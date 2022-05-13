@@ -164,6 +164,46 @@ bool CTextureManager::LoadTextureFullPath(const std::string& name, const std::ve
 	return true;
 }
 
+bool CTextureManager::LoadTextureArray(const std::string& name, const std::vector<TCHAR*>& vecFileName, const std::string& pathName)
+{
+	CTexture* texture = FindTexture(name);
+
+	if (texture)
+		return true;
+
+	texture = new CTexture;
+
+	if (!texture->LoadTextureArray(name, vecFileName, pathName))
+	{
+		SAFE_RELEASE(texture);
+		return false;
+	}
+
+	m_mapTexture.insert(std::make_pair(name, texture));
+
+	return true;
+}
+
+bool CTextureManager::LoadTextureArrayFullPath(const std::string& name, const std::vector<TCHAR*>& vecFullPath)
+{
+	CTexture* texture = FindTexture(name);
+
+	if (texture)
+		return true;
+
+	texture = new CTexture;
+
+	if (!texture->LoadTextureArrayFullPath(name, vecFullPath))
+	{
+		SAFE_RELEASE(texture);
+		return false;
+	}
+
+	m_mapTexture.insert(std::make_pair(name, texture));
+
+	return true;
+}
+
 void CTextureManager::ReleaseTexture(const std::string& name)
 {
 	auto iter = m_mapTexture.find(name);

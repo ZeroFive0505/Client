@@ -11,6 +11,8 @@ CAnimationMeshComponent::CAnimationMeshComponent()
 	SetTypeID<CAnimationMeshComponent>();
 	m_Render = true;
 	m_Animation = nullptr;
+
+	m_Transform->SetTransformState(Transform_State::Ground);
 }
 
 CAnimationMeshComponent::CAnimationMeshComponent(const CAnimationMeshComponent& com) :

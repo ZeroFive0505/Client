@@ -8,6 +8,8 @@ CStaticMeshComponent::CStaticMeshComponent()
 {
 	SetTypeID<CStaticMeshComponent>();
 	m_Render = true;
+
+	m_Transform->SetTransformState(Transform_State::Ground);
 }
 
 CStaticMeshComponent::CStaticMeshComponent(const CStaticMeshComponent& com)

@@ -109,6 +109,7 @@
     <ClCompile Include="Resource\Shader\ConstantBufferBase.cpp" />
     <ClCompile Include="Resource\Shader\GlobalConstantBuffer.cpp" />
     <ClCompile Include="Resource\Shader\GraphicShader.cpp" />
+    <ClCompile Include="Resource\Shader\LandScapeConstantBuffer.cpp" />
     <ClCompile Include="Resource\Shader\LandScapeShader.cpp" />
     <ClCompile Include="Resource\Shader\LightAccShader.cpp" />
     <ClCompile Include="Resource\Shader\LightBlendRenderShader.cpp" />
@@ -145,6 +146,8 @@
     <ClCompile Include="Scene\CollisionSection.cpp" />
     <ClCompile Include="Scene\LightManager.cpp" />
     <ClCompile Include="Scene\Navigation.cpp" />
+    <ClCompile Include="Scene\Navigation3D.cpp" />
+    <ClCompile Include="Scene\Navigation3DManager.cpp" />
     <ClCompile Include="Scene\NavigationManager.cpp" />
     <ClCompile Include="Scene\NavigationThread.cpp" />
     <ClCompile Include="Scene\Scene.cpp" />
@@ -262,6 +265,7 @@
     <ClInclude Include="Resource\Shader\ConstantBufferBase.h" />
     <ClInclude Include="Resource\Shader\GlobalConstantBuffer.h" />
     <ClInclude Include="Resource\Shader\GraphicShader.h" />
+    <ClInclude Include="Resource\Shader\LandScapeConstantBuffer.h" />
     <ClInclude Include="Resource\Shader\LandScapeShader.h" />
     <ClInclude Include="Resource\Shader\LightAccShader.h" />
     <ClInclude Include="Resource\Shader\LightBlendRenderShader.h" />
@@ -299,6 +303,8 @@
     <ClInclude Include="Scene\CollisionSection.h" />
     <ClInclude Include="Scene\LightManager.h" />
     <ClInclude Include="Scene\Navigation.h" />
+    <ClInclude Include="Scene\Navigation3D.h" />
+    <ClInclude Include="Scene\Navigation3DManager.h" />
     <ClInclude Include="Scene\NavigationManager.h" />
     <ClInclude Include="Scene\NavigationThread.h" />
     <ClInclude Include="Scene\Scene.h" />

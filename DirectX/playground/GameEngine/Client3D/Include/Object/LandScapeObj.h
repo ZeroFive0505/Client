@@ -15,6 +15,12 @@ protected:
 
 private:
 	CSharedPtr<CLandScape> m_LandScape;
+	CSharedPtr<class CPlayer> m_Player;
+
+public:
+	void RayCheck(float deltaTime);
+
+	void SetPlayer(class CPlayer* player);
 
 public:
 	virtual bool Init();

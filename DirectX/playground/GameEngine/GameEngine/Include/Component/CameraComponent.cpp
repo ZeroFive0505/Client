@@ -12,6 +12,7 @@ CCameraComponent::CCameraComponent()
 	m_CameraType = Camera_Type::Camera3D;
 	m_ViewAngle = 90.0f;
 	m_Distance = 1000.0f;
+	m_Near = 0.1f;
 }
 
 CCameraComponent::CCameraComponent(const CCameraComponent& com) :
@@ -37,7 +38,7 @@ void CCameraComponent::CreateProjectionMatrix()
 		m_matProj = XMMatrixOrthographicOffCenterLH(0.0f, (float)m_RS.width, 0.0f, (float)m_RS.height, 0.0f, 1000.0f);
 		break;
 	case Camera_Type::Camera3D:
-		m_matProj = XMMatrixPerspectiveFovLH(DegreeToRadian(m_ViewAngle), m_RS.width / (float)m_RS.height, 0.1f, m_Distance);
+		m_matProj = XMMatrixPerspectiveFovLH(DegreeToRadian(m_ViewAngle), m_RS.width / (float)m_RS.height, m_Near, m_Distance);
 		break;
 	case Camera_Type::CameraUI:
 		m_matProj = XMMatrixOrthographicOffCenterLH(0.0f, (float)m_RS.width, 0.0f, (float)m_RS.height, 0.0f, 1000.0f);

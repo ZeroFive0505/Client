@@ -151,6 +151,9 @@ bool CShaderManager::Init()
 	CreateConstantBuffer("AnimationCBuffer", sizeof(AnimationCBuffer), 11,
 		(int)Buffer_Shader_Type::Compute);
 
+	CreateConstantBuffer("LandScapeCBuffer", sizeof(LandScapeCBuffer), 11,
+		(int)Buffer_Shader_Type::Graphic);
+
 	return true;
 }
 

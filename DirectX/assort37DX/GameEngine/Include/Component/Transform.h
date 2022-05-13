@@ -20,6 +20,7 @@ private:
 	CTransform* m_Parent;
 	std::vector<CTransform*>	m_vecChild;
 	class CTransformConstantBuffer* m_CBuffer;
+	Transform_State		m_State;
 
 private:
 	bool	m_InheritScale;
@@ -34,6 +35,11 @@ private:
 	bool	m_UpdatePos;
 
 public:
+	void SetTransformState(Transform_State State)
+	{
+		m_State = State;
+	}
+
 	void SetInheritScale(bool Inherit)
 	{
 		m_InheritScale = Inherit;

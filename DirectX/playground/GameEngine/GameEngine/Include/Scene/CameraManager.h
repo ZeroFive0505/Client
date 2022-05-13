@@ -48,6 +48,8 @@ public:
 		m_PrevCamera = nullptr;
 	}
 
+	void RayCast();
+
 public:
 	void Start();
 	void Init();

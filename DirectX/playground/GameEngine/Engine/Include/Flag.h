@@ -245,3 +245,10 @@ enum class Light_Type
 	Spot,
 	End
 };
+
+enum class Transform_State
+{
+	None,
+	Ground,
+	Falling
+};

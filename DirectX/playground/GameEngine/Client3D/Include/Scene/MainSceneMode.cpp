@@ -7,6 +7,7 @@
 #include "GameObject/LightObject.h"
 #include "Component/LightComponent.h"
 #include "Resource/Material/Material.h"
+#include "Input.h"
 
 CMainSceneMode::CMainSceneMode()
 {
@@ -38,6 +39,8 @@ bool CMainSceneMode::Init()
 		m_LoadingFunction(true, 1.0f);
 
 	CLandScapeObj* landScape = m_Scene->CreateGameObject<CLandScapeObj>("LandScape");
+
+	landScape->SetPlayer(player);
 
 	CLightObject* Light = m_Scene->CreateGameObject<CLightObject>("Light1");
 
@@ -81,11 +84,122 @@ void CMainSceneMode::CreateMaterial()
 
 
 	material->AddTexture(0, (int)Buffer_Shader_Type::Pixel,
-		"LandScapeSplat1Dif", TEXT("LandScape/BD_Terrain_Cave_01.dds"));
+		"LandScapeSplat1Dif", TEXT("LandScape/ROCK_01+MOSS_COLOR_1.png"));
 	material->AddTexture(1, (int)Buffer_Shader_Type::Pixel,
-		"LandScapeSplat1Nrm", TEXT("LandScape/BD_Terrain_Cave_01_NRM.bmp"));
+		"LandScapeSplat1Nrm", TEXT("LandScape/ROCK_01+MOSS_NRM.png"));
 	material->AddTexture(2, (int)Buffer_Shader_Type::Pixel,
-		"LandScapeSplat1Spc", TEXT("LandScape/BD_Terrain_Cave_01_SPEC.bmp"));
+		"LandScapeSplat1Spc", TEXT("LandScape/ROCK_01+MOSS_SPEC.png"));
+
+	std::vector<TCHAR*> vecDiffuseFileName;
+	std::vector<TCHAR*> vecNormalFileName;
+	std::vector<TCHAR*> vecSpecularFileName;
+	std::vector<TCHAR*> vecAlphaFileName;
+
+	TCHAR* fileName = new TCHAR[MAX_PATH];
+	memset(fileName, 0, sizeof(TCHAR) * MAX_PATH);
+	lstrcpy(fileName, TEXT("LandScape/RoadAlpha1.bmp"));
+	vecAlphaFileName.push_back(fileName);
+
+	fileName = new TCHAR[MAX_PATH];
+	memset(fileName, 0, sizeof(TCHAR) * MAX_PATH);
+	lstrcpy(fileName, TEXT("LandScape/GrassFirstAlpha.bmp"));
+	vecAlphaFileName.push_back(fileName);
+
+	fileName = new TCHAR[MAX_PATH];
+	memset(fileName, 0, sizeof(TCHAR) * MAX_PATH);
+	lstrcpy(fileName, TEXT("LandScape/SandBaseAlpha.bmp"));
+	vecAlphaFileName.push_back(fileName);
+
+	fileName = new TCHAR[MAX_PATH];
+	memset(fileName, 0, sizeof(TCHAR) * MAX_PATH);
+	lstrcpy(fileName, TEXT("LandScape/WaterBaseAlpha.bmp"));
+	vecAlphaFileName.push_back(fileName);
+
+	fileName = new TCHAR[MAX_PATH];
+	memset(fileName, 0, sizeof(TCHAR) * MAX_PATH);
+	lstrcpy(fileName, TEXT("LandScape/BD_Terrain_Cave_01.dds"));
+	vecDiffuseFileName.push_back(fileName);
+
+	fileName = new TCHAR[MAX_PATH];
+	memset(fileName, 0, sizeof(TCHAR) * MAX_PATH);
+	lstrcpy(fileName, TEXT("LandScape/BD_Terrain_Cave_01_NRM.bmp"));
+	vecNormalFileName.push_back(fileName);
+
+	fileName = new TCHAR[MAX_PATH];
+	memset(fileName, 0, sizeof(TCHAR) * MAX_PATH);
+	lstrcpy(fileName, TEXT("LandScape/BD_Terrain_Cave_01_SPEC.bmp"));
+	vecSpecularFileName.push_back(fileName);
+
+	fileName = new TCHAR[MAX_PATH];
+	memset(fileName, 0, sizeof(TCHAR) * MAX_PATH);
+	lstrcpy(fileName, TEXT("LandScape/BD_Terrain_Cliff05.dds"));
+	vecDiffuseFileName.push_back(fileName);
+
+	fileName = new TCHAR[MAX_PATH];
+	memset(fileName, 0, sizeof(TCHAR) * MAX_PATH);
+	lstrcpy(fileName, TEXT("LandScape/BD_Terrain_Cliff05_NRM.bmp"));
+	vecNormalFileName.push_back(fileName);
+
+	fileName = new TCHAR[MAX_PATH];
+	memset(fileName, 0, sizeof(TCHAR) * MAX_PATH);
+	lstrcpy(fileName, TEXT("LandScape/BD_Terrain_Cliff05_SPEC.bmp"));
+	vecSpecularFileName.push_back(fileName);
+
+	fileName = new TCHAR[MAX_PATH];
+	memset(fileName, 0, sizeof(TCHAR) * MAX_PATH);
+	lstrcpy(fileName, TEXT("LandScape/Terrain_Cliff_15_Large.dds"));
+	vecDiffuseFileName.push_back(fileName);
+
+	fileName = new TCHAR[MAX_PATH];
+	memset(fileName, 0, sizeof(TCHAR) * MAX_PATH);
+	lstrcpy(fileName, TEXT("LandScape/Terrain_Cliff_15_Large_NRM.bmp"));
+	vecNormalFileName.push_back(fileName);
+
+	fileName = new TCHAR[MAX_PATH];
+	memset(fileName, 0, sizeof(TCHAR) * MAX_PATH);
+	lstrcpy(fileName, TEXT("LandScape/Terrain_Cliff_15_Large_SPEC.bmp"));
+	vecSpecularFileName.push_back(fileName);
+
+	fileName = new TCHAR[MAX_PATH];
+	memset(fileName, 0, sizeof(TCHAR) * MAX_PATH);
+	lstrcpy(fileName, TEXT("LandScape/Terrain_Pebbles_01.dds"));
+	vecDiffuseFileName.push_back(fileName);
+
+	fileName = new TCHAR[MAX_PATH];
+	memset(fileName, 0, sizeof(TCHAR) * MAX_PATH);
+	lstrcpy(fileName, TEXT("LandScape/Terrain_Pebbles_01_NRM.bmp"));
+	vecNormalFileName.push_back(fileName);
+
+	fileName = new TCHAR[MAX_PATH];
+	memset(fileName, 0, sizeof(TCHAR) * MAX_PATH);
+	lstrcpy(fileName, TEXT("LandScape/Terrain_Pebbles_01_SPEC.bmp"));
+	vecSpecularFileName.push_back(fileName);
+
+	material->AddTextureArray(30, (int)Buffer_Shader_Type::Pixel, "SplatDiffuse", vecDiffuseFileName);
+	material->AddTextureArray(31, (int)Buffer_Shader_Type::Pixel, "SplatNormal", vecNormalFileName);
+	material->AddTextureArray(32, (int)Buffer_Shader_Type::Pixel, "SplatSpecular", vecSpecularFileName);
+	material->AddTextureArray(33, (int)Buffer_Shader_Type::Pixel, "SplatAlpha", vecAlphaFileName);
+
+	for (auto i : vecDiffuseFileName)
+	{
+		SAFE_DELETE_ARRAY(i);
+	}
+
+	for (auto i : vecNormalFileName)
+	{
+		SAFE_DELETE_ARRAY(i);
+	}
+
+	for (auto i : vecSpecularFileName)
+	{
+		SAFE_DELETE_ARRAY(i);
+	}
+
+	for (auto i : vecAlphaFileName)
+	{
+		SAFE_DELETE_ARRAY(i);
+	}
+
 	material->SetShader("LandScapeShader");
 
 	material->EnableBump();

@@ -215,6 +215,16 @@ bool CResourceManager::CreateTarget(const std::string& Name, unsigned int Width,
 	return m_TextureManager->CreateTarget(Name, Width, Height, PixelFormat);
 }
 
+bool CResourceManager::LoadTextureArray(const std::string& Name, const std::vector<TCHAR*>& vecFileName, const std::string& PathName)
+{
+	return m_TextureManager->LoadTextureArray(Name, vecFileName, PathName);
+}
+
+bool CResourceManager::LoadTextureArrayFullPath(const std::string& Name, const std::vector<TCHAR*>& vecFullPath)
+{
+	return m_TextureManager->LoadTextureArrayFullPath(Name, vecFullPath);
+}
+
 CTexture* CResourceManager::FindTexture(const std::string& Name)
 {
 	return m_TextureManager->FindTexture(Name);

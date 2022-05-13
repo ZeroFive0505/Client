@@ -19,7 +19,8 @@ CTransform::CTransform() :
     m_UpdateRot(true),
     m_UpdatePos(true),
     m_WorldScale(1.0f, 1.0f, 1.0f),
-    m_RelativeScale(1.0f, 1.0f, 1.0f)
+    m_RelativeScale(1.0f, 1.0f, 1.0f),
+    m_State(Transform_State::None)
 {
     // 축을 초기화한다.
     for (int i = 0; i < AXIS_MAX; i++)
@@ -652,6 +653,20 @@ void CTransform::Update(float deltaTime)
 
 void CTransform::PostUpdate(float deltaTime)
 {
+    if (m_State == Transform_State::Ground)
+    {
+        float height = m_Scene->GetNavigation3DManager()->GetLandScapeHeight(m_WorldPos);
+
+        if (height != m_WorldPos.y)
+        {
+            m_WorldPos.y = height;
+            m_RelativePos = m_WorldPos;
+
+            InheritParentRotationWolrdPos(true);
+        }
+    }
+
+
     Vector3 pos = m_WorldPos;
 
     if (CEngine::GetInst()->GetEngineSpace() == Engine_Space::Space2D)

@@ -25,6 +25,9 @@ bool CLandScapeObj::Init()
 
 	m_LandScape->AddMaterial("LandScape");
 
+	m_LandScape->SetDetailLevel(30.f);
+	m_LandScape->SetSplatCount(4);
+
 	return true;
 }
 

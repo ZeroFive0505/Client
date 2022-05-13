@@ -2,6 +2,7 @@
 #include "Transform.h"
 #include "../Resource/Shader/TransformConstantBuffer.h"
 #include "../Scene/Scene.h"
+#include "../Scene/Navigation3DManager.h"
 #include "../Scene/CameraManager.h"
 #include "CameraComponent.h"
 #include "../Engine.h"
@@ -23,7 +24,8 @@ CTransform::CTransform()	:
 	m_UpdatePos(true),
 	m_CBuffer(nullptr),
 	m_RelativeScale(1.f, 1.f, 1.f),
-	m_WorldScale(1.f, 1.f, 1.f)
+	m_WorldScale(1.f, 1.f, 1.f),
+	m_State(Transform_State::None)
 {
 	for (int i = 0; i < AXIS_MAX; ++i)
 	{
@@ -569,6 +571,19 @@ void CTransform::Update(float DeltaTime)
 
 void CTransform::PostUpdate(float DeltaTime)
 {
+	if (m_State == Transform_State::Ground)
+	{
+		float	Height = m_Scene->GetNavigation3DManager()->GetY(m_WorldPos);
+
+		if (Height != m_WorldPos.y)
+		{
+			m_WorldPos.y = Height;
+			m_RelativePos = m_WorldPos;
+
+			InheritParentRotationWorldPos(true);
+		}
+	}
+
 	Vector3	WorldPos = m_WorldPos;
 
 	if (CEngine::GetInst()->GetEngineSpace() == Engine_Space::Space2D)

@@ -135,10 +135,19 @@ public:
 	void AddTextureFullPath(int registerNum, int shaderType, const std::string& name, const TCHAR* fullPath);
 	void AddTexture(int registerNum, int shaderType, const std::string& name, const std::vector<TCHAR*>& vecFileName, const std::string& pathName = TEXTURE_PATH);
 
+public:
+	void AddTextureArrayFullPath(int registerNum, int shaderType, const std::string& name, const std::vector<TCHAR*>& vecFullPath);
+	void AddTextureArray(int registerNum, int shaderType, const std::string& name, const std::vector<TCHAR*>& vecFileName, const std::string& pathName = TEXTURE_PATH);
+
+public:
 	void SetTexture(int index, int registerNum, int shaderType, const std::string& name, class CTexture* texture);
 	void SetTexture(int index, int registerNum, int shaderType, const std::string& name, const TCHAR* fileName, const std::string& pathName = TEXTURE_PATH);
 	void SetTextureFullPath(int index, int registerNum, int shaderType, const std::string& name, const TCHAR* fullPath);
 	void SetTexture(int index, int registerNum, int shaderType, const std::string& name, const std::vector<TCHAR*>& vecFileName, const std::string& pathName = TEXTURE_PATH);
+
+public:
+	void SetTextureArrayFullPath(int index, int registerNum, int shaderType, const std::string& name, const std::vector<TCHAR*>& vecFullPath);
+	void SetTextureArray(int index, int registerNum, int shaderType, const std::string& name, const std::vector<TCHAR*>& vecFileName, const std::string& pathName = TEXTURE_PATH);
 
 public:
 	void SetPaperBurn(bool enable);

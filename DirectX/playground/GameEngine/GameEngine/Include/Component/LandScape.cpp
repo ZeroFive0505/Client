@@ -4,10 +4,14 @@
 #include "../Scene/Scene.h"
 #include "../Scene/SceneResource.h"
 #include "../Resource/Material/Material.h"
+#include "../Resource/Shader/LandScapeConstantBuffer.h"
+#include "../Component/CameraComponent.h"
+#include "../Scene/CameraManager.h"
 
 CLandScape::CLandScape() :
 	m_CountX(0),
-	m_CountZ(0)
+	m_CountZ(0),
+	m_CBuffer(nullptr)
 {
 	SetTypeID<CLandScape>();
 	m_Render = true;
@@ -22,10 +26,13 @@ CLandScape::CLandScape(const CLandScape& com) :
 	m_vecVtx = com.m_vecVtx;
 	m_vecPos = com.m_vecPos;
 	m_vecIndex = com.m_vecIndex;
+
+	m_CBuffer = com.m_CBuffer->Clone();
 }
 
 CLandScape::~CLandScape()
 {
+	SAFE_DELETE(m_CBuffer);
 }
 
 void CLandScape::CreateLandScape(const std::string& name, 
@@ -100,6 +107,8 @@ void CLandScape::CreateLandScape(const std::string& name,
 	else
 		vecY.resize(countX * countZ);
 
+	bool pointSet = false;
+
 	for (int i = 0; i < m_CountZ; i++)
 	{
 		for (int j = 0; j < m_CountX; j++)
@@ -109,8 +118,16 @@ void CLandScape::CreateLandScape(const std::string& name,
 			vtx.pos = Vector3((float)j, vecY[i * m_CountX + j],
 				(float)m_CountZ - i - 1);
 
+			if (!pointSet && vtx.pos.y == 0.0f)
+			{
+				pointSet = true;
+				m_Point = vtx.pos;
+			}
+
 			vtx.uv = Vector2(j / (float)(m_CountX - 1),
 				i / (float)(m_CountZ - 1));
+
+			m_vecPos.push_back(vtx.pos);
 
 			m_vecVtx.push_back(vtx);
 		}
@@ -182,6 +199,8 @@ void CLandScape::CreateLandScape(const std::string& name,
 		D3D11_USAGE_DEFAULT, DXGI_FORMAT_R32_UINT);
 
 	m_Mesh = (CStaticMesh*)m_Scene->GetSceneResource()->FindMesh(name);
+
+	m_Scene->GetNavigation3DManager()->SetNavData(this);
 }
 
 void CLandScape::SetMaterial(CMaterial* material, int index)
@@ -216,6 +235,128 @@ void CLandScape::AddMaterial(const std::string& name)
 	m_vecMaterialSlot.back()->SetScene(m_Scene);
 }
 
+void CLandScape::SetUVScale(float x, float y)
+{
+	m_CBuffer->SetUVScale(x, y);
+}
+
+void CLandScape::SetUVScale(const Vector2& scale)
+{
+	m_CBuffer->SetUVScale(scale);
+}
+
+void CLandScape::SetSplatCount(int count)
+{
+	m_CBuffer->SetSplatCount(count);
+}
+
+bool CLandScape::RayVsPlane()
+{
+	Vector3 planeNormal = Vector3(0.0f, 1.0f, 0.0f);
+	CCameraComponent* camera = m_Scene->GetCameraManager()->GetCurrentCamera();
+	Vector3 camPos = camera->GetWorldPos();
+	Vector3 rayWorld = camera->GetRay();
+
+
+	float denom = planeNormal.Dot(rayWorld);
+
+	if (denom > 0.00001f)
+	{
+		Vector3 p0l0 = m_Point - camPos;
+		float t = p0l0.Dot(planeNormal);
+
+		if (t >= 0.0f)
+		{
+			camPos.z *= -1.0f;
+			m_Intersection = camPos + (rayWorld * t);
+			return true;
+		}
+
+	}
+	else if (denom < 0.0f)
+	{
+		Vector3 p0l0 = m_Point - camPos;
+		float t = p0l0.Dot(planeNormal * -1.0f);
+
+		if (t >= 0.0f)
+		{
+			camPos.z *= -1.0f;
+			m_Intersection = camPos + (rayWorld * t);
+			return true;
+		}
+	}
+
+	return false;
+}
+
+float CLandScape::GetHeight(const Vector3& pos)
+{
+	Vector3 convert = (pos - GetWorldPos()) / GetWorldScale();
+
+	// z 좌표 역으로 계산
+	convert.z = m_CountZ - 1 - convert.z;
+
+	int indexX = (int)convert.x;
+	int indexZ = (int)convert.z;
+
+	if (indexX < 0 || indexX >= m_CountX || indexZ < 0 || indexZ >= m_CountZ - 1)
+		return pos.y;
+
+	int index = indexZ * m_CountX + indexX;
+
+	float ratioX = convert.x - indexX;
+	float ratioZ = convert.z - indexZ;
+
+	// 현재 위치의 사각형 네점의 높이를 구해 온다.
+	// 0 ---- 1
+	// |	  |
+	// |	  |
+	// |	  |
+	// 2 ---- 3
+	float heights[4] =
+	{
+		m_vecPos[index].y, // 0
+		m_vecPos[index + 1].y, // 1
+		m_vecPos[index + m_CountX].y, // 2
+		m_vecPos[index + m_CountX + 1].y // 3
+	};
+
+	// 우상단 삼각형
+	if (ratioX > ratioZ)
+		return heights[0] + (heights[1] - heights[0]) * ratioX + (heights[3] - heights[1]) * ratioZ;
+
+	return heights[0] + (heights[3] - heights[2]) * ratioX + (heights[2] - heights[0]) * ratioZ;
+}
+
+Vector3 CLandScape::Bresenham(int x2, int z2)
+{
+	int x = 0;
+	int z = 0;
+
+	int dx = x2 - x;
+	int dz = z2 - z;
+
+	int p = 2 * dz - dx;
+
+	while (x <= x2)
+	{
+		x++;
+
+		if (p < 0)
+			p = p + 2 * dz;
+		else
+		{
+			p = p + 2 * dz - 2 * dx;
+			z++;
+		}
+	}
+
+	int indexZ = m_CountZ - 1 - z;
+
+	return m_vecPos[indexZ * m_CountX + x];
+}
+
+
 void CLandScape::Start()
 {
 	CSceneComponent::Start();
@@ -223,6 +364,10 @@ void CLandScape::Start()
 
 bool CLandScape::Init()
 {
+	m_CBuffer = new CLandScapeConstantBuffer;
+
+	m_CBuffer->Init();
+
 	return true;
 }
 
@@ -247,6 +392,9 @@ void CLandScape::Render()
 
 	if (!m_Mesh)
 		return;
+
+	if (m_CBuffer)
+		m_CBuffer->UpdateCBuffer();
 
 	size_t size = m_vecMaterialSlot.size();
 
@@ -278,6 +426,8 @@ void CLandScape::Save(FILE* pFile)
 void CLandScape::Load(FILE* pFile)
 {
 	CSceneComponent::Load(pFile);
+
+	m_Scene->GetNavigation3DManager()->SetNavData(this);
 }
 
 void CLandScape::ComputeNormal()

@@ -5,6 +5,8 @@
 #include "Input.h"
 #include "Resource/ResourceManager.h"
 #include "Scene/MainSceneMode.h"
+#include "Scene/CameraManager.h"
+#include "Component/CameraComponent.h"
 
 DEFINITION_SINGLE(CClientManager3D)
 
@@ -37,7 +39,7 @@ bool CClientManager3D::Init(HINSTANCE hInst)
 	CInput::GetInst()->CreateKey("RotationYInv", 'A');
 	CInput::GetInst()->CreateKey("RotationY", 'D');
 	CInput::GetInst()->CreateKey("Attack", VK_SPACE);
-	CInput::GetInst()->CreateKey("Attack1", VK_LBUTTON);
+	CInput::GetInst()->CreateKey("MousePick", VK_LBUTTON);
 	CInput::GetInst()->CreateKey("Skill1", '1');
 	CInput::GetInst()->CreateKey("MovePoint", VK_RBUTTON);
 

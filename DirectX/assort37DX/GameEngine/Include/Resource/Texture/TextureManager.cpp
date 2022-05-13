@@ -60,7 +60,7 @@ bool CTextureManager::Init()
 	SetSampler("Anisotropic", 2);
 
 	// Base Sampler
-	SetSampler("Linear", 3);
+	SetSampler("Anisotropic", 3);
 
 	m_CBuffer = new CWidgetConstantBuffer;
 
@@ -211,6 +211,50 @@ bool CTextureManager::CreateTarget(const std::string& Name,
 	Texture = new CRenderTarget;
 
 	if (!Texture->CreateTarget(Name, Width, Height, PixelFormat))
+	{
+		SAFE_RELEASE(Texture);
+		return false;
+	}
+
+	m_mapTexture.insert(std::make_pair(Name, Texture));
+
+	return true;
+}
+
+bool CTextureManager::LoadTextureArray(const std::string& Name,
+	const std::vector<TCHAR*>& vecFileName, 
+	const std::string& PathName)
+{
+	CTexture* Texture = FindTexture(Name);
+
+	if (Texture)
+		return true;
+
+	Texture = new CTexture;
+
+	if (!Texture->LoadTextureArray(Name, vecFileName, PathName))
+	{
+		SAFE_RELEASE(Texture);
+		return false;
+	}
+
+	m_mapTexture.insert(std::make_pair(Name, Texture));
+
+	return true;
+}
+
+bool CTextureManager::LoadTextureArrayFullPath(
+	const std::string& Name,
+	const std::vector<TCHAR*>& vecFullPath)
+{
+	CTexture* Texture = FindTexture(Name);
+
+	if (Texture)
+		return true;
+
+	Texture = new CTexture;
+
+	if (!Texture->LoadTextureArrayFullPath(Name, vecFullPath))
 	{
 		SAFE_RELEASE(Texture);
 		return false;

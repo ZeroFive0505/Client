@@ -13,7 +13,7 @@ CPlayer::CPlayer(const CPlayer& obj)
 	m_Mesh = (CAnimationMeshComponent*)FindComponent("Mesh");
 	m_Arm = (CArmComponent*)FindComponent("Arm");
 	m_Camera = (CCameraComponent*)FindComponent("Camera");
-	m_FlashLight = (CLightComponent*)FindComponent("Flash Light");
+	// m_FlashLight = (CLightComponent*)FindComponent("Flash Light");
 }
 
 CPlayer::~CPlayer()
@@ -25,25 +25,25 @@ bool CPlayer::Init()
 	m_Mesh = CreateComponent<CAnimationMeshComponent>("Mesh");
 	m_Arm = CreateComponent<CArmComponent>("Arm");
 	m_Camera = CreateComponent<CCameraComponent>("Camera");
-	m_FlashLight = CreateComponent<CLightComponent>("Flash Light");
+	// m_FlashLight = CreateComponent<CLightComponent>("Flash Light");
 
 	m_Mesh->AddChild(m_Arm);
 
 	m_Arm->AddChild(m_Camera);
-	m_Arm->AddChild(m_FlashLight);
+	// m_Arm->AddChild(m_FlashLight);
 
 	m_Camera->SetInheritRotX(true);
 	m_Camera->SetInheritRotY(true);
 	m_Camera->SetInheritRotZ(true);
 
-	m_FlashLight->SetInheritRotX(true);
-	m_FlashLight->SetInheritRotY(true);
-	m_FlashLight->SetInheritRotZ(true);
-	
-	m_FlashLight->SetLightType(Light_Type::Spot);
-	
-	m_FlashLight->SetDistance(20.0f);
-	m_FlashLight->SetAttConst3(0.1f);
+	// m_FlashLight->SetInheritRotX(true);
+	// m_FlashLight->SetInheritRotY(true);
+	// m_FlashLight->SetInheritRotZ(true);
+	// 
+	// m_FlashLight->SetLightType(Light_Type::Spot);
+	// 
+	// m_FlashLight->SetDistance(20.0f);
+	// m_FlashLight->SetAttConst3(0.1f);
 
 	SetRootComponent(m_Mesh);
 
@@ -60,7 +60,7 @@ bool CPlayer::Init()
 	m_Arm->SetRelativeRotation(15.0f, 0.0f, 0.0f);
 	m_Arm->SetTargetDistance(5.0f);
 
-	CInput::GetInst()->SetCallback<CPlayer>("Attack1", KeyState_Down, this, &CPlayer::Attack);
+	CInput::GetInst()->SetCallback<CPlayer>("Attack", KeyState_Down, this, &CPlayer::Attack);
 	CInput::GetInst()->SetCallback<CPlayer>("MoveForward", KeyState_Push, this, &CPlayer::MoveForward);
 	CInput::GetInst()->SetCallback<CPlayer>("RotationY", KeyState_Push, this, &CPlayer::YRotation);
 	CInput::GetInst()->SetCallback<CPlayer>("RotationYInv", KeyState_Push, this, &CPlayer::InvYRotation);
@@ -107,7 +107,7 @@ CPlayer* CPlayer::Clone()
 
 void CPlayer::MoveForward(float deltaTime)
 {
-	m_Velocity += GetWorldAxis(AXIS_Z) * 1.0f * deltaTime;
+	m_Velocity += GetWorldAxis(AXIS_Z) * 10.0f * deltaTime;
 
 	AddWorldPos(m_Velocity);
 }
@@ -118,12 +118,12 @@ void CPlayer::MoveBackward(float deltaTime)
 
 void CPlayer::YRotation(float deltaTime)
 {
-	m_Arm->AddWorldRotationY(90.0f * deltaTime);
+	AddWorldRotationY(180.0f * deltaTime);
 }
 
 void CPlayer::InvYRotation(float deltaTime)
 {
-	m_Arm->AddWorldRotationY(-90.0f * deltaTime);
+	AddWorldRotationY(-180.0f * deltaTime);
 }
 
 void CPlayer::Attack(float deltaTime)
