@@ -24,19 +24,12 @@ protected:
 	std::vector<CSharedPtr<class CMaterial>> m_vecMaterialSlot;
 	class CLandScapeConstantBuffer* m_CBuffer;
 
-	Vector3 m_Point;
-	Vector3 m_Intersection;
-
 public:
 	CMaterial* GetMaterial(int index = 0) const
 	{
 		return m_vecMaterialSlot[index];
 	}
 
-	inline Vector3 GetIntersection() const
-	{
-		return m_Intersection;
-	}
 
 public:
 	void CreateLandScape(const std::string& name, int countX = 0, int countZ = 0, const TCHAR* heightMap = nullptr, const std::string& pathName = TEXTURE_PATH);
@@ -49,7 +42,6 @@ public:
 	void SetSplatCount(int count);
 
 public:
-	bool RayVsPlane();
 	float GetHeight(const Vector3& pos);
 	Vector3 Bresenham(int x2, int z2);
 

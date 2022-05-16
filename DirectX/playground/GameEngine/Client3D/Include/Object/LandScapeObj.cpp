@@ -32,7 +32,6 @@ bool CLandScapeObj::Init()
 	m_LandScape->SetUVScale(30.0f, 30.0f);
 	m_LandScape->SetSplatCount(4);
 
-	CInput::GetInst()->SetCallback("MousePick", KeyState_Down, this, &CLandScapeObj::RayCheck);
 
 	return true;
 }
@@ -50,19 +49,6 @@ void CLandScapeObj::PostUpdate(float deltaTime)
 CLandScapeObj* CLandScapeObj::Clone()
 {
 	return new CLandScapeObj(*this);
-}
-
-void CLandScapeObj::RayCheck(float deltaTime)
-{
-	m_Scene->GetCameraManager()->RayCast();
-	if (m_LandScape->RayVsPlane())
-	{
-		Vector3 intersection = m_LandScape->GetIntersection();
-
-		Vector3 pos = m_LandScape->Bresenham((int)intersection.x, (int)intersection.z);
-
-		m_Player->SetWorldPos(pos);
-	}
 }
 
 void CLandScapeObj::SetPlayer(CPlayer* player)

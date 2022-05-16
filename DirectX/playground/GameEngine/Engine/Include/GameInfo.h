@@ -338,12 +338,29 @@ struct sBox2DInfo
 	Vector2 Max;
 };
 
+struct sBox3DInfo
+{
+	Vector3 center;
+	Vector3 axis[3];
+	Vector3 length;
+	Vector3 Min;
+	Vector3 Max;
+};
+
 struct sCircleInfo
 {
 	Vector2 center;
 	float radius;
 	Vector2 Min;
 	Vector2 Max;
+};
+
+struct sSphereInfo
+{
+	Vector3 center;
+	float radius;
+	Vector3 Min;
+	Vector3 Max;
 };
 
 struct sPixelInfo
@@ -541,4 +558,10 @@ struct sLandScapeCBuffer
 	Vector2 uvScale;
 	int splatCount;
 	float empty;
+};
+
+struct sRay
+{
+	Vector3 position;
+	Vector3 direction;
 };

@@ -160,7 +160,7 @@ public:
 	virtual void Load(FILE* pFile);
 	virtual bool Collision(CColliderComponent* dest) = 0;
 	virtual bool CollisionMouse(const Vector2& mousePos) = 0;
-
+	virtual bool CollisionRay(const sRay& ray);
 
 	void DeleteCollisionCallback(CGameObject* obj);
 

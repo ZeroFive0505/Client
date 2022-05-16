@@ -38,9 +38,9 @@ void CSceneCollision::Start()
 
 bool CSceneCollision::Init()
 {
-	SetSectionSize(500.0f, 500.0f, 1.0f);
+	SetSectionSize(500.0f, 500.0f, 500.0f);
 	SetSectionCenter(0.0f, 0.0f, 0.0f);
-	SetSectionCount(15, 15, 1);
+	SetSectionCount(15, 15, 15);
 	CreateSection();
 
 	return true;

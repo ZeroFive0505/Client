@@ -6,6 +6,8 @@
 #include "Component/CameraComponent.h"
 #include "Component/ArmComponent.h"
 #include "Component/LightComponent.h"
+#include "Component/ColliderBox3D.h"
+#include "Component/ColliderSphere.h"
 
 class CPlayer :
 	public CGameObject
@@ -19,11 +21,13 @@ protected:
 
 private:
 	CSharedPtr<CAnimationMeshComponent> m_Mesh;
+	CSharedPtr<CColliderBox3D> m_Collider;
 	CSharedPtr<CArmComponent> m_Arm;
 	CSharedPtr<CCameraComponent> m_Camera;
 	// CSharedPtr<CLightComponent> m_FlashLight;
 	class CPlayerAnimation* m_Animation;
 	Vector3 m_Velocity;
+	CSharedPtr<class CWeapon> m_Weapon;
 
 public:
 	virtual bool Init();

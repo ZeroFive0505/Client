@@ -26,6 +26,7 @@ private:
 	class CSceneComponent* m_Owner;
 
 	Transform_State m_State;
+	class CSkeletonSocket* m_Socket;
 
 private:
 	// 트랜스폼은 계층 구조로 이뤄져있다.
@@ -50,6 +51,11 @@ private:
 	bool m_UpdatePos;
 
 public:
+	inline void SetSocket(class CSkeletonSocket* socket)
+	{
+		m_Socket = socket;
+	}
+
 	inline void SetInheritScale(bool inherit)
 	{
 		m_InheritScale = inherit;

@@ -77,6 +77,8 @@ public:
 		const std::string& pathName = TEXTURE_PATH);
 
 public:
+	virtual void AddChild(CSceneComponent* child, const std::string& socketName = "");
+	virtual void AddChild(class CGameObject* child, const std::string& socketName = "");
 	virtual void Start();
 	virtual bool Init();
 	virtual void Update(float deltaTime);

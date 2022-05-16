@@ -28,6 +28,7 @@ protected:
 	bool m_Render;
 	// 어떤 렌더링 레이어의 속해있는지
 	std::string m_LayerName;
+	class CSkeletonSocket* m_Socket;
 
 public:
 	inline CTransform* GetTransform() const
@@ -61,7 +62,8 @@ public:
 	virtual void SetGameObject(class CGameObject* obj);
 
 public:
-	void AddChild(CSceneComponent* child);
+	virtual void AddChild(CSceneComponent* child, const std::string& socketName = "");
+	virtual void AddChild(class CGameObject* child, const std::string& socketName = "");
 	bool DeleteChild(CSceneComponent* child);
 	bool DeleteChild(const std::string& name);
 	CSceneComponent* FindComponent(const std::string& name);

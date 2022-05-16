@@ -210,6 +210,32 @@ void CAnimationMeshComponent::SetTexture(int materialIndex, int index, int regis
 	m_vecMaterialSlot[materialIndex]->SetTexture(index, registerNum, shaderType, name, vecFileName, pathName);
 }
 
+void CAnimationMeshComponent::AddChild(CSceneComponent* child, const std::string& socketName)
+{
+	CSceneComponent::AddChild(child, socketName);
+
+	if (m_Skeleton && (int)socketName.length() != 0)
+	{
+		m_Socket = m_Skeleton->GetSocket(socketName);
+
+		child->GetTransform()->SetSocket(m_Socket);
+	}
+}
+
+void CAnimationMeshComponent::AddChild(CGameObject* child, const std::string& socketName)
+{
+	CSceneComponent::AddChild(child, socketName);
+
+	if (m_Skeleton && (int)socketName.length() != 0)
+	{
+		m_Socket = m_Skeleton->GetSocket(socketName);
+
+		CSceneComponent* childComponent = child->GetRootComponent();
+
+		childComponent->GetTransform()->SetSocket(m_Socket);
+	}
+}
+
 void CAnimationMeshComponent::Start()
 {
 	CSceneComponent::Start();

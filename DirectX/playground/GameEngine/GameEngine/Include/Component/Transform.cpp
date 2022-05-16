@@ -2,12 +2,14 @@
 #include "../Resource/Shader/TransformConstantBuffer.h"
 #include "../Scene/Scene.h"
 #include "CameraComponent.h"
+#include "../Resource/Animation/SkeletonSocket.h"
 
 CTransform::CTransform() :
     m_Parent(nullptr),
     m_Scene(nullptr),
     m_Object(nullptr),
     m_Owner(nullptr),
+    m_Socket(nullptr),
     m_InheritScale(false),
     m_InheritRotX(false),
     m_InheritRotY(false),
@@ -667,32 +669,56 @@ void CTransform::PostUpdate(float deltaTime)
     }
 
 
-    Vector3 pos = m_WorldPos;
 
-    if (CEngine::GetInst()->GetEngineSpace() == Engine_Space::Space2D)
-    {
-        pos.z = pos.y / 30000.0f * 1000.0f; // 카메라의 시야거리를 곱해서 0 ~ 1000까지로 변환
-        pos.z = std::fmaxf(0.001f, pos.z);
+    // 소켓이 있을 경우 부모로 소켓을 곱해준다.
+    if (m_Socket)
+    {   
+        // 소켓이 있을 경우는 상대적 값을 전달해준다.
+
+        if (m_UpdateScale)
+            m_matScale.Scaling(m_RelativeScale);
+
+        if (m_UpdateRot)
+            m_matRot.Rotation(m_RelativeRot);
+
+        if (m_UpdatePos)
+            m_matPos.Translation(m_RelativePos);
+
+        if (m_UpdateScale || m_UpdateRot || m_UpdatePos)
+            m_matWorld = m_matScale * m_matRot * m_matPos;
+
+        m_matWorld *= m_Socket->GetSocketMatrix();
     }
+    else
+    {
+        Vector3 worldPos = m_WorldPos;
 
-    // 만약 스케일의 변화가 있을 경우
-    // m_WorldScale의 값으로 스케일링한다.
-    // 여기서 m_WorldScale은 이미 부모의 스케일에 변화가 있을때 계산이이미 되어진 값이다.
-    if (m_UpdateScale)
-        m_matScale.Scaling(m_WorldScale);
-    // 만약 각도의 변화가 생겼을 경우
-    // m_WolrdRot으로 각도를 변화시킨다.
-    if (m_UpdateRot)
-        m_matRot.Rotation(m_WorldRot);
+        if (CEngine::GetInst()->GetEngineSpace() == Engine_Space::Space2D)
+        {
+            worldPos.z = worldPos.y / 30000.0f * 1000.0f; // 카메라의 시야거리를 곱해서 0 ~ 1000까지로 변환
+            worldPos.z = std::fmaxf(0.001f, worldPos.z);
+        }
 
-    if (m_UpdatePos)
-        m_matPos.Translation(pos);
+        // 만약 스케일의 변화가 있을 경우
+        // m_WorldScale의 값으로 스케일링한다.
+        // 여기서 m_WorldScale은 이미 부모의 스케일에 변화가 있을때 계산이이미 되어진 값이다.
+        if (m_UpdateScale)
+            m_matScale.Scaling(m_WorldScale);
+        // 만약 각도의 변화가 생겼을 경우
+        // m_WolrdRot으로 각도를 변화시킨다.
+        if (m_UpdateRot)
+            m_matRot.Rotation(m_WorldRot);
 
-    // 만약 하나라도 업데이트가 됬다면
-    // 새로운 월드 매트릭스를 만들어낸다.
-    // 월드 행렬 = (크기(S) * 회전(R) * 이동(T)) * 공전 * 부모의 위치
-    if (m_UpdateScale || m_UpdateRot || m_UpdatePos)
-        m_matWorld = m_matScale * m_matRot * m_matPos;
+        if (m_UpdatePos)
+            m_matPos.Translation(worldPos);
+
+        // 만약 하나라도 업데이트가 됬다면
+        // 새로운 월드 매트릭스를 만들어낸다.
+        // 월드 행렬 = (크기(S) * 회전(R) * 이동(T)) * 공전 * 부모의 위치
+        if (m_UpdateScale || m_UpdateRot || m_UpdatePos)
+            m_matWorld = m_matScale * m_matRot * m_matPos;
+
+    }
 }
 
 void CTransform::SetTransform()

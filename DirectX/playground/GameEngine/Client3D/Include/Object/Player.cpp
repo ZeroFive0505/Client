@@ -2,6 +2,7 @@
 #include "PlayerAnimation.h"
 #include "Input.h"
 #include "Scene/Scene.h"
+#include "Weapon.h"
 
 CPlayer::CPlayer()
 {
@@ -25,13 +26,16 @@ bool CPlayer::Init()
 	m_Mesh = CreateComponent<CAnimationMeshComponent>("Mesh");
 	m_Arm = CreateComponent<CArmComponent>("Arm");
 	m_Camera = CreateComponent<CCameraComponent>("Camera");
+	m_Collider = CreateComponent<CColliderBox3D>("Collider");
 	// m_FlashLight = CreateComponent<CLightComponent>("Flash Light");
 
 	m_Mesh->AddChild(m_Arm);
-
+	m_Mesh->AddChild(m_Collider);
 	m_Arm->AddChild(m_Camera);
 	// m_Arm->AddChild(m_FlashLight);
 
+	m_Collider->SetExtent(5.0f, 5.0f, 5.0f);
+	m_Collider->SetCollisionProfile("Player");
 	m_Camera->SetInheritRotX(true);
 	m_Camera->SetInheritRotY(true);
 	m_Camera->SetInheritRotZ(true);
@@ -57,8 +61,12 @@ bool CPlayer::Init()
 	m_Camera->SetRelativePos(0.0f, 0.0f, -5.0f);
 
 	m_Arm->SetOffset(0.0f, 1.0f, 0.0f);
-	m_Arm->SetRelativeRotation(15.0f, 0.0f, 0.0f);
+	m_Arm->SetRelativeRotation(45.0f, 0.0f, 0.0f);
 	m_Arm->SetTargetDistance(5.0f);
+
+	m_Weapon = m_Scene->CreateGameObject<CWeapon>("Weapon");
+
+	m_Mesh->AddChild(m_Weapon, "Weapon");
 
 	CInput::GetInst()->SetCallback<CPlayer>("Attack", KeyState_Down, this, &CPlayer::Attack);
 	CInput::GetInst()->SetCallback<CPlayer>("MoveForward", KeyState_Push, this, &CPlayer::MoveForward);
@@ -118,12 +126,12 @@ void CPlayer::MoveBackward(float deltaTime)
 
 void CPlayer::YRotation(float deltaTime)
 {
-	AddWorldRotationY(180.0f * deltaTime);
+	m_Arm->AddWorldRotationY(180.0f * deltaTime);
 }
 
 void CPlayer::InvYRotation(float deltaTime)
 {
-	AddWorldRotationY(-180.0f * deltaTime);
+	m_Arm->AddWorldRotationY(-180.0f * deltaTime);
 }
 
 void CPlayer::Attack(float deltaTime)

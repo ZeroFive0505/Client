@@ -18,8 +18,6 @@ private:
 	CSharedPtr<class CPlayer> m_Player;
 
 public:
-	void RayCheck(float deltaTime);
-
 	void SetPlayer(class CPlayer* player);
 
 public:

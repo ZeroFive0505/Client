@@ -107,7 +107,6 @@ void CLandScape::CreateLandScape(const std::string& name,
 	else
 		vecY.resize(countX * countZ);
 
-	bool pointSet = false;
 
 	for (int i = 0; i < m_CountZ; i++)
 	{
@@ -118,11 +117,6 @@ void CLandScape::CreateLandScape(const std::string& name,
 			vtx.pos = Vector3((float)j, vecY[i * m_CountX + j],
 				(float)m_CountZ - i - 1);
 
-			if (!pointSet && vtx.pos.y == 0.0f)
-			{
-				pointSet = true;
-				m_Point = vtx.pos;
-			}
 
 			vtx.uv = Vector2(j / (float)(m_CountX - 1),
 				i / (float)(m_CountZ - 1));
@@ -250,45 +244,6 @@ void CLandScape::SetSplatCount(int count)
 	m_CBuffer->SetSplatCount(count);
 }
 
-bool CLandScape::RayVsPlane()
-{
-	Vector3 planeNormal = Vector3(0.0f, 1.0f, 0.0f);
-	CCameraComponent* camera = m_Scene->GetCameraManager()->GetCurrentCamera();
-	Vector3 camPos = camera->GetWorldPos();
-	Vector3 rayWorld = camera->GetRay();
-
-
-	float denom = planeNormal.Dot(rayWorld);
-
-	if (denom > 0.00001f)
-	{
-		Vector3 p0l0 = m_Point - camPos;
-		float t = p0l0.Dot(planeNormal);
-
-		if (t >= 0.0f)
-		{
-			camPos.z *= -1.0f;
-			m_Intersection = camPos + (rayWorld * t);
-			return true;
-		}
-
-	}
-	else if (denom < 0.0f)
-	{
-		Vector3 p0l0 = m_Point - camPos;
-		float t = p0l0.Dot(planeNormal * -1.0f);
-
-		if (t >= 0.0f)
-		{
-			camPos.z *= -1.0f;
-			m_Intersection = camPos + (rayWorld * t);
-			return true;
-		}
-	}
-
-	return false;
-}
-
 float CLandScape::GetHeight(const Vector3& pos)
 {
 	Vector3 convert = (pos - GetWorldPos()) / GetWorldScale();
@@ -338,7 +293,7 @@ Vector3 CLandScape::Bresenham(int x2, int z2)
 
 	int p = 2 * dz - dx;
 
-	while (x <= x2)
+	while (x < x2)
 	{
 		x++;
 

@@ -236,33 +236,68 @@ void CInput::UpdateMouse(float deltaTime)
 	// 클라이언트 창에서의 마우스 위치를 가져온다.
 	ScreenToClient(m_hWnd, &mouseWindowPos);
 
-	// 현재 바뀐 해상도의 비율을 구해온다.
-	Vector2 ratio = CDevice::GetInst()->GetViewportAspectRatio();
-
-	// 마웃의 위치는 현재 위치에서 비율만큼 곱해준다.
-	// 스크린 좌표에서는 왼쪽 상단이 0, 0
-	// 월드에서는 반대로 왼쪽 하단이 0, 0 따라서 뒤집는다.
-	Vector2 mousePos = Vector2(mouseWindowPos.x * ratio.x, mouseWindowPos.y * ratio.y);
-
-	mousePos.y = CDevice::GetInst()->GetResolution().height - mousePos.y;
-
-	// 이동량 갱신
-	m_MouseMove = mousePos - m_MousePos;
-
-	m_MouseWorldPos = mousePos;
-
-
-	// 새로운 위치 갱신
-	m_MousePos = mousePos;
-
 	// 2D일때는 월드공간에서의 마우스 좌표를 구해온다.
 	// 카메라를 일단 얻어온다.
 	if (CEngine::GetInst()->GetEngineSpace() == Engine_Space::Space2D)
 	{
 		CCameraComponent* camera = CSceneManager::GetInst()->GetScene()->GetCameraManager()->GetCurrentCamera();
 
+		// 현재 바뀐 해상도의 비율을 구해온다.
+		Vector2 ratio = CDevice::GetInst()->GetViewportAspectRatio();
+
+		// 마웃의 위치는 현재 위치에서 비율만큼 곱해준다.
+		// 스크린 좌표에서는 왼쪽 상단이 0, 0
+		// 월드에서는 반대로 왼쪽 하단이 0, 0 따라서 뒤집는다.
+		Vector2 mousePos = Vector2(mouseWindowPos.x * ratio.x, mouseWindowPos.y * ratio.y);
+
+		mousePos.y = CDevice::GetInst()->GetResolution().height - mousePos.y;
+
+		// 이동량 갱신
+		m_MouseMove = mousePos - m_MousePos;
+
+		// 새로운 위치 갱신
+		m_MousePos = mousePos;
+		m_MouseWorldPos = mousePos;
+
 		// 마우스의 위치는 그만큼 더해준다.
 		m_MouseWorldPos += camera->GetLeftBottom();
+	}
+	else
+	{
+		// Ray를 구한다.
+		CCameraComponent* camera = CSceneManager::GetInst()->GetScene()->GetCameraManager()->GetCurrentCamera();
+
+		Vector2 ratio = CDevice::GetInst()->GetViewportAspectRatio();
+
+		Vector2 mousePos = Vector2(mouseWindowPos.x * ratio.x, mouseWindowPos.y * ratio.y);
+
+		m_MouseUIPos = mousePos;
+
+		m_MouseUIPos.y = (float)CDevice::GetInst()->GetResolution().height - m_MouseUIPos.y;
+
+		m_MouseMove = mousePos - m_MousePos;
+
+		m_MousePos = mousePos;
+		m_MouseWorldPos = m_MousePos;
+
+		// -1 ~ 1 사이로 변환한다.
+		m_Ray.direction.x = m_MousePos.x / (float)CDevice::GetInst()->GetResolution().width;
+		m_Ray.direction.y = m_MousePos.y / (float)CDevice::GetInst()->GetResolution().height;
+
+		m_Ray.direction.x *= 2.0f - 1.0f;
+		// y축은 뒤집어준다.
+		m_Ray.direction.y *= -2.0f + 1.0f;
+
+		Matrix matProj = camera->GetProjMatrix();
+
+		// 곱해준것을 나눠준다.
+		m_Ray.direction.x /= matProj._11;
+		m_Ray.direction.y /= matProj._22;
+		m_Ray.direction.z = 1.0f;
+
+		m_Ray.direction.Normalize();
+		// 현재 뷰 공간으로 전환했다. 따라서 레이의 위치는 원점에서 시작
+		m_Ray.position = Vector3::Zero;
 	}
 }
 

@@ -43,7 +43,10 @@ bool CColliderCircle::Init()
 
 	SetWorldScale(m_Info.radius * 2.0f, m_Info.radius * 2.0f, 1.0f);
 	
-	m_Mesh = m_Scene->GetSceneResource()->FindMesh("Circle");
+	if (m_Scene)
+		m_Mesh = m_Scene->GetSceneResource()->FindMesh("Circle");
+	else
+		m_Mesh = CResourceManager::GetInst()->FindMesh("Circle");
 
 	return true;
 }
@@ -59,8 +62,6 @@ void CColliderCircle::PostUpdate(float deltaTime)
 
 	m_Info.center.x = GetWorldPos().x + m_Offset.x;
 	m_Info.center.y = GetWorldPos().y + m_Offset.y;
-
-	Vector2 pos[4] = {};
 
 	m_Min.x = m_Info.center.x - m_Info.radius;
 	m_Min.y = m_Info.center.y - m_Info.radius;

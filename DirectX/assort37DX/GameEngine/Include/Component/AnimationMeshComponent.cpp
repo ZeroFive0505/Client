@@ -5,6 +5,7 @@
 #include "../Render/RenderManager.h"
 #include "../Resource/Shader/Standard2DConstantBuffer.h"
 #include "../Animation/AnimationSequenceInstance.h"
+#include "../GameObject/GameObject.h"
 
 CAnimationMeshComponent::CAnimationMeshComponent()
 {
@@ -215,6 +216,34 @@ void CAnimationMeshComponent::SetTexture(int MaterialIndex, int Index, int Regis
 	const std::vector<TCHAR*>& vecFileName, const std::string& PathName)
 {
 	m_vecMaterialSlot[MaterialIndex]->SetTexture(Index, Register, ShaderType, Name, vecFileName, PathName);
+}
+
+void CAnimationMeshComponent::AddChild(CSceneComponent* Child, 
+	const std::string& SocketName)
+{
+	CSceneComponent::AddChild(Child, SocketName);
+
+	if (m_Skeleton && SocketName != "")
+	{
+		m_Socket = m_Skeleton->GetSocket(SocketName);
+
+		Child->GetTransform()->SetSocket(m_Socket);
+	}
+}
+
+void CAnimationMeshComponent::AddChild(CGameObject* Child,
+	const std::string& SocketName)
+{
+	CSceneComponent::AddChild(Child, SocketName);
+
+	if (m_Skeleton && SocketName != "")
+	{
+		m_Socket = m_Skeleton->GetSocket(SocketName);
+
+		CSceneComponent* ChildComponent = Child->GetRootComponent();
+
+		ChildComponent->GetTransform()->SetSocket(m_Socket);
+	}
 }
 
 void CAnimationMeshComponent::Start()

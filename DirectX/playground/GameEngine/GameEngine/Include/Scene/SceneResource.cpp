@@ -721,6 +721,11 @@ bool CSceneResource::LoadSkeleton(const std::string& name, const TCHAR* fileName
     return true;
 }
 
+bool CSceneResource::AddSocket(const std::string& skeletonName, const std::string& boneName, const std::string& socketName, const Vector3& offset, const Vector3& offsetRot)
+{
+    return CResourceManager::GetInst()->AddSocket(skeletonName, boneName, socketName, offset, offsetRot);
+}
+
 bool CSceneResource::LoadSkeletonFullPath(const std::string& name, const TCHAR* fullPath)
 {
     if (FindSkeleton(name))

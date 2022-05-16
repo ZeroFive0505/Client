@@ -205,6 +205,8 @@ public: // =========================== Animation3D ===========================
 		const std::string& pathName = ANIMATION_PATH, class CScene* scene = nullptr);
 	bool LoadSkeletonFullPathMultibyte(const std::string& name, const char* fullPath,
 		class CScene* scene = nullptr);
+	bool AddSocket(const std::string& skeletonName, const std::string& boneName, const std::string& socketName,
+		const Vector3& offset = Vector3::Zero, const Vector3& offsetRot = Vector3::Zero);
 
 	CSkeleton* FindSkeleton(const std::string& name);
 	void ReleaseSkeleton(const std::string& name);

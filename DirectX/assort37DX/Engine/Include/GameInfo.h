@@ -512,5 +512,19 @@ struct LandScapeCBuffer
 	Vector2	Empty;
 };
 
+struct Ray
+{
+	Vector3	Pos;
+	Vector3	Dir;
+};
+
+struct SphereInfo
+{
+	Vector3	Center;
+	float	Radius;
+	Vector3	Min;
+	Vector3	Max;
+};
+
 
 

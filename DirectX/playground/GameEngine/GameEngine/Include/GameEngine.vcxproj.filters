@@ -277,6 +277,12 @@
     <Filter Include="03. Scene\06. Navigation\01. 2D">
       <UniqueIdentifier>{263f9bb5-ab91-4de4-9fa3-fd4d9ab9d68a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="05. Component\01. SceneComponent\02. Collider\01. 2D">
+      <UniqueIdentifier>{9194d3cc-12a8-4bdb-b6ac-f4c5af5fd0cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. Component\01. SceneComponent\02. Collider\02. 3D">
+      <UniqueIdentifier>{f0d2ed22-5ccc-4152-8ac7-25d38970343a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -510,12 +516,6 @@
     <ClInclude Include="Collision\CollisionManager.h">
       <Filter>08. Collision</Filter>
     </ClInclude>
-    <ClInclude Include="Component\ColliderComponent.h">
-      <Filter>05. Component\01. SceneComponent\02. Collider</Filter>
-    </ClInclude>
-    <ClInclude Include="Component\ColliderBox2D.h">
-      <Filter>05. Component\01. SceneComponent\02. Collider</Filter>
-    </ClInclude>
     <ClInclude Include="Scene\SceneCollision.h">
       <Filter>03. Scene\03. Collision</Filter>
     </ClInclude>
@@ -533,12 +533,6 @@
     </ClInclude>
     <ClInclude Include="Scene\CameraManager.h">
       <Filter>03. Scene\04. CameraManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Component\ColliderCircle.h">
-      <Filter>05. Component\01. SceneComponent\02. Collider</Filter>
-    </ClInclude>
-    <ClInclude Include="Component\ColliderPixel.h">
-      <Filter>05. Component\01. SceneComponent\02. Collider</Filter>
     </ClInclude>
     <ClInclude Include="Resource\Shader\ColliderShader.h">
       <Filter>02. Resource\02. Shader\02. ShaderClass\03. Collider</Filter>
@@ -789,6 +783,30 @@
     <ClInclude Include="Scene\Navigarion3DManager.h">
       <Filter>03. Scene\06. Navigation\02. 3D</Filter>
     </ClInclude>
+    <ClInclude Include="Resource\Animation\SkeletonSocket.h">
+      <Filter>02. Resource\05. Animation\02. 3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\ColliderBox2D.h">
+      <Filter>05. Component\01. SceneComponent\02. Collider\01. 2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\ColliderCircle.h">
+      <Filter>05. Component\01. SceneComponent\02. Collider\01. 2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\ColliderPixel.h">
+      <Filter>05. Component\01. SceneComponent\02. Collider\01. 2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\ColliderBox3D.h">
+      <Filter>05. Component\01. SceneComponent\02. Collider\02. 3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\ColliderComponent.h">
+      <Filter>05. Component\01. SceneComponent\02. Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\ColliderSphere.h">
+      <Filter>05. Component\01. SceneComponent\02. Collider\02. 3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\Shader\ColliderShader3D.h">
+      <Filter>02. Resource\02. Shader\02. ShaderClass\03. Collider</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -1004,12 +1022,6 @@
     <ClCompile Include="Collision\CollisionManager.cpp">
       <Filter>08. Collision</Filter>
     </ClCompile>
-    <ClCompile Include="Component\ColliderComponent.cpp">
-      <Filter>05. Component\01. SceneComponent\02. Collider</Filter>
-    </ClCompile>
-    <ClCompile Include="Component\ColliderBox2D.cpp">
-      <Filter>05. Component\01. SceneComponent\02. Collider</Filter>
-    </ClCompile>
     <ClCompile Include="Scene\SceneCollision.cpp">
       <Filter>03. Scene\03. Collision</Filter>
     </ClCompile>
@@ -1027,12 +1039,6 @@
     </ClCompile>
     <ClCompile Include="Scene\CameraManager.cpp">
       <Filter>03. Scene\04. CameraManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Component\ColliderCircle.cpp">
-      <Filter>05. Component\01. SceneComponent\02. Collider</Filter>
-    </ClCompile>
-    <ClCompile Include="Component\ColliderPixel.cpp">
-      <Filter>05. Component\01. SceneComponent\02. Collider</Filter>
     </ClCompile>
     <ClCompile Include="Resource\Shader\ColliderShader.cpp">
       <Filter>02. Resource\02. Shader\02. ShaderClass\03. Collider</Filter>
@@ -1250,6 +1256,30 @@
     <ClCompile Include="Scene\Navigarion3DManager.cpp">
       <Filter>03. Scene\06. Navigation\02. 3D</Filter>
     </ClCompile>
+    <ClCompile Include="Resource\Animation\SkeletonSocket.cpp">
+      <Filter>02. Resource\05. Animation\02. 3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\ColliderBox2D.cpp">
+      <Filter>05. Component\01. SceneComponent\02. Collider\01. 2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\ColliderCircle.cpp">
+      <Filter>05. Component\01. SceneComponent\02. Collider\01. 2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\ColliderPixel.cpp">
+      <Filter>05. Component\01. SceneComponent\02. Collider\01. 2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\ColliderBox3D.cpp">
+      <Filter>05. Component\01. SceneComponent\02. Collider\02. 3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\ColliderComponent.cpp">
+      <Filter>05. Component\01. SceneComponent\02. Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\ColliderSphere.cpp">
+      <Filter>05. Component\01. SceneComponent\02. Collider\02. 3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource\Shader\ColliderShader3D.cpp">
+      <Filter>02. Resource\02. Shader\02. ShaderClass\03. Collider</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="..\Bin\Shader\ShaderInfo.fx">
@@ -1286,6 +1316,9 @@
       <Filter>02. Resource\02. Shader\01. HLSL</Filter>
     </FxCompile>
     <FxCompile Include="..\Bin\Shader\LandScape.fx">
+      <Filter>02. Resource\02. Shader\01. HLSL</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Bin\Shader\Collider3D.fx">
       <Filter>02. Resource\02. Shader\01. HLSL</Filter>
     </FxCompile>
   </ItemGroup>

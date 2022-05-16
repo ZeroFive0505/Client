@@ -4,6 +4,8 @@
 #include "Scene/Viewport.h"
 #include "../Object/Player.h"
 #include "../Object/LandScapeObj.h"
+#include "../Object/Box3D.h"
+#include "../Object/Sphere.h"
 #include "GameObject/LightObject.h"
 #include "Component/LightComponent.h"
 #include "Resource/Material/Material.h"
@@ -35,6 +37,12 @@ bool CMainSceneMode::Init()
 
 	SetPlayerObject(player);
 
+	CBox3D* box = m_Scene->CreateGameObject<CBox3D>("Sphere");
+
+	box->SetWorldPos(0.0f, 0.0f, 50.0f);
+
+	box->SetWorldRotationY(45.0f);
+
 	if (m_LoadingFunction)
 		m_LoadingFunction(true, 1.0f);
 
@@ -65,9 +73,13 @@ void CMainSceneMode::LoadMesh()
 {
 	m_Scene->GetSceneResource()->LoadMesh(Mesh_Type::Animation, "PlayerMesh", TEXT("Player_Default.msh"));
 
+	m_Scene->GetSceneResource()->LoadMesh(Mesh_Type::Static, "Blade", TEXT("Blade.fbx"));
+
 	m_Scene->GetSceneResource()->LoadSkeleton("PlayerSkeleton", TEXT("Player_Default.bne"), MESH_PATH);
 
 	m_Scene->GetSceneResource()->SetMeshSkeleton("PlayerMesh", "PlayerSkeleton");
+
+	m_Scene->GetSceneResource()->AddSocket("PlayerSkeleton", "bone11", "Weapon");
 
 	m_Scene->GetSceneResource()->LoadAnimationSequence(true, "PlayerIdle", TEXT("Player_Default.sqc"), MESH_PATH);
 

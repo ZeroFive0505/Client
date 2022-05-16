@@ -192,6 +192,11 @@ void CColliderComponent::CallCollisionMouseCallback(Collision_State state)
 	}
 }
 
+bool CColliderComponent::CollisionRay(const sRay& ray)
+{
+	return false;
+}
+
 void CColliderComponent::DeleteCollisionCallback(CGameObject* obj)
 {
 	m_CollisionCallback[(int)Collision_State::Begin].erase(std::remove_if(m_CollisionCallback[(int)Collision_State::Begin].begin(), m_CollisionCallback[(int)Collision_State::Begin].end(),

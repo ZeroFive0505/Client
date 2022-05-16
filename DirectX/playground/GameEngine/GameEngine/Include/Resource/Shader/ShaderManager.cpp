@@ -20,6 +20,7 @@
 #include "LightBlendRenderShader.h"
 #include "SkyShader.h"
 #include "LandScapeShader.h"
+#include "ColliderShader3D.h"
 
 
 CShaderManager::CShaderManager()
@@ -96,6 +97,9 @@ bool CShaderManager::Init()
 		return false;
 
 	if (!CreateShader<CLandScapeShader>("LandScapeShader"))
+		return false;
+
+	if (!CreateShader<CColliderShader3D>("Collider3D"))
 		return false;
 
 

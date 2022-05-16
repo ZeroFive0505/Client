@@ -57,12 +57,32 @@ private:
 	bool m_Alt;
 	bool m_Shift;
 	Vector2 m_MousePos;
+	Vector2 m_MouseUIPos;
 	Vector2 m_MouseWorldPos;
 	Vector2 m_MouseMove;
 	bool m_CollisionWidget;
 	CSharedPtr<class CWidget> m_DragWidget;
+	sRay m_Ray;
 
 public:
+	inline sRay GetRay() const
+	{
+		return m_Ray;
+	}
+
+	inline sRay GetRay(Matrix matTransform) const
+	{
+		sRay result;
+
+		matTransform.Inverse();
+
+		result.position = m_Ray.position.TransformCoord(matTransform);
+		result.direction = m_Ray.direction.TransformNormal(matTransform);
+		result.direction.Normalize();
+
+		return result;
+	}
+
 	inline Vector2 GetMousePos() const
 	{
 		return m_MousePos;

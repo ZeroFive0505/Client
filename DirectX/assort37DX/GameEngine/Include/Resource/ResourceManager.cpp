@@ -544,6 +544,14 @@ bool CResourceManager::LoadSkeletonFullPathMultibyte(const std::string& Name, co
 	return m_AnimationManager3D->LoadSkeletonFullPathMultibyte(Name, FullPath, Scene);
 }
 
+bool CResourceManager::AddSocket(const std::string& SkeletonName, 
+	const std::string& BoneName, const std::string& SocketName, 
+	const Vector3& Offset, const Vector3& OffsetRot)
+{
+	return m_AnimationManager3D->AddSocket(SkeletonName, BoneName, SocketName,
+		Offset, OffsetRot);
+}
+
 CSkeleton* CResourceManager::FindSkeleton(const std::string& Name)
 {
 	return m_AnimationManager3D->FindSkeleton(Name);

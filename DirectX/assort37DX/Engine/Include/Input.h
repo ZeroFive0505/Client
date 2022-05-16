@@ -59,11 +59,31 @@ private:
 	bool	m_Alt;
 	bool	m_Shift;
 	Vector2		m_MousePos;
+	Vector2		m_MouseUIPos;
 	Vector2		m_MouseWorldPos;
 	Vector2		m_MouseMove;
 	bool		m_CollisionWidget;
+	Ray			m_Ray;
 
 public:
+	Ray GetRay()	const
+	{
+		return m_Ray;
+	}
+
+	Ray GetRay(Matrix matTransform)	const
+	{
+		Ray	result;
+
+		matTransform.Inverse();
+
+		result.Pos = m_Ray.Pos.TransformCoord(matTransform);
+		result.Dir = m_Ray.Dir.TransformNormal(matTransform);
+		result.Dir.Normalize();
+
+		return result;
+	}
+
 	bool GetMouseLButtonClick()	const
 	{
 		return m_LButtonClick;

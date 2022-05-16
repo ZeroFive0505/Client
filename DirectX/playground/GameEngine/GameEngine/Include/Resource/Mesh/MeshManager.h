@@ -36,5 +36,8 @@ private:
 		unsigned int subDivision);
 	void Subdivide(std::vector<sVertex3D>& vecVertices, std::vector<int>& vecIndices);
 	float AngleFromXY(float x, float y);
+
+private:
+	bool CreateCube(std::vector<sVertex3D>& vecVertex, std::vector<int>& vecIndex, float length);
 };
 

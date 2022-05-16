@@ -62,6 +62,10 @@ void CMainSceneMode::LoadMesh()
 	m_Scene->GetResource()->LoadMesh(Mesh_Type::Animation, "PlayerMesh",
 		TEXT("Player_Default.msh"));
 
+
+	m_Scene->GetResource()->LoadMesh(Mesh_Type::Static, "Blade",
+		TEXT("Blade.msh"));
+
 	CMesh* Mesh = m_Scene->GetResource()->FindMesh("PlayerMesh");
 
 	/*CSharedPtr<CMaterial>	Mtrl = Mesh->GetMaterial(2);
@@ -79,6 +83,9 @@ void CMainSceneMode::LoadMesh()
 
 	m_Scene->GetResource()->LoadSkeleton("PlayerSkeleton",
 		TEXT("Player_Default.bne"), MESH_PATH);
+
+	m_Scene->GetResource()->AddSocket("PlayerSkeleton", "bone11",
+		"Weapon");
 
 	m_Scene->GetResource()->SetMeshSkeleton("PlayerMesh", "PlayerSkeleton");
 

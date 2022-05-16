@@ -2,6 +2,8 @@
 #include "../Component/ColliderBox2D.h"
 #include "../Component/ColliderCircle.h"
 #include "../Component/ColliderPixel.h"
+#include "../Component/ColliderBox3D.h"
+#include "../Component/ColliderSphere.h"
 
 bool CCollision::CollisionBox2DToBox2D(CColliderBox2D* src, CColliderBox2D* dest)
 {
@@ -24,11 +26,53 @@ bool CCollision::CollisionBox2DToBox2D(CColliderBox2D* src, CColliderBox2D* dest
 	return false;
 }
 
+bool CCollision::CollisionBox3DToBox3D(CColliderBox3D* src, CColliderBox3D* dest)
+{
+	sCollisionResult srcResult, destResult;
+
+	if (CollisionBox3DToBox3D(srcResult, destResult, src->GetInfo(), dest->GetInfo()))
+	{
+		srcResult.src = src;
+		srcResult.dest = dest;
+
+		destResult.src = dest;
+		destResult.dest = src;
+
+		src->m_Result = srcResult;
+		dest->m_Result = destResult;
+
+		return true;
+	}
+
+	return false;
+}
+
 bool CCollision::CollisionCircleToCircle(CColliderCircle* src, CColliderCircle* dest)
 {
 	sCollisionResult srcResult, destResult;
 
 	if (CollisionCircleToCircle(srcResult, destResult, src->GetInfo(), dest->GetInfo()))
+	{
+		srcResult.src = src;
+		srcResult.dest = dest;
+
+		destResult.src = dest;
+		destResult.dest = src;
+
+		src->m_Result = srcResult;
+		dest->m_Result = destResult;
+
+		return true;
+	}
+
+	return false;
+}
+
+bool CCollision::CollisionBox3DToSphere(CColliderBox3D* src, CColliderSphere* dest)
+{
+	sCollisionResult srcResult, destResult;
+
+	if (CollisionBox3DToSphere(srcResult, destResult, src->GetInfo(), dest->GetInfo()))
 	{
 		srcResult.src = src;
 		srcResult.dest = dest;
@@ -151,6 +195,27 @@ bool CCollision::CollisionCircleToPixel(CColliderCircle* src, CColliderPixel* de
 	sCollisionResult srcResult, destResult;
 
 	if (CollisionCircleToPixel(srcResult, destResult, src->GetInfo(), dest->GetInfo()))
+	{
+		srcResult.src = src;
+		srcResult.dest = dest;
+
+		destResult.src = dest;
+		destResult.dest = src;
+
+		src->m_Result = srcResult;
+		dest->m_Result = destResult;
+
+		return true;
+	}
+
+	return false;
+}
+
+bool CCollision::CollisionSphereToSphere(CColliderSphere* src, CColliderSphere* dest)
+{
+	sCollisionResult srcResult, destResult;
+
+	if (CollisionSphereToSphere(srcResult, destResult, src->GetInfo(), dest->GetInfo()))
 	{
 		srcResult.src = src;
 		srcResult.dest = dest;
@@ -458,4 +523,148 @@ bool CCollision::CollisionPixelToPoint(sCollisionResult& srcResult, sCollisionRe
 	}
 
 	return collision;
+}
+
+bool CCollision::CollisionBox3DToBox3D(sCollisionResult& srcResult, sCollisionResult& destResult, const sBox3DInfo& src, const sBox3DInfo& dest)
+{
+	Vector3 centerDir = src.center - dest.center;
+
+	// 총 4번 축 투영을 한다.
+
+	// 먼저 src의 x축
+	Vector3 axis = src.axis[0];
+
+	float centerProjDist = fabs(centerDir.Dot(axis));
+
+	float r1, r2;
+
+	// src의 r1은 내적을 하지 않아도 그대로 그 길이가 투영된 길이
+	r1 = src.length.x;
+	// dest의 경우 src의 축에 투영한 이후에 각각 x, y의 길이를 곱해서 더해줘서 총 길이를 구한다.
+	r2 = fabs(dest.axis[0].Dot(axis) * dest.length.x) + fabs(dest.axis[1].Dot(axis) * dest.length.y) +
+		fabs(dest.axis[2].Dot(axis) * dest.length.z);
+
+	// 합친 값이 거리보다 적다면 충돌이 아니다.
+	if (centerProjDist > r1 + r2)
+		return false;
+
+	// src의 y축
+	axis = src.axis[1];
+
+	centerProjDist = fabs(centerDir.Dot(axis));
+
+	r1 = src.length.y;
+	r2 = fabs(dest.axis[0].Dot(axis) * dest.length.x) + fabs(dest.axis[1].Dot(axis) * dest.length.y) + 
+		fabs(dest.axis[2].Dot(axis) * dest.length.z);
+
+	if (centerProjDist > r1 + r2)
+		return false;
+
+	// src의 z축
+	axis = src.axis[2];
+
+	centerProjDist = fabs(centerDir.Dot(axis));
+
+	r1 = src.length.z;
+	r2 = fabs(dest.axis[0].Dot(axis) * dest.length.x) + fabs(dest.axis[1].Dot(axis) * dest.length.y) +
+		fabs(dest.axis[2].Dot(axis) * dest.length.z);
+
+	if (centerProjDist > r1 + r2)
+		return false;
+
+	// dest의 x축
+	axis = dest.axis[0];
+
+	centerProjDist = fabs(centerDir.Dot(axis));
+
+	r1 = dest.length.x;
+	r2 = fabs(src.axis[0].Dot(axis) * src.length.x) + fabs(src.axis[1].Dot(axis) * src.length.y) + 
+		fabs(src.axis[2].Dot(axis) * src.length.z);
+
+	if (centerProjDist > r1 + r2)
+		return false;
+
+	// dest의 y축
+	axis = dest.axis[1];
+
+	centerProjDist = fabs(centerDir.Dot(axis));
+
+	r1 = dest.length.y;
+	r2 = fabs(src.axis[0].Dot(axis) * src.length.x) + fabs(src.axis[1].Dot(axis) * src.length.y) +
+		fabs(src.axis[2].Dot(axis) * src.length.z);
+
+	if (centerProjDist > r1 + r2)
+		return false;
+
+	// dest의 z축
+	axis = dest.axis[2];
+
+	centerProjDist = fabs(centerDir.Dot(axis));
+
+	r1 = dest.length.z;
+	r2 = fabs(src.axis[0].Dot(axis) * src.length.x) + fabs(src.axis[1].Dot(axis) * src.length.y) +
+		fabs(src.axis[2].Dot(axis) * src.length.z);
+
+	if (centerProjDist > r1 + r2)
+		return false;
+
+	return true;
+}
+
+bool CCollision::CollisionSphereToSphere(sCollisionResult& srcResult, sCollisionResult& destResult, const sSphereInfo& src, const sSphereInfo& dest)
+{
+	float dist = src.center.Distance(dest.center);
+
+	return dist <= src.radius + dest.radius;
+}
+
+bool CCollision::CollisionBox3DToSphere(sCollisionResult& srcResult, sCollisionResult& destResult, const sBox3DInfo& src, const sSphereInfo& dest)
+{
+	Vector3 centerDir = src.center - dest.center;
+
+	Vector3 axis = src.axis[0];
+
+	float centerProjDist = fabs(centerDir.Dot(axis));
+
+	float r1, r2;
+
+	r1 = src.length.x;
+	r2 = dest.radius;
+
+	if (centerProjDist > r1 + r2)
+		return false;
+
+	axis = src.axis[1];
+
+	centerProjDist = fabs(centerDir.Dot(axis));
+
+	r1 = src.length.y;
+	r2 = dest.radius;
+
+	if (centerProjDist > r1 + r2)
+		return false;
+
+	axis = src.axis[2];
+
+	centerProjDist = fabs(centerDir.Dot(axis));
+
+	r1 = src.length.z;
+	r2 = dest.radius;
+
+	if (centerProjDist > r1 + r2)
+		return false;
+
+	axis = centerDir;
+	axis.Normalize();
+
+	centerProjDist = centerDir.Length();
+
+	r1 = fabs(src.axis[0].Dot(axis) * src.length.x) + fabs(src.axis[1].Dot(axis) * src.length.y) +
+		fabs(src.axis[2].Dot(axis) * src.length.z);
+	r2 = dest.radius;
+
+	if (centerProjDist > r1 + r2)
+		return false;
+
+	return true;
 }

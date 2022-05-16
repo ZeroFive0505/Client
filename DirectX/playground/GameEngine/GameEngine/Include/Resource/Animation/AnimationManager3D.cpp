@@ -255,6 +255,18 @@ bool CAnimationManager3D::LoadSkeletonFullPathMultibyte(const std::string& name,
 	return true;
 }
 
+bool CAnimationManager3D::AddSocket(const std::string& skeletonName, const std::string& boneName, const std::string& socketName, const Vector3& offset, const Vector3& offsetRot)
+{
+	CSkeleton* skeleton = FindSkeleton(skeletonName);
+
+	if (!skeleton)
+		return false;
+
+	skeleton->AddSocket(boneName, socketName, offset, offsetRot);
+
+	return true;
+}
+
 CSkeleton* CAnimationManager3D::FindSkeleton(const std::string& name)
 {
 	auto iter = m_mapSkeleton.find(name);

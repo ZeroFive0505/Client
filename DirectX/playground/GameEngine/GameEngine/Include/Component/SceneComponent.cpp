@@ -147,7 +147,7 @@ void CSceneComponent::SetGameObject(CGameObject* obj)
 	}
 }
 
-void CSceneComponent::AddChild(CSceneComponent* child)
+void CSceneComponent::AddChild(CSceneComponent* child, const std::string& socketName)
 {
 	child->m_Parent = this;
 
@@ -156,6 +156,21 @@ void CSceneComponent::AddChild(CSceneComponent* child)
 	child->m_Transform->m_Parent = m_Transform;
 
 	m_Transform->m_vecChild.push_back(child->m_Transform);
+
+	// 애니메이션 메쉬 컴포넌트일 경우에만 Socket을 처리한다.
+}
+
+void CSceneComponent::AddChild(CGameObject* child, const std::string& socketName)
+{
+	CSceneComponent* childComponent = child->GetRootComponent();
+
+	childComponent->m_Parent = this;
+
+	m_vecChild.push_back(childComponent);
+
+	childComponent->m_Transform->m_Parent = m_Transform;
+
+	m_Transform->m_vecChild.push_back(childComponent->m_Transform);
 }
 
 bool CSceneComponent::DeleteChild(CSceneComponent* child)
