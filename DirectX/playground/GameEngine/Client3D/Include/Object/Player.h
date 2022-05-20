@@ -21,7 +21,7 @@ protected:
 
 private:
 	CSharedPtr<CAnimationMeshComponent> m_Mesh;
-	CSharedPtr<CColliderBox3D> m_Collider;
+	// CSharedPtr<CColliderBox3D> m_Collider;
 	CSharedPtr<CArmComponent> m_Arm;
 	CSharedPtr<CCameraComponent> m_Camera;
 	// CSharedPtr<CLightComponent> m_FlashLight;

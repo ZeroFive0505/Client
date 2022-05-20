@@ -31,6 +31,16 @@ protected:
 	Mesh_Type	m_MeshType;
 
 public:
+	Vector3 GetMin()	const
+	{
+		return m_Min;
+	}
+
+	Vector3 GetMax()	const
+	{
+		return m_Max;
+	}
+
 	const std::vector<CSharedPtr<CMaterial>>* GetMaterialSlots()	const
 	{
 		return &m_vecMaterialSlot;

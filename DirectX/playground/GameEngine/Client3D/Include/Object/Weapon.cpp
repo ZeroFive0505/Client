@@ -8,7 +8,7 @@ CWeapon::CWeapon()
 CWeapon::CWeapon(const CWeapon& obj) :
 	CGameObject(obj)
 {
-	m_Mesh = (CStaticMeshComponent*)FindComponent("Mesh");
+	m_Mesh = (CStaticMeshComponent*)FindComponent("Weapon");
 }
 
 CWeapon::~CWeapon()
@@ -17,9 +17,11 @@ CWeapon::~CWeapon()
 
 bool CWeapon::Init()
 {
-	m_Mesh = CreateComponent<CStaticMeshComponent>("Mesh");
+	m_Mesh = CreateComponent<CStaticMeshComponent>("Weapon");
 
 	m_Mesh->SetMesh("Blade");
+
+	m_Mesh->SetPickable(false);
 
 	return true;
 }

@@ -9,7 +9,9 @@
 #include "FBXLoader.h"
 
 CMesh::CMesh()	:
-	m_Scene(nullptr)
+	m_Scene(nullptr),
+	m_Min(FLT_MAX, FLT_MAX, FLT_MAX),
+	m_Max(FLT_MIN, FLT_MIN, FLT_MIN)
 {
 }
 

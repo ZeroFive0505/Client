@@ -643,6 +643,9 @@ void CTransform::SetTransform()
 void CTransform::ComputeWorld()
 {
 	m_matWorld = m_matScale * m_matRot * m_matPos;
+
+	if (m_Socket)
+		m_matWorld *= m_Socket->GetSocketMatrix();
 }
 
 CTransform* CTransform::Clone()

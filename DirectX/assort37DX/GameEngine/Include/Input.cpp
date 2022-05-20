@@ -269,8 +269,8 @@ void CInput::UpdateMouse(float DeltaTime)
 		m_Ray.Dir.x = m_MousePos.x / CDevice::GetInst()->GetResolution().Width;
 		m_Ray.Dir.y = m_MousePos.y / CDevice::GetInst()->GetResolution().Height;
 
-		m_Ray.Dir.x *= 2.f - 1.f;
-		m_Ray.Dir.y *= -2.f + 1.f;
+		m_Ray.Dir.x = m_Ray.Dir.x * 2.f - 1.f;
+		m_Ray.Dir.y = m_Ray.Dir.y * -2.f + 1.f;
 
 		Matrix	matProj = Camera->GetProjMatrix();
 

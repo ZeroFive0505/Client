@@ -62,6 +62,13 @@ void CAnimationMeshComponent::SetMesh(const std::string& Name)
 
 		(*iter)->SetScene(m_Scene);
 	}
+
+	SetMeshSize(m_Mesh->GetMax() - m_Mesh->GetMin());
+
+	Vector3 Min = m_Mesh->GetMin();
+	Vector3 Max = m_Mesh->GetMax();
+
+	m_SphereInfo.Center = (m_Mesh->GetMax() + m_Mesh->GetMin()) / 2.f;
 }
 
 void CAnimationMeshComponent::SetMesh(CAnimationMesh* Mesh)
@@ -87,6 +94,10 @@ void CAnimationMeshComponent::SetMesh(CAnimationMesh* Mesh)
 
 		(*iter)->SetScene(m_Scene);
 	}
+
+	SetMeshSize(m_Mesh->GetMax() - m_Mesh->GetMin());
+
+	m_SphereInfo.Center = (m_Mesh->GetMax() + m_Mesh->GetMin()) / 2.f;
 }
 
 void CAnimationMeshComponent::SetMaterial(CMaterial* Material, int Index)

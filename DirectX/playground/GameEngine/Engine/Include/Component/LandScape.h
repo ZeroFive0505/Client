@@ -23,8 +23,22 @@ protected:
 	std::vector<Vector3> m_vecFaceNormal;
 	std::vector<CSharedPtr<class CMaterial>> m_vecMaterialSlot;
 	class CLandScapeConstantBuffer* m_CBuffer;
+	Vector3 m_Min;
+	Vector3 m_Max;
 
 public:
+	void SetPickable(bool val);
+
+	inline const Vector3& GetMin() const
+	{
+		return m_Min;
+	}
+
+	inline const Vector3& GetMax() const
+	{
+		return m_Max;
+	}
+
 	CMaterial* GetMaterial(int index = 0) const
 	{
 		return m_vecMaterialSlot[index];

@@ -467,3 +467,35 @@ bool CCollision::CollisionPixelToPoint(CollisionResult& SrcResult, CollisionResu
 
 	return Result;
 }
+
+bool CCollision::CollisionRayToSphere(Vector3& HitPoint, const Ray& ray, const SphereInfo& Sphere)
+{
+	Vector3	M = ray.Pos - Sphere.Center;
+
+	float	b = 2.f * M.Dot(ray.Dir);
+	float	c = M.Dot(M) - Sphere.Radius * Sphere.Radius;
+
+	float	Det = b * b - 4.f * c;
+
+	if (Det < 0.f)
+		return false;
+
+	Det = sqrtf(Det);
+
+	float t1, t2;
+
+	t1 = (-b + Det) / 2.f;
+	t2 = (-b - Det) / 2.f;
+
+	if (t1 < 0.f && t2 < 0.f)
+		return false;
+
+	float Dist = t1 < t2 ? t1 : t2;
+
+	if (Dist < 0.f)
+		Dist = t2;
+
+	HitPoint = ray.Pos + ray.Dir * Dist;
+
+	return true;
+}

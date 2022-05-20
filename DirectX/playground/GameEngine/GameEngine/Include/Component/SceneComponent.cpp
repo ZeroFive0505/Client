@@ -9,6 +9,7 @@ CSceneComponent::CSceneComponent()
 	SetTypeID<CSceneComponent>();
 	m_ComponentType = Component_Type::SceneComponent;
 	m_Render = false;
+	m_Pickable = true;
 
 	// 씬 컴포넌트는 생성되마자마 트랜스폼이 새롭게 생성된다.
 	m_Transform = new CTransform;
@@ -22,6 +23,8 @@ CSceneComponent::CSceneComponent()
 	m_Parent = nullptr;
 
 	m_LayerName = "Default";
+
+	m_Culling = false;
 }
 
 CSceneComponent::CSceneComponent(const CSceneComponent& com) :
@@ -44,6 +47,8 @@ CSceneComponent::CSceneComponent(const CSceneComponent& com) :
 	// 새롭게 복사된 컴포넌트이므로 일단 부모는 nullptr
 	// 트랜스폼 컴포넌트와 같은 이유
 	m_Parent = nullptr;
+
+	m_Culling = false;
 
 	m_vecChild.clear();
 
@@ -74,6 +79,21 @@ CSceneComponent::CSceneComponent(const CSceneComponent& com) :
 CSceneComponent::~CSceneComponent()
 {
 	SAFE_DELETE(m_Transform);
+}
+
+sSphereInfo CSceneComponent::GetSphereInfoViewSpace() const
+{
+	sSphereInfo info;
+
+	CCameraComponent* camera = m_Scene->GetCameraManager()->GetCurrentCamera();
+
+	info.center = m_CulligSphere.center * GetWorldScale() + GetWorldPos();
+	info.radius = m_CulligSphere.radius;
+	
+	// 월드 공간에 위치한 컬링 구를 카메라 공간으로 이동
+	info.center = info.center.TransformCoord(camera->GetViewMatrix());
+
+	return info;
 }
 
 void CSceneComponent::SetSceneComponent(CGameObject* obj)
@@ -291,6 +311,35 @@ void CSceneComponent::PostUpdate(float deltaTime)
 
 void CSceneComponent::CheckCollision()
 {
+	// 만약 렌더링되는 컴포넌트일시
+	if (m_Render)
+	{
+		sSphereInfo info;
+
+		info.center = m_CulligSphere.center.TransformCoord(GetWorldMatrix());
+
+		Vector3 radius;
+
+		radius.x = GetMeshSize().Length();
+		radius.y = GetMeshSize().Length();
+		radius.z = GetMeshSize().Length();
+
+		radius = radius.TransformCoord(GetWorldMatrix());
+
+		info.radius = radius.x > radius.y ? radius.x : radius.y;
+		info.radius = info.radius > radius.z ? info.radius : radius.z;
+
+		info.radius /= 2.0f;
+
+		// info.center = m_CulligSphere.center * GetWorldScale() + GetWorldPos();
+		// info.radius = (GetMeshSize() * GetWorldScale()).Length() / 2.0f;
+		m_CulligSphere.radius = info.radius;
+
+		CCameraComponent* camera = m_Scene->GetCameraManager()->GetCurrentCamera();
+
+		m_Culling = camera->FrustumInSphere(info);
+	}
+
 	size_t size = m_vecChild.size();
 
 	for (size_t i = 0; i < size; i++)

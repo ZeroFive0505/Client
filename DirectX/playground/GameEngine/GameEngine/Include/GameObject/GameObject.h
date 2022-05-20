@@ -42,6 +42,11 @@ public:
 		m_RootComponent = component;
 	}
 
+	inline const std::list<CSceneComponent*>& GetSceneComponents() const
+	{
+		return m_SceneComponentList;
+	}
+
 	inline CSceneComponent* GetRootComponent() const
 	{
 		return m_RootComponent;

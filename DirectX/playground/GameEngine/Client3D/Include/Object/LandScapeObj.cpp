@@ -32,6 +32,8 @@ bool CLandScapeObj::Init()
 	m_LandScape->SetUVScale(30.0f, 30.0f);
 	m_LandScape->SetSplatCount(4);
 
+	// m_LandScape->SetPickable(false);
+
 
 	return true;
 }

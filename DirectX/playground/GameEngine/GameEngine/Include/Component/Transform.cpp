@@ -742,6 +742,10 @@ void CTransform::SetTransform()
 void CTransform::ComputeWorld()
 {
     m_matWorld = m_matScale * m_matRot * m_matPos;
+
+    // 만약 소켓이 있을경우
+    if (m_Socket)
+        m_matWorld *= m_Socket->GetSocketMatrix();
 }
 
 CTransform* CTransform::Clone()

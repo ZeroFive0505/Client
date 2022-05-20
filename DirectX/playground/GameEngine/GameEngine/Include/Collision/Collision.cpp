@@ -89,7 +89,7 @@ bool CCollision::CollisionBox3DToSphere(CColliderBox3D* src, CColliderSphere* de
 	return false;
 }
 
-bool CCollision::CollisionBox2DToBox2D(sCollisionResult& srcResult, sCollisionResult& destResult, 
+bool CCollision::CollisionBox2DToBox2D(sCollisionResult& srcResult, sCollisionResult& destResult,
 	const sBox2DInfo& src, const sBox2DInfo& dest)
 {
 	Vector2 centerDir = src.center - dest.center;
@@ -311,7 +311,7 @@ bool CCollision::CollisionBox2DToCircle(sCollisionResult& srcResult, sCollisionR
 	return true;
 }
 
-bool CCollision::CollisionBox2DToPixel(sCollisionResult& srcResult, sCollisionResult& destResult, 
+bool CCollision::CollisionBox2DToPixel(sCollisionResult& srcResult, sCollisionResult& destResult,
 	const sBox2DInfo& src, const sPixelInfo& dest)
 {
 	// 먼저 박스 충돌을 실시한다.
@@ -400,7 +400,7 @@ bool CCollision::CollisionBox2DToPixel(sCollisionResult& srcResult, sCollisionRe
 	return collision;
 }
 
-bool CCollision::CollisionCircleToPixel(sCollisionResult& srcResult, sCollisionResult& destResult, 
+bool CCollision::CollisionCircleToPixel(sCollisionResult& srcResult, sCollisionResult& destResult,
 	const sCircleInfo& src, const sPixelInfo& dest)
 {
 	if (!CollisionBox2DToCircle(srcResult, destResult, dest.box, src))
@@ -484,14 +484,14 @@ bool CCollision::CollisionCircleToPixel(sCollisionResult& srcResult, sCollisionR
 }
 
 
-bool CCollision::CollisionPixelToPoint(sCollisionResult& srcResult, sCollisionResult& destResult, 
+bool CCollision::CollisionPixelToPoint(sCollisionResult& srcResult, sCollisionResult& destResult,
 	const sPixelInfo& pixelInfo, const Vector2& point)
 {
 	if (!CollisionBox2DToPoint(srcResult, destResult, pixelInfo.box, point))
 		return false;
 
 	Vector2 LB = pixelInfo.box.center - pixelInfo.box.length;
-	
+
 	Vector2 pointToImagePos = point - LB;
 
 	bool collision = false;
@@ -554,7 +554,7 @@ bool CCollision::CollisionBox3DToBox3D(sCollisionResult& srcResult, sCollisionRe
 	centerProjDist = fabs(centerDir.Dot(axis));
 
 	r1 = src.length.y;
-	r2 = fabs(dest.axis[0].Dot(axis) * dest.length.x) + fabs(dest.axis[1].Dot(axis) * dest.length.y) + 
+	r2 = fabs(dest.axis[0].Dot(axis) * dest.length.x) + fabs(dest.axis[1].Dot(axis) * dest.length.y) +
 		fabs(dest.axis[2].Dot(axis) * dest.length.z);
 
 	if (centerProjDist > r1 + r2)
@@ -578,7 +578,7 @@ bool CCollision::CollisionBox3DToBox3D(sCollisionResult& srcResult, sCollisionRe
 	centerProjDist = fabs(centerDir.Dot(axis));
 
 	r1 = dest.length.x;
-	r2 = fabs(src.axis[0].Dot(axis) * src.length.x) + fabs(src.axis[1].Dot(axis) * src.length.y) + 
+	r2 = fabs(src.axis[0].Dot(axis) * src.length.x) + fabs(src.axis[1].Dot(axis) * src.length.y) +
 		fabs(src.axis[2].Dot(axis) * src.length.z);
 
 	if (centerProjDist > r1 + r2)
@@ -665,6 +665,59 @@ bool CCollision::CollisionBox3DToSphere(sCollisionResult& srcResult, sCollisionR
 
 	if (centerProjDist > r1 + r2)
 		return false;
+
+	return true;
+}
+
+bool CCollision::CollisionRayToSphere(Vector3& hitPoint, const sRay& ray, const sSphereInfo& sphere)
+{
+
+	/*
+	원점 : O
+	방향 : D
+	광선 : P(t) = O + Dt
+	원방정식 : ||P - C|| - r = 0
+	원 위의 임의의점 P에 광선 P(t)를 대입
+	||P(t) - C|| - r = 0
+
+	||O + Dt - C|| - r = 0
+	O - C : M
+	||Dt + M|| - r = 0
+	(Dt + M)(Dt + M) - r * r = 0
+	Dt^2 + 2MDt + M^2 - r^2 = 0
+	A : D^2 = 1 이기 때문에 A는 무시
+	B : 2MD
+	C : M^2 - r^2
+
+	(-B +- 루트(B^2 - 4C)) / 2
+	*/
+
+	Vector3 m = ray.position - sphere.center;
+
+	float b = 2.0f * m.Dot(ray.direction);
+	float c = m.Dot(m) - (sphere.radius * sphere.radius);
+
+	float discriminant = b * b - 4 * c;
+
+	if (discriminant < 0.0f)
+		return false;
+
+	discriminant = sqrtf(discriminant);
+
+	float t1, t2;
+
+	t1 = (-b + discriminant) / 2.0f;
+	t2 = (-b - discriminant) / 2.0f;
+
+	if (t1 < 0.0f && t2 < 0.0f)
+		return false;
+
+	float dist = t1 < t2 ? t1 : t2;
+
+	if (dist < 0.0f)
+		dist = t2;
+
+	hitPoint = ray.position + ray.direction * dist;
 
 	return true;
 }

@@ -1,6 +1,7 @@
 #include "CameraComponent.h"
 #include "../Engine.h"
 #include "../Device.h"
+#include "Frustum.h"
 
 CCameraComponent::CCameraComponent()
 {
@@ -13,6 +14,8 @@ CCameraComponent::CCameraComponent()
 	m_ViewAngle = 90.0f;
 	m_Distance = 1000.0f;
 	m_Near = 0.1f;
+
+	m_Frustum = new CFrustum;
 }
 
 CCameraComponent::CCameraComponent(const CCameraComponent& com) :
@@ -24,10 +27,13 @@ CCameraComponent::CCameraComponent(const CCameraComponent& com) :
 	m_ViewAngle = com.m_ViewAngle;
 	m_Distance = com.m_Distance;
 	m_RS = com.m_RS;
+
+	m_Frustum = new CFrustum;
 }
 
 CCameraComponent::~CCameraComponent()
 {
+	SAFE_DELETE(m_Frustum);
 }
 
 void CCameraComponent::CreateProjectionMatrix()
@@ -44,6 +50,16 @@ void CCameraComponent::CreateProjectionMatrix()
 		m_matProj = XMMatrixOrthographicOffCenterLH(0.0f, (float)m_RS.width, 0.0f, (float)m_RS.height, 0.0f, 1000.0f);
 		break;
 	}
+}
+
+bool CCameraComponent::FrustumInPoint(const Vector3& point)
+{
+	return m_Frustum->FrustumInPoint(point);
+}
+
+bool CCameraComponent::FrustumInSphere(const sSphereInfo& sphere)
+{
+	return m_Frustum->FrustumInSphere(sphere);
 }
 
 void CCameraComponent::Start()
@@ -189,6 +205,8 @@ void CCameraComponent::PostUpdate(float deltaTime)
 
 		m_matView[3][i] = pos.Dot(axis);
 	}
+
+	m_Frustum->Update(m_matView * m_matProj);
 }
 
 void CCameraComponent::PrevRender()

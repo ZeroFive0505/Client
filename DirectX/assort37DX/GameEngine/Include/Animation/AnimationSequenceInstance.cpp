@@ -441,7 +441,7 @@ void CAnimationSequenceInstance::Update(float DeltaTime)
 		m_ChangeTimeAcc = 0.f;
 		m_GlobalTime = 0.f;
 	}
-
+	
 	// 구조화 버퍼에 있는 본 정보를 DataBuffer로 복사한다.
 	CDevice::GetInst()->GetContext()->CopyResource(m_BoneDataBuffer, m_BoneBuffer->GetBuffer());
 

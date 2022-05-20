@@ -42,12 +42,12 @@ bool CColliderSphere::Init()
     SetInheritRotY(true);
     SetInheritRotZ(true);
 
-    SetWorldScale(m_Info.radius * 2.0f, m_Info.radius * 2.0f, m_Info.radius * 2.0f);
+    SetWorldScale(m_Info.radius, m_Info.radius, m_Info.radius);
 
     if (m_Scene)
-        m_Mesh = m_Scene->GetSceneResource()->FindMesh("Sphere");
+        m_Mesh = m_Scene->GetSceneResource()->FindMesh("SpherePos");
     else
-        m_Mesh = CResourceManager::GetInst()->FindMesh("Sphere");
+        m_Mesh = CResourceManager::GetInst()->FindMesh("SpherePos");
 
     return true;
 }
@@ -75,6 +75,11 @@ void CColliderSphere::PostUpdate(float deltaTime)
 
     m_Info.Min = m_Min;
     m_Info.Max = m_Max;
+
+    // 메쉬의 크기를 전달한다.
+    SetMeshSize(m_Max - m_Min);
+
+    m_CulligSphere.center = m_Info.center;
 }
 
 void CColliderSphere::PrevRender()
@@ -95,7 +100,7 @@ void CColliderSphere::Render()
 
     Matrix matScale, matTrans;
 
-    matScale.Scaling(m_Info.radius * 2.0f, m_Info.radius * 2.0f, m_Info.radius * 2.0f);
+    matScale.Scaling(m_Info.radius, m_Info.radius, m_Info.radius);
     matTrans.Translation(m_Info.center);
 
     matWorld = matScale * matTrans;

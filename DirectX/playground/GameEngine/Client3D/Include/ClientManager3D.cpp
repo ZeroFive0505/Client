@@ -1,6 +1,7 @@
 #include "ClientManager3D.h"
 #include "Engine.h"
 #include "resource.h"
+#include "Scene/Scene.h"
 #include "Scene/SceneManager.h"
 #include "Input.h"
 #include "Resource/ResourceManager.h"
@@ -45,6 +46,8 @@ bool CClientManager3D::Init(HINSTANCE hInst)
 
 	CResourceManager::GetInst()->CreateSoundChannelGroup("UI");
 	CResourceManager::GetInst()->SetVolume(10);
+
+	CInput::GetInst()->SetCallback("MousePick", KeyState_Down, this, &CClientManager3D::MousePick);
 
 	// 마우스 위젯 설정
 	//CMouseNormal* MouseNormal = CEngine::GetInst()->CreateMouse<CMouseNormal>(Mouse_State::Normal, "MouseNormal");
@@ -126,4 +129,16 @@ CComponent* CClientManager3D::CreateComponent(CGameObject* obj, size_t type)
 	 }*/
 
 	return nullptr;
+}
+
+void CClientManager3D::MousePick(float deltaTime)
+{
+	CGameObject* pickObject = nullptr;
+	Vector3 hitPoint;
+	CSceneManager::GetInst()->GetScene()->Picking(pickObject, hitPoint);
+
+	if (pickObject)
+	{
+
+	}
 }

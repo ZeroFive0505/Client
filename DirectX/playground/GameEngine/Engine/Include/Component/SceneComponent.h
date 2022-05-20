@@ -29,8 +29,45 @@ protected:
 	// 어떤 렌더링 레이어의 속해있는지
 	std::string m_LayerName;
 	class CSkeletonSocket* m_Socket;
+	sSphereInfo m_CulligSphere;
+	bool m_Culling;
+	bool m_Pickable;
 
 public:
+	inline bool GetRender() const
+	{
+		return m_Render;
+	}
+
+	inline bool GetCulling() const
+	{
+		return m_Culling;
+	}
+
+	inline bool IsPickable() const
+	{
+		return m_Pickable;
+	}
+
+	inline sSphereInfo GetSphereInfo() const
+	{
+		sSphereInfo info;
+
+		// info.center = m_CulligSphere.center * GetWorldScale() + GetWorldPos();
+		// 만약 소켓에 속해있는 객체의 경우 월드 행렬을 계산해줌으로써 부모의 행렬까지 같이 계산되게 한다.
+		info.center = m_CulligSphere.center.TransformCoord(GetWorldMatrix());
+		info.radius = m_CulligSphere.radius;
+
+		return info;
+	}
+
+	sSphereInfo GetSphereInfoViewSpace() const;
+
+	inline const sSphereInfo& GetSphereOriginInfo() const
+	{
+		return m_CulligSphere;
+	}
+
 	inline CTransform* GetTransform() const
 	{
 		return m_Transform;

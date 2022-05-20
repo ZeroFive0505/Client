@@ -2,6 +2,9 @@
 #include "../PathManager.h"
 #include "SceneManager.h"
 #include "../GameObject/SkyObject.h"
+#include "../Component/SceneComponent.h"
+#include "../Input.h"
+#include "../Collision/Collision.h"
 
 CScene::CScene()
 {
@@ -165,10 +168,25 @@ void CScene::PostUpdate(float deltaTime)
 	iter = m_ObjList.begin();
 	iterEnd = m_ObjList.end();
 
+	m_RenderComponentList.clear();
+
+	// PostUpdate이후 컬링 여부를 판단하여 컬링이 안된 오브젝트의 모든 컴포넌트를 추가한다.
 	for (; iter != iterEnd; iter++)
 	{
 		(*iter)->AddCollision();
+
+		const std::list<CSceneComponent*>& componentList = (*iter)->GetSceneComponents();
+
+		for (auto c : componentList)
+		{
+			if (c->GetRender() && !c->GetCulling())
+				m_RenderComponentList.push_back(c);
+		}
 	}
+
+	// 출력되는 물체들을 정렬한다.
+	if (m_RenderComponentList.size() >= 2)
+		m_RenderComponentList.sort(SortRenderList);
 
 	// 추가된 충돌체들로 충돌을 처리한다.
 	m_Collision->Collision(deltaTime);
@@ -273,4 +291,41 @@ void CScene::LoadFullPath(const char* fullPath)
 	}
 
 	fclose(pFile);
+}
+
+bool CScene::Picking(CGameObject*& result, Vector3& hitPoint)
+{
+	CCameraComponent* camera = m_CameraManager->GetCurrentCamera();
+
+	sRay ray = CInput::GetInst()->GetRay(camera->GetViewMatrix());
+
+	auto iter = m_RenderComponentList.begin();
+	auto iterEnd = m_RenderComponentList.end();
+
+	for (; iter != iterEnd; iter++)
+	{
+		sSphereInfo info = (*iter)->GetSphereInfo();
+
+		if (!(*iter)->IsPickable())
+			continue;
+
+		if (CCollision::CollisionRayToSphere(hitPoint, ray, info))
+		{
+			result = (*iter)->GetGameObject();
+			return true;
+		}
+	}
+
+	return false;
+}
+
+bool CScene::SortRenderList(CSceneComponent* src, CSceneComponent* dest)
+{
+	// 정렬시 카메라 기준으로 정렬한다.
+	sSphereInfo srcInfo = src->GetSphereInfoViewSpace();
+	sSphereInfo destInfo = dest->GetSphereInfoViewSpace();
+
+	// 카메라 기준으로 이동했기에 중심점의 위치가 거리가 된다.
+	// 거기서 반지름을 빼서 위치를 구한다.
+	return srcInfo.center.Length() - srcInfo.radius > destInfo.center.Length() - destInfo.radius;
 }

@@ -25,7 +25,7 @@ CPlayer::~CPlayer()
 
 bool CPlayer::Init()
 {
-	m_Mesh = CreateComponent<CAnimationMeshComponent>("Mesh");
+	m_Mesh = CreateComponent<CAnimationMeshComponent>("PlayerMesh");
 	m_Arm = CreateComponent<CArm>("Arm");
 	m_Camera = CreateComponent<CCameraComponent>("Camera");
 
@@ -94,6 +94,15 @@ void CPlayer::Update(float DeltaTime)
 	else if(m_Animation->GetIdleEnable())
 	{
 		m_Animation->ChangeAnimation("Idle");
+	}
+
+
+
+	CGameObject* PickObj = nullptr;
+
+	if (m_Scene->Picking(PickObj))
+	{
+		int a = 0;
 	}
 }
 

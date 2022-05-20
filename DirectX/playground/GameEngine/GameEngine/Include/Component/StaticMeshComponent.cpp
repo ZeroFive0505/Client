@@ -46,6 +46,11 @@ void CStaticMeshComponent::SetMesh(const std::string& name)
 
 		m_vecMaterialSlot.back()->SetScene(m_Scene);
 	}
+
+	// 메쉬를 설정하는 순간 메쉬의 크기를 설정한다.
+	SetMeshSize(m_Mesh->GetMax() - m_Mesh->GetMin());
+
+	m_CulligSphere.center = (m_Mesh->GetMax() + m_Mesh->GetMin()) / 2.0f;
 }
 
 void CStaticMeshComponent::SetMesh(CStaticMesh* mesh)
@@ -65,6 +70,10 @@ void CStaticMeshComponent::SetMesh(CStaticMesh* mesh)
 
 		m_vecMaterialSlot.back()->SetScene(m_Scene);
 	}
+
+	SetMeshSize(m_Mesh->GetMax() - m_Mesh->GetMin());
+
+	m_CulligSphere.center = (m_Mesh->GetMax() + m_Mesh->GetMin()) / 2.0f;
 }
 
 void CStaticMeshComponent::SetMaterial(CMaterial* material, int index)
@@ -208,6 +217,8 @@ bool CStaticMeshComponent::Init()
 void CStaticMeshComponent::Update(float deltaTime)
 {
 	CSceneComponent::Update(deltaTime);
+
+	m_CulligSphere.center = (m_Mesh->GetMax() + m_Mesh->GetMin()) / 2.0f;
 }
 
 void CStaticMeshComponent::PostUpdate(float deltaTime)

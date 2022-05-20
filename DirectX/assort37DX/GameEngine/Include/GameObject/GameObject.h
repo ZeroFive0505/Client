@@ -36,6 +36,11 @@ protected:
 	float		m_LifeSpan;
 
 public:
+	const std::list<CSceneComponent*>& GetSceneComponents()	const
+	{
+		return m_SceneComponentList;
+	}
+
     void SetRootComponent(CSceneComponent* Component)
     {
         m_RootComponent = Component;

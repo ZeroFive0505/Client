@@ -137,44 +137,51 @@ bool CMeshManager::Init()
 		&vecSphereIndex[0], sizeof(int), (int)vecSphereIndex.size(),
 		D3D11_USAGE_DEFAULT, DXGI_FORMAT_R32_UINT);
 
-	vecSphere.clear();
-	vecSpherePos.clear();
-	vecSphereIndex.clear();
-
-	CreateSphere(vecSphere, vecSphereIndex, 0.5f, 5);
-
-	sphereSize = vecSphere.size();
-	vecSpherePos.resize(sphereSize);
-
-	for (size_t i = 0; i < sphereSize; i++)
+	// 길이 1의 큐브
+	Vector3 cubePos[8] =
 	{
-		vecSpherePos[i] = vecSphere[i].pos;
-	}
+		Vector3(-0.5f, 0.5f, -0.5f),
+		Vector3(0.5f, 0.5f, -0.5f),
+		Vector3(-0.5f, -0.5f, -0.5f),
+		Vector3(0.5f, -0.5f, -0.5f),
 
-	CreateMesh(Mesh_Type::Static, "Sphere",
-		&vecSpherePos[0], sizeof(Vector3), sphereSize,
+		Vector3(-0.5f, 0.5f, 0.5f),
+		Vector3(0.5f, 0.5f, 0.5f),
+		Vector3(-0.5f, -0.5f, 0.5f),
+		Vector3(0.5f, -0.5f, 0.5f)
+	};
+
+
+	int cubeIndex[36] =
+	{
+		0, 1, 3, 0, 3, 2, // Near
+		1, 5, 7, 1, 7, 3, // Right
+		5, 4, 6, 5, 6, 7, // Far
+		4, 0, 2, 4, 2, 6, // Left
+		4, 5, 1, 4, 1, 0, // Top
+		2, 3, 7, 2, 7, 6 // Bottom
+	};
+
+	CreateMesh(Mesh_Type::Static, "CubePos",
+		&cubePos[0], sizeof(Vector3), 8,
 		D3D11_USAGE_DEFAULT, D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST,
-		&vecSphereIndex[0], sizeof(int), (int)vecSphereIndex.size(),
+		&cubeIndex[0], sizeof(int), 36,
 		D3D11_USAGE_DEFAULT, DXGI_FORMAT_R32_UINT);
 
-	std::vector<sVertex3D> vecCube;
-	std::vector<Vector3> vecCubePos;
-	std::vector<int> vecCubeIndex;
+	// 라인큐브용 인덱스
 
-	CreateCube(vecCube, vecCubeIndex, 0.5f);
-
-	size_t cubeSize = vecCube.size();
-	vecCubePos.resize(cubeSize);
-
-	for (size_t i = 0; i < cubeSize; i++)
+	int cubeLineIndex[24] =
 	{
-		vecCubePos[i] = vecCube[i].pos;
-	}
+		0, 1, 1, 3, 2, 3, 
+		0, 2, 4, 5, 5, 7, 
+		7, 6, 4, 6, 0, 4, 
+		1, 5, 2, 6, 3, 7
+	};
 
-	CreateMesh(Mesh_Type::Static, "Box3D",
-		&vecCubePos[0], sizeof(Vector3), cubeSize,
-		D3D11_USAGE_DEFAULT, D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST,
-		&vecCubeIndex[0], sizeof(int), (int)vecCubeIndex.size(),
+	CreateMesh(Mesh_Type::Static, "CubeLinePos",
+		&cubePos[0], sizeof(Vector3), 8,
+		D3D11_USAGE_DEFAULT, D3D11_PRIMITIVE_TOPOLOGY_LINELIST,
+		&cubeLineIndex[0], sizeof(int), 24,
 		D3D11_USAGE_DEFAULT, DXGI_FORMAT_R32_UINT);
 
 	return true;
@@ -506,52 +513,4 @@ float CMeshManager::AngleFromXY(float x, float y)
 		theta = atanf(y / x) + PI; // in [0, 2*pi).
 
 	return theta;
-}
-
-
-bool CMeshManager::CreateCube(std::vector<sVertex3D>& vecVertex, std::vector<int>& vecIndex, float length)
-{
-
-	Vector3 pos[8] =
-	{
-		Vector3(-length, length, -length),
-		Vector3(length, length, -length),
-		Vector3(-length, -length, -length),
-		Vector3(length, -length, -length),
-		Vector3(-length, length, length),
-		Vector3(length, length, length),
-		Vector3(-length, -length, length),
-		Vector3(length, -length, length)
-	};
-
-	DWORD k[36] =
-	{
-		0, 1, 2,    // side 1
-		2, 1, 3,
-		4, 0, 6,    // side 2
-		6, 0, 2,
-		7, 5, 6,    // side 3
-		6, 5, 4,
-		3, 1, 7,    // side 4
-		7, 1, 5,
-		4, 5, 0,    // side 5
-		0, 5, 1,
-		3, 7, 2,    // side 6
-		2, 7, 6,
-	};
-
-	vecVertex.resize(8);
-	vecIndex.resize(36);
-
-	for (UINT i = 0; i < 8; i++)
-	{
-		vecVertex[i].pos = pos[i];
-	}
-
-	for (UINT i = 0; i < 36; i++)
-	{
-		vecIndex[i] = k[i];
-	}
-
-	return true;
 }

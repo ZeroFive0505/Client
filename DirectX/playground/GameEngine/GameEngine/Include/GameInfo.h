@@ -211,6 +211,8 @@ struct sTransformCBuffer
 
 	Matrix matVP;
 
+	Matrix matInvWVP;
+
 	Vector3 pivot;
 	float empty1;
 
@@ -558,6 +560,12 @@ struct sLandScapeCBuffer
 	Vector2 uvScale;
 	int splatCount;
 	float empty;
+};
+
+struct sWaterPlaneCBuffer
+{
+	Vector2 uvScale;
+	Vector2 scrollSpeed;
 };
 
 struct sRay

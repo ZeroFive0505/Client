@@ -59,6 +59,10 @@ void CAnimationMeshComponent::SetMesh(const std::string& name)
 
 		m_vecMaterialSlot.back()->SetScene(m_Scene);
 	}
+
+	SetMeshSize(m_Mesh->GetMax() - m_Mesh->GetMin());
+
+	m_CulligSphere.center = (m_Mesh->GetMax() + m_Mesh->GetMin()) / 2.0f;
 }
 
 void CAnimationMeshComponent::SetMesh(CAnimationMesh* mesh)
@@ -83,6 +87,10 @@ void CAnimationMeshComponent::SetMesh(CAnimationMesh* mesh)
 
 		m_vecMaterialSlot.back()->SetScene(m_Scene);
 	}
+
+	SetMeshSize(m_Mesh->GetMax() - m_Mesh->GetMin());
+
+	m_CulligSphere.center = (m_Mesh->GetMax() + m_Mesh->GetMin()) / 2.0f;
 }
 
 void CAnimationMeshComponent::SetMaterial(CMaterial* material, int index)

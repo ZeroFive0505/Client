@@ -13,6 +13,9 @@ public:
 	class CGameObject* CreateObject(class CScene* scene, size_t type);
 	class CComponent* CreateComponent(class CGameObject* obj, size_t type);
 
+private:
+	void MousePick(float deltaTime);
+
 	DECLARE_SINGLE(CClientManager3D)
 };
 

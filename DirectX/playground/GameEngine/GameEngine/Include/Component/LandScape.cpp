@@ -11,7 +11,9 @@
 CLandScape::CLandScape() :
 	m_CountX(0),
 	m_CountZ(0),
-	m_CBuffer(nullptr)
+	m_CBuffer(nullptr),
+	m_Min(FLT_MAX, FLT_MAX, FLT_MAX),
+	m_Max(FLT_MIN, FLT_MIN, FLT_MIN)
 {
 	SetTypeID<CLandScape>();
 	m_Render = true;
@@ -33,6 +35,11 @@ CLandScape::CLandScape(const CLandScape& com) :
 CLandScape::~CLandScape()
 {
 	SAFE_DELETE(m_CBuffer);
+}
+
+void CLandScape::SetPickable(bool val)
+{
+	m_Pickable = val;
 }
 
 void CLandScape::CreateLandScape(const std::string& name, 
@@ -123,9 +130,32 @@ void CLandScape::CreateLandScape(const std::string& name,
 
 			m_vecPos.push_back(vtx.pos);
 
+
+
+			if (m_Min.x > vtx.pos.x)
+				m_Min.x = vtx.pos.x;
+						  
+			if (m_Min.y > vtx.pos.y)
+				m_Min.y = vtx.pos.y;
+						  
+			if (m_Min.z > vtx.pos.z)
+				m_Min.z = vtx.pos.z;
+						 
+			if (m_Max.x < vtx.pos.x)
+				m_Max.x = vtx.pos.x;
+						  
+			if (m_Max.y < vtx.pos.y)
+				m_Max.y = vtx.pos.y;
+
+			if (m_Max.z < vtx.pos.z)
+				m_Max.z = vtx.pos.z;
+
 			m_vecVtx.push_back(vtx);
 		}
 	}
+
+	SetMeshSize(m_Max - m_Min);
+	m_CulligSphere.center = (m_Max + m_Min) / 2.0f;
 
 	// 인덱스 정보 만들기
 	// 면 법선은 삼각형 수 만큼 만들어져야 한다.

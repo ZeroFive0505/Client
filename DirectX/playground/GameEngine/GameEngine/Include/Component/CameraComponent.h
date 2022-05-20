@@ -31,8 +31,7 @@ protected:
 	float m_Trauma;
 	float m_RecoverySpeed;
 	float m_TraumaAmount;
-
-	Vector3 m_Ray;
+	class CFrustum* m_Frustum;
 
 public:
 	inline sResolution GetResolution() const
@@ -64,11 +63,6 @@ public:
 		LB.y = GetWorldPos().y;
 
 		return LB;
-	}
-
-	inline Vector3 GetRay() const
-	{
-		return m_Ray;
 	}
 
 	inline float GetNear() const
@@ -105,10 +99,6 @@ public:
 		CreateProjectionMatrix();
 	}
 
-	inline void SetRay(const Vector3& ray)
-	{
-		m_Ray = ray;
-	}
 
 public:
 	// 2D Àü¿ë
@@ -152,6 +142,10 @@ public:
 	{
 		m_RecoverySpeed = speed;
 	}
+
+public:
+	bool FrustumInPoint(const Vector3& point);
+	bool FrustumInSphere(const sSphereInfo& sphere);
 
 public:
 	virtual void Start();

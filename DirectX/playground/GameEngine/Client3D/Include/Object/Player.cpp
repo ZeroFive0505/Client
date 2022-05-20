@@ -11,7 +11,7 @@ CPlayer::CPlayer()
 
 CPlayer::CPlayer(const CPlayer& obj)
 {
-	m_Mesh = (CAnimationMeshComponent*)FindComponent("Mesh");
+	m_Mesh = (CAnimationMeshComponent*)FindComponent("Player");
 	m_Arm = (CArmComponent*)FindComponent("Arm");
 	m_Camera = (CCameraComponent*)FindComponent("Camera");
 	// m_FlashLight = (CLightComponent*)FindComponent("Flash Light");
@@ -23,19 +23,19 @@ CPlayer::~CPlayer()
 
 bool CPlayer::Init()
 {
-	m_Mesh = CreateComponent<CAnimationMeshComponent>("Mesh");
+	m_Mesh = CreateComponent<CAnimationMeshComponent>("Player");
 	m_Arm = CreateComponent<CArmComponent>("Arm");
 	m_Camera = CreateComponent<CCameraComponent>("Camera");
-	m_Collider = CreateComponent<CColliderBox3D>("Collider");
+	// m_Collider = CreateComponent<CColliderBox3D>("Collider");
 	// m_FlashLight = CreateComponent<CLightComponent>("Flash Light");
 
 	m_Mesh->AddChild(m_Arm);
-	m_Mesh->AddChild(m_Collider);
+	// m_Mesh->AddChild(m_Collider);
 	m_Arm->AddChild(m_Camera);
 	// m_Arm->AddChild(m_FlashLight);
 
-	m_Collider->SetExtent(5.0f, 5.0f, 5.0f);
-	m_Collider->SetCollisionProfile("Player");
+	// m_Collider->SetExtent(5.0f, 5.0f, 5.0f);
+	// m_Collider->SetCollisionProfile("Player");
 	m_Camera->SetInheritRotX(true);
 	m_Camera->SetInheritRotY(true);
 	m_Camera->SetInheritRotZ(true);
@@ -56,7 +56,7 @@ bool CPlayer::Init()
 
 	m_Animation = (CPlayerAnimation*)m_Mesh->GetAnimationInstance();
 
-	m_Mesh->SetRelativeScale(0.05f, 0.05f, 0.05f);
+	m_Mesh->SetRelativeScale(0.02f, 0.02f, 0.02f);
 
 	m_Camera->SetRelativePos(0.0f, 0.0f, -5.0f);
 

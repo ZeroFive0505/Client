@@ -20,8 +20,38 @@ protected:
     bool    m_Render;
 	std::string		m_LayerName;
 	class CSkeletonSocket* m_Socket;
+	SphereInfo	m_SphereInfo;
+	bool	m_Culling;
 
 public:
+	bool GetRender()	const
+	{
+		return m_Render;
+	}
+
+	bool GetCulling()	const
+	{
+		return m_Culling;
+	}
+
+	SphereInfo GetSphereInfo()	const
+	{
+		SphereInfo	Info;
+
+		//Info.Center = m_SphereInfo.Center * GetWorldScale() + GetWorldPos();
+		Info.Center = m_SphereInfo.Center.TransformCoord(GetWorldMatrix());
+		Info.Radius = m_SphereInfo.Radius;
+
+		return Info;
+	}
+
+	SphereInfo GetSphereInfoViewSpace()	const;
+
+	const SphereInfo& GetSphereOriginInfo()	const
+	{
+		return m_SphereInfo;
+	}
+
 	CTransform* GetTransform()	const
 	{
 		return m_Transform;

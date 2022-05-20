@@ -48,5 +48,8 @@ public:
 		const sSphereInfo& dest);
 	static bool CollisionBox3DToSphere(sCollisionResult& srcResult, sCollisionResult& destResult, const sBox3DInfo& src,
 		const sSphereInfo& dest);
+
+public:
+	static bool CollisionRayToSphere(Vector3& hitPoint, const sRay& ray, const sSphereInfo& sphere);
 };
 

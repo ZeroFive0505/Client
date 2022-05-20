@@ -27,7 +27,7 @@ public:
 
 		m_Info.radius = radius;
 
-		SetWorldScale(m_Info.radius * 2.0f, m_Info.radius * 2.0f, m_Info.radius * 2.0f);
+		SetWorldScale(m_Info.radius, m_Info.radius, m_Info.radius);
 	}
 
 public:

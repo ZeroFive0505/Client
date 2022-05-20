@@ -37,6 +37,8 @@ private:
 	std::list<CSharedPtr<CGameObject>> m_ObjList;
 	CSharedPtr<CGameObject> m_SkyObject;
 
+	std::list<class CSceneComponent*> m_RenderComponentList;
+
 
 	std::vector<CColliderComponent*> m_vecTileColliders;
 	bool m_Start;
@@ -142,6 +144,9 @@ public:
 	void Load(const char* fileName, const std::string& pathName = SCENE_PATH);
 	void LoadFullPath(const char* fullPath);
 
+public:
+	bool Picking(CGameObject*& result, Vector3& hitPoint);
+
 private:
 	static inline bool YSort(const CGameObject* src, const CGameObject* dest)
 	{
@@ -229,5 +234,8 @@ public:
 
 		return obj;
 	}
+
+private:
+	static bool SortRenderList(class CSceneComponent* src, class CSceneComponent* dest);
 };
 

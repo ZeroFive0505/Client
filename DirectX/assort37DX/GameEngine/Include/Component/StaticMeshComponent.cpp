@@ -48,6 +48,10 @@ void CStaticMeshComponent::SetMesh(const std::string& Name)
 
 		(*iter)->SetScene(m_Scene);
 	}
+
+	SetMeshSize(m_Mesh->GetMax() - m_Mesh->GetMin());
+
+	m_SphereInfo.Center = (m_Mesh->GetMax() + m_Mesh->GetMin()) / 2.f;
 }
 
 void CStaticMeshComponent::SetMesh(CStaticMesh* Mesh)
@@ -68,6 +72,10 @@ void CStaticMeshComponent::SetMesh(CStaticMesh* Mesh)
 
 		(*iter)->SetScene(m_Scene);
 	}
+
+	SetMeshSize(m_Mesh->GetMax() - m_Mesh->GetMin());
+
+	m_SphereInfo.Center = (m_Mesh->GetMax() + m_Mesh->GetMin()) / 2.f;
 }
 
 void CStaticMeshComponent::SetMaterial(CMaterial* Material, int Index)

@@ -36,6 +36,11 @@ public:
 	
 	void AddMaterial(CMaterial* material);
 
+	inline void SetPickable(bool val)
+	{
+		m_Pickable = val;
+	}
+
 public:
 	void SetBaseColor(const Vector4& color, int index = 0);
 	void SetBaseColor(float r, float g, float b, float a, int index = 0);

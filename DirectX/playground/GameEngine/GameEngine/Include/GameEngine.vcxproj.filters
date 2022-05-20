@@ -283,6 +283,9 @@
     <Filter Include="05. Component\01. SceneComponent\02. Collider\02. 3D">
       <UniqueIdentifier>{f0d2ed22-5ccc-4152-8ac7-25d38970343a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="05. Component\01. SceneComponent\10. Decal">
+      <UniqueIdentifier>{257411c8-a4ee-433d-a081-6640329ffbc9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -807,6 +810,18 @@
     <ClInclude Include="Resource\Shader\ColliderShader3D.h">
       <Filter>02. Resource\02. Shader\02. ShaderClass\03. Collider</Filter>
     </ClInclude>
+    <ClInclude Include="Component\Frustum.h">
+      <Filter>05. Component\01. SceneComponent\03. Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\DecalComponent.h">
+      <Filter>05. Component\01. SceneComponent\10. Decal</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\WaterPlane.h">
+      <Filter>05. Component\01. SceneComponent\09. LandScape</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\Shader\WaterConstantBuffer.h">
+      <Filter>02. Resource\02. Shader\03. ConstantBuffer\13. LandScape</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -1280,6 +1295,18 @@
     <ClCompile Include="Resource\Shader\ColliderShader3D.cpp">
       <Filter>02. Resource\02. Shader\02. ShaderClass\03. Collider</Filter>
     </ClCompile>
+    <ClCompile Include="Component\Frustum.cpp">
+      <Filter>05. Component\01. SceneComponent\03. Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\DecalComponent.cpp">
+      <Filter>05. Component\01. SceneComponent\10. Decal</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\WaterPlane.cpp">
+      <Filter>05. Component\01. SceneComponent\09. LandScape</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource\Shader\WaterConstantBuffer.cpp">
+      <Filter>02. Resource\02. Shader\03. ConstantBuffer\13. LandScape</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="..\Bin\Shader\ShaderInfo.fx">
@@ -1319,6 +1346,9 @@
       <Filter>02. Resource\02. Shader\01. HLSL</Filter>
     </FxCompile>
     <FxCompile Include="..\Bin\Shader\Collider3D.fx">
+      <Filter>02. Resource\02. Shader\01. HLSL</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Bin\Shader\Decal.fx">
       <Filter>02. Resource\02. Shader\01. HLSL</Filter>
     </FxCompile>
   </ItemGroup>

@@ -284,9 +284,9 @@ void CInput::UpdateMouse(float deltaTime)
 		m_Ray.direction.x = m_MousePos.x / (float)CDevice::GetInst()->GetResolution().width;
 		m_Ray.direction.y = m_MousePos.y / (float)CDevice::GetInst()->GetResolution().height;
 
-		m_Ray.direction.x *= 2.0f - 1.0f;
+		m_Ray.direction.x = m_Ray.direction.x * 2.0f - 1.0f;
 		// y축은 뒤집어준다.
-		m_Ray.direction.y *= -2.0f + 1.0f;
+		m_Ray.direction.y = m_Ray.direction.y * -2.0f + 1.0f;
 
 		Matrix matProj = camera->GetProjMatrix();
 

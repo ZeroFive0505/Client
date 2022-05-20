@@ -43,6 +43,21 @@ public:
 	void AddMaterialSlot(const std::string& name);
 
 public:
+	inline Vector3 GetMin() const
+	{
+		return m_Min;
+	}
+
+	inline Vector3 GetMax() const
+	{
+		return m_Max;
+	}
+
+	inline CMaterial* GetMaterial(int slotIndex)
+	{
+		return m_vecMaterialSlot[slotIndex];
+	}
+
 	inline const std::vector<CSharedPtr<CMaterial>>* GetMaterialSlots() const
 	{
 		return &m_vecMaterialSlot;

@@ -37,11 +37,11 @@ bool CMainSceneMode::Init()
 
 	SetPlayerObject(player);
 
-	CBox3D* box = m_Scene->CreateGameObject<CBox3D>("Sphere");
+	// CBox3D* box = m_Scene->CreateGameObject<CBox3D>("Sphere");
 
-	box->SetWorldPos(0.0f, 0.0f, 50.0f);
+	// box->SetWorldPos(0.0f, 0.0f, 50.0f);
 
-	box->SetWorldRotationY(45.0f);
+	// box->SetWorldRotationY(45.0f);
 
 	if (m_LoadingFunction)
 		m_LoadingFunction(true, 1.0f);

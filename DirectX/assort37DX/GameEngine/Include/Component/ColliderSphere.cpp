@@ -64,6 +64,10 @@ void CColliderSphere::PostUpdate(float DeltaTime)
 
 	m_Info.Min = m_Min;
 	m_Info.Max = m_Max;
+
+	SetMeshSize(m_Max - m_Min);
+
+	m_SphereInfo.Center = m_Info.Center;
 }
 
 void CColliderSphere::PrevRender()
